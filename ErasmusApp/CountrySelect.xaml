@@ -14,39 +14,6 @@
     mc:Ignorable="d"
     d:DataContext="{d:DesignData SampleData/Countries.xaml}"
     shell:SystemTray.IsVisible="True">
-
-    <phone:PhoneApplicationPage.Resources>
-        <DataTemplate x:Key="SampleDataTemplate">
-            <ListBox>
-                <ListBoxItem Height="70">
-                    <ListBoxItem.Content>
-                        <Grid Width="470" Height="70">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="3*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Rectangle Fill="{Binding Flag}" Height="50" Width="50"/>
-
-                            <TextBlock Text="{Binding Name}"
-                                       Grid.Column="1"
-                                       Margin="20, 0, 0, 0"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
-
-                            <TextBlock Text="{Binding Grade}" 
-                                       Grid.Column="2"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
-
-                        </Grid>
-                    </ListBoxItem.Content>
-                </ListBoxItem>
-            </ListBox>
-        </DataTemplate>
-    </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -57,8 +24,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle,
+                            Source={StaticResource LocalizedStrings}}"
+                       Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCountriesPageTitle,
+                            Source={StaticResource LocalizedStrings}}" 
+                       Margin="9,-7,0,0" 
+                       Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
