@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ErasmusApp.ViewModels;
 
 namespace ErasmusApp
 {
@@ -22,6 +23,29 @@ namespace ErasmusApp
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static CountryModel viewModel = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static CountryModel ViewModel
+        {
+            get
+            {
+                if (viewModel == null)
+                {
+                    viewModel = new CountryModel();
+                    viewModel.LoadData();
+                }
+
+                return viewModel;
+            }
+        }
+
 
         /// <summary>
         /// Constructor for the Application object.
@@ -69,6 +93,10 @@ namespace ErasmusApp
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            if (!App.ViewModel.IsDataLoaded)
+            {
+                App.ViewModel.LoadData();
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)

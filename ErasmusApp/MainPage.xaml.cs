@@ -19,6 +19,13 @@ namespace ErasmusApp
         public MainPage()
         {
             InitializeComponent();
+
+            Loaded += MainPage_Loaded;
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
         }
     }
 }

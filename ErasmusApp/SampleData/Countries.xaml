@@ -4,17 +4,11 @@
     xmlns:vm="clr-namespace:ErasmusApp.ViewModels">
 
     <vm:CountryModel.Countries>
-
-        <vm:CountryGroup>
-            <vm:CountryGroup.Information>
-                <vm:CountryData Name="Croatia" Grade="3.4" Flag="Red" CostOfLiving="22" CrimeIndex="22" HealthCareIndex="22" PollutionIndex="22" />
-                <vm:CountryData Name="Germany" Grade="5" Flag="Gray" CostOfLiving="22" CrimeIndex="22" HealthCareIndex="22" PollutionIndex="22" />
-                <vm:CountryData Name="France" Grade="4.1" Flag="White" CostOfLiving="22" CrimeIndex="22" HealthCareIndex="22" PollutionIndex="22" />
-                <vm:CountryData Name="Italy" Grade="4.1" Flag="Green" CostOfLiving="22" CrimeIndex="22" HealthCareIndex="22" PollutionIndex="22" />
-                <vm:CountryData Name="Austria" Grade="4.1" Flag="RosyBrown" CostOfLiving="22" CrimeIndex="22" HealthCareIndex="22" PollutionIndex="22" />
-            </vm:CountryGroup.Information>
-        </vm:CountryGroup>
-
+            <vm:CountryData Name="Croatia" Grade="3.4" Flag="Red"/>
+            <vm:CountryData Name="Germany" Grade="5" Flag="Gray" />
+            <vm:CountryData Name="France" Grade="4.1" Flag="White" />
+            <vm:CountryData Name="Italy" Grade="4.1" Flag="Green" />
+            <vm:CountryData Name="Austria" Grade="4.1" Flag="RosyBrown" />
     </vm:CountryModel.Countries>
 
 

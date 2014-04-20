@@ -77,7 +77,6 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CountryData.cs" />
-    <Compile Include="ViewModels\CountryGroup.cs" />
     <Compile Include="ViewModels\CountryModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

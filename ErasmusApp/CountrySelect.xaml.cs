@@ -15,6 +15,15 @@ namespace ErasmusApp
         public CountrySelect()
         {
             InitializeComponent();
+
+            DataContext = App.ViewModel;
+
         }
+
+        private void ExpandedContentButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/CitySelect.xaml", UriKind.Relative));
+        }
+
     }
 }
