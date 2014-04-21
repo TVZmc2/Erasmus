@@ -88,11 +88,38 @@ namespace ErasmusApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ERASMUS.
+        ///   Looks up a localized string similar to erasmus.
         /// </summary>
         public static string ApplicationTitle {
             get {
                 return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to events.
+        /// </summary>
+        public static string PanoramaEventsPageTitle {
+            get {
+                return ResourceManager.GetString("PanoramaEventsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to students.
+        /// </summary>
+        public static string PanoramaStudentsPageTitle {
+            get {
+                return ResourceManager.GetString("PanoramaStudentsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to universities.
+        /// </summary>
+        public static string PanoramaUniversitiesPageTitle {
+            get {
+                return ResourceManager.GetString("PanoramaUniversitiesPageTitle", resourceCulture);
             }
         }
     }

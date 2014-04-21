@@ -68,7 +68,7 @@
                                     <TextBlock Text="Content 2" Grid.Row="1"></TextBlock>
                                     <TextBlock Text="Content 3" Grid.Row="2"></TextBlock>
                                     <Button Content=">" Grid.Column="1" Grid.Row="3"
-                                            Width="100"/>
+                                            Width="100" Click="Button_Click"/>
                                 </Grid>
                             </toolkit:ExpanderView.Items>
                             <toolkit:ExpanderView.Expander>

@@ -22,5 +22,10 @@ namespace ErasmusApp
 
             DataContext = cm;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/CityOptionsPanorama.xaml", UriKind.Relative));
+        }
     }
 }

@@ -127,6 +127,15 @@
     <value>login</value>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>ERASMUS</value>
+    <value>erasmus</value>
+  </data>
+  <data name="PanoramaEventsPageTitle" xml:space="preserve">
+    <value>events</value>
+  </data>
+  <data name="PanoramaStudentsPageTitle" xml:space="preserve">
+    <value>students</value>
+  </data>
+  <data name="PanoramaUniversitiesPageTitle" xml:space="preserve">
+    <value>universities</value>
   </data>
 </root>
