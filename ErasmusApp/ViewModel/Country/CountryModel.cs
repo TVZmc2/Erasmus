@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Media;
 
-
 namespace ErasmusApp.ViewModel.Country
 {
     public class CountryModel

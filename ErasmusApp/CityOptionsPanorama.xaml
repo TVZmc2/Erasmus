@@ -22,19 +22,46 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaUniversitiesPageTitle,
                                         Source={StaticResource LocalizedStrings}}">
-                <Grid/>
+                <Grid>
+                    <ListBox ItemsSource="{Binding University.Universities}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaStudentsPageTitle,
                                         Source={StaticResource LocalizedStrings}}">
-                <Grid/>
+                <Grid>
+                    <ListBox ItemsSource="{Binding Student.Students}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                
             </controls:PanoramaItem>
             
             <!--Panorama item three-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaEventsPageTitle,
                                         Source={StaticResource LocalizedStrings}}">
-                <Grid />
+                <Grid>
+                    <ListBox ItemsSource="{Binding Event.Events}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Title}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                
             </controls:PanoramaItem>
             
         </controls:Panorama>

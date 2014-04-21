@@ -88,6 +88,13 @@
     <Compile Include="ViewModel\City\CityModel.cs" />
     <Compile Include="ViewModel\Country\CountryData.cs" />
     <Compile Include="ViewModel\Country\CountryModel.cs" />
+    <Compile Include="ViewModel\Event\EventData.cs" />
+    <Compile Include="ViewModel\Event\EventModel.cs" />
+    <Compile Include="ViewModel\Panorama\PanoramaModel.cs" />
+    <Compile Include="ViewModel\Student\StudentData.cs" />
+    <Compile Include="ViewModel\Student\StudentModel.cs" />
+    <Compile Include="ViewModel\University\UniversityData.cs" />
+    <Compile Include="ViewModel\University\UniversityModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

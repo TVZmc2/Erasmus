@@ -10,14 +10,22 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using ErasmusApp.ViewModel.Panorama;
+using Microsoft.Phone.Shell;
 
 namespace ErasmusApp
 {
     public partial class CityOptionsPanorama : PhoneApplicationPage
     {
+        private PanoramaModel panoramaData;
+
         public CityOptionsPanorama()
         {
             InitializeComponent();
+
+            panoramaData = new PanoramaModel();
+
+            DataContext = panoramaData;
         }
     }
 }

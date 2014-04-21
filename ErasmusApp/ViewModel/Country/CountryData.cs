@@ -1,6 +1,5 @@
 ﻿using System.Windows.Media;
 
-
 namespace ErasmusApp.ViewModel.Country
 {
     public class CountryData
