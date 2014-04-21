@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ErasmusApp.Models.City
+
+namespace ErasmusApp.ViewModel.City
 {
     public class CityModel
     {

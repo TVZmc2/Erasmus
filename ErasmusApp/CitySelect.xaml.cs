@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using ErasmusApp.Models.City;
+using ErasmusApp.ViewModel.City;
 
 namespace ErasmusApp
 {

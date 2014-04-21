@@ -1,7 +1,7 @@
 ﻿<vm:CityModel
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="clr-namespace:ErasmusApp.Models.City;assembly=ErasmusApp.Models">
+    xmlns:vm="clr-namespace:ErasmusApp.ViewModel.City">
 
     <vm:CityModel.Cities>
         <vm:CityData Name="Zagreb" />

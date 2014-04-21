@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using ErasmusApp.Models.Country;
+using ErasmusApp.ViewModel.Country;
 
 namespace ErasmusApp
 {
