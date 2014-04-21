@@ -24,7 +24,7 @@ namespace ErasmusApp.ViewModel.Student
                 StudentData studentData = new StudentData() 
                 {
                     Name = "Name " + i,
-                    University = "University " + i % 10,
+                    //University = "University " + i % 10,
                     Age = (i % 10) + 18
                 };
 
