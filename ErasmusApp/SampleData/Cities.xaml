@@ -1,0 +1,14 @@
+﻿<vm:CityModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:ErasmusApp.Models.City;assembly=ErasmusApp.Models">
+
+    <vm:CityModel.Cities>
+        <vm:CityData Name="Zagreb" />
+        <vm:CityData Name="Split" />
+        <vm:CityData Name="Osijek" />
+        <vm:CityData Name="Varaždin" />
+        <vm:CityData Name="Zadar" />
+    </vm:CityModel.Cities>
+
+</vm:CityModel>

@@ -1,8 +1,8 @@
 ﻿<vm:CountryModel
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="clr-namespace:ErasmusApp.ViewModels">
-
+    xmlns:vm="clr-namespace:ErasmusApp.Models.Country;assembly=ErasmusApp.Models">
+       
     <vm:CountryModel.Countries>
             <vm:CountryData Name="Croatia" Grade="3.4" Flag="Red"/>
             <vm:CountryData Name="Germany" Grade="5" Flag="Gray" />
@@ -10,6 +10,5 @@
             <vm:CountryData Name="Italy" Grade="4.1" Flag="Green" />
             <vm:CountryData Name="Austria" Grade="4.1" Flag="RosyBrown" />
     </vm:CountryModel.Countries>
-
 
 </vm:CountryModel>

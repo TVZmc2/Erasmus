@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ErasmusApp.Models.City;
 
 namespace ErasmusApp
 {
@@ -15,6 +16,11 @@ namespace ErasmusApp
         public CitySelect()
         {
             InitializeComponent();
+
+            CityModel cm = new CityModel();
+            cm.LoadData();
+
+            DataContext = cm;
         }
     }
 }

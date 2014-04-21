@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 
-namespace ErasmusApp.ViewModels
+namespace ErasmusApp.Models.Country
 {
     public class CountryModel
     {
