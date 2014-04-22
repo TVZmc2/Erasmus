@@ -72,7 +72,8 @@
 
             <ListBox Grid.Row="1"
                          ScrollViewer.VerticalScrollBarVisibility="Visible"
-                         ItemsSource="{Binding Cities}">
+                         ItemsSource="{Binding Cities}"
+                         toolkit:TiltEffect.SuppressTilt="True" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <toolkit:ExpanderView BorderThickness="0"

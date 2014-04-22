@@ -69,11 +69,19 @@
                        Height="200"
                        Visibility="Visible"
                        Margin="0, 0, 0, 10"/>
-            
+
             <!-- <maps:Map></maps:Map> -->
+
             <ListBox Grid.Row="1"
-                         ScrollViewer.VerticalScrollBarVisibility="Visible"
-                         ItemsSource="{Binding Countries}">
+                     Name="listBox"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ItemsSource="{Binding Countries}"
+                     toolkit:TiltEffect.SuppressTilt="True">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <toolkit:ExpanderView BorderThickness="0"
