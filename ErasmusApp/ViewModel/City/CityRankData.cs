@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ErasmusApp.ViewModel.City
 {
-    class CityRankData
+    public class CityRankData
     {
     }
 }

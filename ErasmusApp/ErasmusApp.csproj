@@ -139,6 +139,8 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppBar\map.png" />
+    <Content Include="Assets\AppBar\search.png" />
     <Content Include="Assets\ApplicationIcon.png" />
     <Content Include="Assets\Background.png" />
     <Content Include="Assets\SplashScreenImage.jpg" />

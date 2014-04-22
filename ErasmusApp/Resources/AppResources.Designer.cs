@@ -61,6 +61,15 @@ namespace ErasmusApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to search.
+        /// </summary>
+        public static string ApplicationBarSearch {
+            get {
+                return ResourceManager.GetString("ApplicationBarSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cities.
         /// </summary>
         public static string ApplicationCitiesPageTitle {
