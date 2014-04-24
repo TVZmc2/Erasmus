@@ -11,6 +11,8 @@ using ErasmusAppTVZ.Resources;
 using ErasmusAppTVZ.ViewModel.Country;
 using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace ErasmusAppTVZ
 {
@@ -54,6 +56,20 @@ namespace ErasmusAppTVZ
                 {
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
                 };
+
+                foreach (CountryData data in model.Countries)
+                {
+                    byte[] buffer = Convert.FromBase64String(data.Flag);
+
+                    using (MemoryStream ms = new MemoryStream(buffer, 0, buffer.Length))
+                    {
+                        ms.Write(buffer, 0, buffer.Length);
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.SetSource(ms);
+
+                        data.FlagImage = bitmap;
+                    }
+                }
 
                 SetProgressBar(false);
                 isFirstNavigation = false;

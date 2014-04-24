@@ -1,0 +1,51 @@
+﻿<vm:PanoramaModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:ErasmusAppTVZ.ViewModel.Panorama"
+    xmlns:sm="clr-namespace:ErasmusAppTVZ.ViewModel.Student"
+    xmlns:um="clr-namespace:ErasmusAppTVZ.ViewModel.University"
+    xmlns:em="clr-namespace:ErasmusAppTVZ.ViewModel.Event">
+    
+    <vm:PanoramaModel.Students>
+        <sm:StudentData Name="Student 1" />
+        <sm:StudentData Name="Student 2" />
+        <sm:StudentData Name="Student 3" />
+        <sm:StudentData Name="Student 4" />
+        <sm:StudentData Name="Student 5" />
+        <sm:StudentData Name="Student 6" />
+        <sm:StudentData Name="Student 7" />
+        <sm:StudentData Name="Student 8" />
+        <sm:StudentData Name="Student 9" />
+    </vm:PanoramaModel.Students>
+    
+    <vm:PanoramaModel.Universities>
+        <um:UniversityData Name="University 1"/>
+        <um:UniversityData Name="University 2"/>
+        <um:UniversityData Name="University 3"/>
+        <um:UniversityData Name="University 4"/>
+        <um:UniversityData Name="University 5"/>
+        <um:UniversityData Name="University 6"/>
+        <um:UniversityData Name="University 7"/>
+        <um:UniversityData Name="University 8"/>
+        <um:UniversityData Name="University 9"/>
+        <um:UniversityData Name="University 10"/>
+        <um:UniversityData Name="University 11"/>
+        <um:UniversityData Name="University 12"/>
+        <um:UniversityData Name="University 13"/>
+    </vm:PanoramaModel.Universities>
+    
+    <vm:PanoramaModel.Events>
+        <em:EventData Title="Event 1"/>
+        <em:EventData Title="Event 2"/>
+        <em:EventData Title="Event 3"/>
+        <em:EventData Title="Event 4"/>
+        <em:EventData Title="Event 5"/>
+        <em:EventData Title="Event 6"/>
+        <em:EventData Title="Event 7"/>
+        <em:EventData Title="Event 8"/>
+        <em:EventData Title="Event 9"/>
+        <em:EventData Title="Event 10"/>
+        <em:EventData Title="Event 11"/>
+    </vm:PanoramaModel.Events>
+    
+</vm:PanoramaModel>

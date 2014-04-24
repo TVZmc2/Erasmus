@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Windows.Media.Imaging;
 
 namespace ErasmusAppTVZ.ViewModel.Country
 {
@@ -14,5 +15,7 @@ namespace ErasmusAppTVZ.ViewModel.Country
 
         [JsonProperty(PropertyName = "flag")]
         public string Flag { get; set; }
+
+        public BitmapImage FlagImage { get; set; }
     }
 }
