@@ -4,6 +4,8 @@ namespace ErasmusAppTVZ.ViewModel.Event
 {
     class EventModel
     {
+        public List<EventData> Events { get; set; }
+
         public static List<EventData> CreateEventData()
         {
             List<EventData> eventDataList = new List<EventData>();

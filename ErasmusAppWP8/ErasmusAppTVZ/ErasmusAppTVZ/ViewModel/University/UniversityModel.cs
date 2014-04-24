@@ -4,6 +4,8 @@ namespace ErasmusAppTVZ.ViewModel.University
 {
     class UniversityModel
     {
+        public List<UniversityData> Universities { get; set; }
+
         public static List<UniversityData> CreateUniversityData()
         {
             List<UniversityData> universityDataList = new List<UniversityData>();
