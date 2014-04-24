@@ -1,0 +1,14 @@
+﻿<vm:CountryModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:ErasmusAppTVZ.ViewModel.Country">
+       
+    <vm:CountryModel.Countries>
+            <vm:CountryData Name="Croatia" Rating="3.4" Flag="Red"/>
+            <vm:CountryData Name="Germany" Rating="5" Flag="Gray" />
+            <vm:CountryData Name="France" Rating="4.1" Flag="White" />
+            <vm:CountryData Name="Italy" Rating="4.1" Flag="Green" />
+            <vm:CountryData Name="Austria" Rating="4.1" Flag="RosyBrown" />
+    </vm:CountryModel.Countries>
+
+</vm:CountryModel>
