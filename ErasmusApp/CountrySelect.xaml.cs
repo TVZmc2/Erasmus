@@ -60,7 +60,7 @@ namespace ErasmusApp
             ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
             showOnMapIconButton = new ApplicationBarIconButton();
             searchIconButton.Text = AppResources.ApplicationBarSearch;
-            showOnMapIconButton.Text = "hide map";
+            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
             searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
             showOnMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             searchIconButton.Click += searchIconButton_Click;
@@ -80,12 +80,12 @@ namespace ErasmusApp
             if (map.Visibility == System.Windows.Visibility.Collapsed)
             {
                 map.Visibility = System.Windows.Visibility.Visible;
-                showOnMapIconButton.Text = "hide map";
+                showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
                 return;
             }
 
             map.Visibility = System.Windows.Visibility.Collapsed;
-            showOnMapIconButton.Text = "show map";
+            showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
         }
 
         /// <summary>
@@ -109,7 +109,10 @@ namespace ErasmusApp
 
         private void ExpandedContentButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/CitySelect.xaml", UriKind.Relative));
+            Button bttn = sender as Button;
+
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}", bttn.Tag),
+                UriKind.Relative));
         }
 
     }

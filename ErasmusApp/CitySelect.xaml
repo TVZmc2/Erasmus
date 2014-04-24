@@ -97,7 +97,8 @@
                                     <TextBlock Text="Content 2" Grid.Row="1" />
                                     <TextBlock Text="Content 3" Grid.Row="2" />
                                     <Button Content=">" Grid.Column="1" Grid.Row="3"
-                                            Width="100" Click="Button_Click" />
+                                            Width="100" Click="Button_Click" 
+                                            Tag="{Binding Name}"/>
                                 </Grid>
                             </toolkit:ExpanderView.Items>
                             <toolkit:ExpanderView.Expander>

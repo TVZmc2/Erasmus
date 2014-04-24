@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApplicationBarHideMap" xml:space="preserve">
+    <value>hide map</value>
+  </data>
   <data name="ApplicationBarSearch" xml:space="preserve">
     <value>search</value>
+  </data>
+  <data name="ApplicationBarShowMap" xml:space="preserve">
+    <value>show map</value>
   </data>
   <data name="ApplicationCitiesPageTitle" xml:space="preserve">
     <value>cities</value>

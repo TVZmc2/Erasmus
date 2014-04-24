@@ -27,5 +27,11 @@ namespace ErasmusApp
 
             DataContext = panoramaData;
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            string cityName = NavigationContext.QueryString["cityName"];
+            MainPanorama.Title = cityName;
+        }
     }
 }

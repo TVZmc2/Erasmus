@@ -1,0 +1,19 @@
+﻿<vm:StudentModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:ErasmusApp.ViewModel.Student">
+
+    <vm:StudentModel.Students>
+        <vm:StudentData Name="Name 1" />
+        <vm:StudentData Name="Name 2" />
+        <vm:StudentData Name="Name 3" />
+        <vm:StudentData Name="Name 4" />
+        <vm:StudentData Name="Name 5" />
+        <vm:StudentData Name="Name 6" />
+        <vm:StudentData Name="Name 7" />
+        <vm:StudentData Name="Name 8" />
+        <vm:StudentData Name="Name 9" />
+    </vm:StudentModel.Students>
+
+
+</vm:StudentModel>

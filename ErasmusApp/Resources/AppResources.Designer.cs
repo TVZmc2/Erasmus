@@ -61,11 +61,29 @@ namespace ErasmusApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hide map.
+        /// </summary>
+        public static string ApplicationBarHideMap {
+            get {
+                return ResourceManager.GetString("ApplicationBarHideMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to search.
         /// </summary>
         public static string ApplicationBarSearch {
             get {
                 return ResourceManager.GetString("ApplicationBarSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to show map.
+        /// </summary>
+        public static string ApplicationBarShowMap {
+            get {
+                return ResourceManager.GetString("ApplicationBarShowMap", resourceCulture);
             }
         }
         

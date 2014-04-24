@@ -30,6 +30,12 @@ namespace ErasmusApp
 
         }
 
+        private void SetProgressIndicator(bool check)
+        {
+            SystemTray.ProgressIndicator.IsIndeterminate = check;
+            SystemTray.ProgressIndicator.IsVisible = check;
+        }
+
         /// <summary>
         /// Checks if 'search' parameter exists
         /// If parameter does exists, get the filtered results and pass it to DataContext
@@ -43,6 +49,9 @@ namespace ErasmusApp
 
             if (NavigationContext.QueryString.ContainsKey("search"))
             {
+                SystemTray.ProgressIndicator = new ProgressIndicator();
+                SetProgressIndicator(true);
+
                 string searchTerm = NavigationContext.QueryString["search"];
 
                 CityModel model = new CityModel() 
@@ -51,6 +60,13 @@ namespace ErasmusApp
                 };
 
                 DataContext = model;
+
+                SetProgressIndicator(false);
+            }
+            else if (NavigationContext.QueryString.ContainsKey("countryId"))
+            {
+                int id = -1;
+                Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
             }
         }
 
@@ -64,7 +80,7 @@ namespace ErasmusApp
             ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
             showOnMapIconButton = new ApplicationBarIconButton();
             searchIconButton.Text = AppResources.ApplicationBarSearch;
-            showOnMapIconButton.Text = "hide map";
+            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
             searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
             showOnMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             searchIconButton.Click += searchIconButton_Click;
@@ -84,12 +100,12 @@ namespace ErasmusApp
             if (map.Visibility == System.Windows.Visibility.Collapsed)
             {
                 map.Visibility = System.Windows.Visibility.Visible;
-                showOnMapIconButton.Text = "hide map";
+                showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
                 return;
             }
 
             map.Visibility = System.Windows.Visibility.Collapsed;
-            showOnMapIconButton.Text = "show map";
+            showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
         }
 
         /// <summary>
@@ -113,7 +129,10 @@ namespace ErasmusApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/CityOptionsPanorama.xaml", UriKind.Relative));
+            Button bttn = sender as Button;
+
+            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag),
+                UriKind.Relative));
         }
     }
 }

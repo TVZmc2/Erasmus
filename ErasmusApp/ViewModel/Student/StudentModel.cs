@@ -19,7 +19,7 @@ namespace ErasmusApp.ViewModel.Student
         {
             List<StudentData> studentDataList = new List<StudentData>();
 
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < 20; i++)
             {
                 StudentData studentData = new StudentData() 
                 {
