@@ -2,18 +2,18 @@
     x:Class="ErasmusAppTVZ.CountrySelect"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"    
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"        
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignData SampleData/Countries.xaml}"
+    d:DataContext="{d:DesignData SampleData/Countries.xaml}"    
     shell:SystemTray.IsVisible="True">
 
     <!--Transition-->
@@ -38,6 +38,7 @@
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
 
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -47,11 +48,11 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,12">
-            <TextBlock Text="{Binding LocalizedResources.ApplicationTitle,
-                            Source={StaticResource LocalizedStrings}}"
-                       Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding LocalizedResources.ApplicationCountriesPageTitle,
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle,
                             Source={StaticResource LocalizedStrings}}" 
+                       Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCitiesPageTitle,
+                            Source={StaticResource LocalizedStrings}}"  
                        Margin="9,-7,0,0" 
                        Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
@@ -60,94 +61,23 @@
         <Grid x:Name="ContentPanel" 
               Grid.Row="1" 
               Margin="12,0,12,0">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <maps:Map Name="map"
                       Height="200"
                       Margin="0, 0, 0, 10"/>
 
-            <!-- Countries list -->
+            <!-- Cities list -->
             <ListBox Grid.Row="1"
                      Name="listBox"
-                     ScrollViewer.VerticalScrollBarVisibility="Visible"
-                     ItemsSource="{Binding Countries}"
-                     toolkit:TiltEffect.SuppressTilt="True">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         ItemsSource="{Binding Countries}"
+                         toolkit:TiltEffect.SuppressTilt="True" >
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Width="470" 
-                              Margin="12, 0, 0, 0"
-                              Tap="Grid_Tap" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="3*" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Image Source="{Binding FlagImage}"
-                                           Height="60"
-                                           Width="90"/>
-
-                            <TextBlock Text="{Binding Name}"
-                                       Grid.Column="1"
-                                       Margin="20, 0, 0, 0"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
-
-                            <TextBlock Text="{Binding Rating}" 
-                                       Grid.Column="2"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
-                            
-                            <!-- expanded items -->
-                            <Grid Grid.Row="1" 
-                                  Visibility="Collapsed">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="Test 1" />
-                                <TextBlock Text="Test 2" Grid.Row="1" />
-                                <TextBlock Text="Test 3" Grid.Row="2"/>
-                                <Button Content=">" 
-                                        Grid.Row="3"
-                                        Tag="{Binding Id}"
-                                        Click="ExpandedContentButton_Click" />
-                            </Grid>                            
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                
-            </ListBox>
-
-            <TextBox Name="textBoxSearch"
-                     Grid.Row="2"           
-                     Visibility="Collapsed"/>
-        </Grid>
-
-    </Grid>
-
-</phone:PhoneApplicationPage>
-
-
-
-<!--<ListBox.ItemTemplate>
                     <DataTemplate>
                         <toolkit:ExpanderView BorderThickness="0"
                                               IsExpanded="False"
@@ -173,12 +103,12 @@
                                             Grid.Column="1" 
                                             Grid.Row="3"
                                             Width="100" 
-                                            Click="ExpandedContentButton_Click" 
-                                            Tag="{Binding Name}" />
+                                            Click="Button_Click" 
+                                            Tag="{Binding Id}" />
                                 </Grid>
                             </toolkit:ExpanderView.Items>
                             <toolkit:ExpanderView.Expander>
-                                <Grid Width="470"
+                                <Grid Width="470" 
                                       Height="70" 
                                       Margin="-28, 0, 0, 0">
                                     <Grid.ColumnDefinitions>
@@ -187,9 +117,9 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="{Binding FlagImage}"
-                                           Height="60"
-                                           Width="90"/>
+                                    <Rectangle Fill="Green" 
+                                               Height="50" 
+                                               Width="50"/>
 
                                     <TextBlock Text="{Binding Name}"
                                        Grid.Column="1"
@@ -197,7 +127,7 @@
                                        VerticalAlignment="Center"
                                        FontSize="{StaticResource PhoneFontSizeLarge}"/>
 
-                                    <TextBlock Text="{Binding Rating}" 
+                                    <TextBlock Text="0.0" 
                                        Grid.Column="2"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -206,4 +136,13 @@
                             </toolkit:ExpanderView.Expander>
                         </toolkit:ExpanderView>
                     </DataTemplate>
-                </ListBox.ItemTemplate>-->
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBox Name="textBoxSearch"
+                     Grid.Row="2"
+                     Visibility="Collapsed" />
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
