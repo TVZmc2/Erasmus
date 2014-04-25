@@ -15,21 +15,8 @@ using System.IO;
 
 namespace ErasmusAppTVZ
 {
-    public class FlagModel
-    {
-        public List<string> Flags { get; set; }
-
-        public List<Flag> FlagImages { get; set; }
-    }
-
-    public class Flag
-    {
-        public BitmapImage FlagValue { get; set; }
-    }
-
     public partial class MainPage : PhoneApplicationPage
     {
-        public FlagModel Flag;
         public CountryModel Country;
         public List<string> Values;
         public static bool isFirstNavigation = true;
