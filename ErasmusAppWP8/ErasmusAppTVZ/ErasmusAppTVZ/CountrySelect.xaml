@@ -84,6 +84,71 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
+                        <Grid Width="470" 
+                              Margin="12, 0, 0, 0"
+                              Tap="Grid_Tap" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{Binding FlagImage}"
+                                           Height="60"
+                                           Width="90"/>
+
+                            <TextBlock Text="{Binding Name}"
+                                       Grid.Column="1"
+                                       Margin="20, 0, 0, 0"
+                                       VerticalAlignment="Center"
+                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+
+                            <TextBlock Text="{Binding Rating}" 
+                                       Grid.Column="2"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            
+                            <!-- expanded items -->
+                            <Grid Grid.Row="1" 
+                                  Visibility="Collapsed">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Test 1" />
+                                <TextBlock Text="Test 2" Grid.Row="1" />
+                                <TextBlock Text="Test 3" Grid.Row="2"/>
+                                <Button Content=">" 
+                                        Grid.Row="3"
+                                        Tag="{Binding Id}"
+                                        Click="ExpandedContentButton_Click" />
+                            </Grid>                            
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+            </ListBox>
+
+            <TextBox Name="textBoxSearch"
+                     Grid.Row="2"           
+                     Visibility="Collapsed"/>
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>
+
+
+
+<!--<ListBox.ItemTemplate>
+                    <DataTemplate>
                         <toolkit:ExpanderView BorderThickness="0"
                                               IsExpanded="False"
                                               Width="470"
@@ -141,14 +206,4 @@
                             </toolkit:ExpanderView.Expander>
                         </toolkit:ExpanderView>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-            <TextBox Name="textBoxSearch"
-                     Grid.Row="2"           
-                     Visibility="Collapsed"/>
-        </Grid>
-
-    </Grid>
-
-</phone:PhoneApplicationPage>
+                </ListBox.ItemTemplate>-->

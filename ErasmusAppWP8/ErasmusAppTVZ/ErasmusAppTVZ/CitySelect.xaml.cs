@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
 using ErasmusAppTVZ.ViewModel.City;
 using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.Helpers;
 
 namespace ErasmusAppTVZ
 {
@@ -66,6 +67,7 @@ namespace ErasmusAppTVZ
             }
             else if (NavigationContext.QueryString.ContainsKey("countryId"))
             {
+                //get id for retrieving country data
                 int id = 0;
                 Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
             }
@@ -98,15 +100,15 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void showOnMapIconButton_Click(object sender, EventArgs e)
         {
-            if (map.Visibility == System.Windows.Visibility.Collapsed)
+            if (map.Visibility == System.Windows.Visibility.Visible)
             {
-                map.Visibility = System.Windows.Visibility.Visible;
-                showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+                map.Visibility = System.Windows.Visibility.Collapsed;
+                showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
                 return;
             }
 
-            map.Visibility = System.Windows.Visibility.Collapsed;
-            showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
+            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            map.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>

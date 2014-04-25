@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
+  <Languages xmlns="">
+    <Language code="en" />
+  </Languages>
   <App xmlns="" ProductID="{b719b949-9771-48f2-87c3-d028b0839e34}" Title="ErasmusAppTVZ" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ErasmusAppTVZ author" Description="Sample description" Publisher="ErasmusAppTVZ" PublisherID="{6ec59d99-6604-4f4c-8378-717f42dd6761}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>

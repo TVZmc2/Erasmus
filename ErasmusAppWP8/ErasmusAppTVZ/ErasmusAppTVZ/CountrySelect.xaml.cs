@@ -14,11 +14,13 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
+using ErasmusAppTVZ.Helpers;
 
 namespace ErasmusAppTVZ
 {
     public partial class CountrySelect : PhoneApplicationPage
     {
+        Grid expandedItem;
         ApplicationBarIconButton showOnMapIconButton;
         private static bool isFirstNavigation = true;
         private static CountryModel model;
@@ -34,6 +36,10 @@ namespace ErasmusAppTVZ
             BuildLocalizedApplicationBar();
         }
 
+        /// <summary>
+        /// Shows or hides Progress indicator
+        /// </summary>
+        /// <param name="check"></param>
         private void SetProgressBar(bool check)
         {
             SystemTray.ProgressIndicator.IsIndeterminate = check;
@@ -55,7 +61,7 @@ namespace ErasmusAppTVZ
                 SystemTray.ProgressIndicator = new ProgressIndicator();
                 SetProgressBar(true);
 
-                model = new CountryModel()
+                model = new CountryModel() 
                 {
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
                 };
@@ -93,8 +99,7 @@ namespace ErasmusAppTVZ
             else
                 DataContext = model;
 
-            Animate(listBox, 1, 2000, new PropertyPath(OpacityProperty));
-
+            AnimationHelper.Animate(listBox, 1, 2000, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -124,41 +129,15 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void showOnMapIconButton_Click(object sender, EventArgs e)
         {
-            int height = 0;
-
-            if (map.Height == 0)
+            if (map.Visibility == System.Windows.Visibility.Visible)
             {
-                height = 200;
-                showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
-            }
-            else
-            {
-                height = 0;
+                map.Visibility = System.Windows.Visibility.Collapsed;
                 showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
+                return;
             }
 
-            Animate(map, height, 300, new PropertyPath(HeightProperty));
-        }
-
-        /// <summary>
-        /// Helper method for avoiding reuse of code
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="value"></param>
-        /// <param name="milliseconds"></param>
-        /// <param name="property"></param>
-        private void Animate(DependencyObject sender, double value, double milliseconds, PropertyPath property)
-        {
-            Storyboard s = new Storyboard();
-            DoubleAnimation da = new DoubleAnimation();
-            da.To = value;
-            da.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
-
-            Storyboard.SetTarget(da, sender);
-            Storyboard.SetTargetProperty(da, property);
-
-            s.Children.Add(da);
-            s.Begin();
+            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            map.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -180,12 +159,46 @@ namespace ErasmusAppTVZ
                                     "?Refresh=true&search={0}", textBoxSearch.Text), UriKind.Relative));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExpandedContentButton_Click(object sender, RoutedEventArgs e)
         {
             Button bttn = sender as Button;
 
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}", bttn.Tag),
                 UriKind.Relative));
+        }
+
+        /// <summary>
+        /// Expands or collapses items depending on their current visibillity
+        /// </summary>
+        /// <param name="expandedItem">Holds reference to last expanded item</param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Grid grid = (sender as Grid).Children[3] as Grid;
+
+            if (expandedItem != null)
+            {
+                expandedItem.Visibility = System.Windows.Visibility.Collapsed;
+
+                if (expandedItem == grid)
+                {
+                    expandedItem = null;
+                    return;
+                }
+            }
+
+            if (grid.Visibility == System.Windows.Visibility.Collapsed)
+            {
+                expandedItem = grid;
+                grid.Visibility = System.Windows.Visibility.Visible;
+                return;
+            }
         }
 
     }
