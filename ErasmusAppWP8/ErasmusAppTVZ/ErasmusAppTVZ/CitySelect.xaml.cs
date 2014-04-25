@@ -1,23 +1,22 @@
-﻿using System;
+﻿using ErasmusAppTVZ.Helpers;
+using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.City;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Microsoft.WindowsAzure.MobileServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Microsoft.WindowsAzure.MobileServices;
-using ErasmusAppTVZ.ViewModel.City;
-using ErasmusAppTVZ.Resources;
-using ErasmusAppTVZ.Helpers;
 
 namespace ErasmusAppTVZ
 {
     public partial class CitySelect : PhoneApplicationPage
     {
-        ApplicationBarIconButton showOnMapIconButton;
-        CityModel cm;
+        private CityModel cm;
 
         public CitySelect()
         {
@@ -29,9 +28,12 @@ namespace ErasmusAppTVZ
             DataContext = cm;
 
             BuildLocalizedApplicationBar();
-
         }
 
+        /// <summary>
+        /// Sets the visibillity and indertermination of ProgressIndicator
+        /// </summary>
+        /// <param name="check"></param>
         private void SetProgressBar(bool check)
         {
             SystemTray.ProgressIndicator.IsIndeterminate = check;
@@ -39,9 +41,9 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Checks if 'search' parameter exists
-        /// If parameter does exists, get the filtered results and pass it to DataContext
-        /// If parameter does not exists, do nothing
+        /// Checks if 'search' and 'countryId' parameters exist
+        /// If 'search' exists, get the filtered results and pass it to DataContext
+        /// If 'countryId' exists, get the data for the corresponding country
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -70,6 +72,9 @@ namespace ErasmusAppTVZ
                 //get id for retrieving country data
                 int id = 0;
                 Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
+
+                //TODO:
+                //Get the data based on id (countryId)
             }
         }
 
@@ -81,16 +86,37 @@ namespace ErasmusAppTVZ
             ApplicationBar = new ApplicationBar();
 
             ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
-            showOnMapIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton showOnMapIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton sortIconButton = new ApplicationBarIconButton();
+
             searchIconButton.Text = AppResources.ApplicationBarSearch;
             showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            sortIconButton.Text = AppResources.ApplicationBarSort;
+
             searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
             showOnMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
+            sortIconButton.IconUri = new Uri("/Assets/AppBar/sort.png", UriKind.Relative);
+
             searchIconButton.Click += searchIconButton_Click;
             showOnMapIconButton.Click += showOnMapIconButton_Click;
+            sortIconButton.Click += sortIconButton_Click;
 
             ApplicationBar.Buttons.Add(searchIconButton);
             ApplicationBar.Buttons.Add(showOnMapIconButton);
+            ApplicationBar.Buttons.Add(sortIconButton);
+        }
+
+        #region EventHandlers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void sortIconButton_Click(object sender, EventArgs e)
+        {
+            //TODO:
+            //implement sorting
+            MessageBox.Show("Not implemented");
         }
 
         /// <summary>
@@ -103,11 +129,11 @@ namespace ErasmusAppTVZ
             if (map.Visibility == System.Windows.Visibility.Visible)
             {
                 map.Visibility = System.Windows.Visibility.Collapsed;
-                showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
+                (sender as ApplicationBarIconButton).Text = AppResources.ApplicationBarShowMap;
                 return;
             }
 
-            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            (sender as ApplicationBarIconButton).Text = AppResources.ApplicationBarHideMap;
             map.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -136,6 +162,8 @@ namespace ErasmusAppTVZ
 
             NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
-        }
-    }
-}
+        } 
+        #endregion
+    
+    }//class
+}//namespace

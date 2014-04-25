@@ -12,6 +12,7 @@ using ErasmusAppTVZ.ViewModel.Country;
 using Microsoft.WindowsAzure.MobileServices;
 using System.Windows.Media.Imaging;
 using System.IO;
+using ErasmusAppTVZ.Helpers;
 
 namespace ErasmusAppTVZ
 {
@@ -46,17 +47,12 @@ namespace ErasmusAppTVZ
 
                 foreach (string s in Values)
                 {
-                    byte[] buffer = Convert.FromBase64String(s);
+                    CountryData countryData = new CountryData() 
+                    { 
+                        FlagImage = ImageConversionHelper.ToImage(s) 
+                    };
 
-                    using (MemoryStream ms = new MemoryStream(buffer, 0, buffer.Length))
-                    {
-                        ms.Write(buffer, 0, buffer.Length);
-                        BitmapImage bitmap = new BitmapImage();
-                        bitmap.SetSource(ms);
-                        CountryData countryData = new CountryData() { FlagImage = bitmap };
-
-                        Country.Countries.Add(countryData);
-                    }
+                    Country.Countries.Add(countryData);
                 }
 
                 DataContext = Country;

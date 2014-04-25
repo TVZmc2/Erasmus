@@ -103,6 +103,7 @@
       <DependentUpon>CountrySelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AnimationHelper.cs" />
+    <Compile Include="Helpers\ImageConversionHelper.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\AppBar\sort.png" />
     <Content Include="Assets\AppBar\map.png" />
     <Content Include="Assets\AppBar\search.png" />
     <Content Include="Assets\ApplicationIcon.png">

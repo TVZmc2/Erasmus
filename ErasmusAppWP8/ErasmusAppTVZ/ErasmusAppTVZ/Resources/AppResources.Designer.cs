@@ -61,11 +61,38 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        public static string ApplicationBarAboutMenuItem {
+            get {
+                return ResourceManager.GetString("ApplicationBarAboutMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to hide map.
         /// </summary>
         public static string ApplicationBarHideMap {
             get {
                 return ResourceManager.GetString("ApplicationBarHideMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to options.
+        /// </summary>
+        public static string ApplicationBarOptionsMenuItem {
+            get {
+                return ResourceManager.GetString("ApplicationBarOptionsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to profile.
+        /// </summary>
+        public static string ApplicationBarProfileMenuItem {
+            get {
+                return ResourceManager.GetString("ApplicationBarProfileMenuItem", resourceCulture);
             }
         }
         
@@ -84,6 +111,15 @@ namespace ErasmusAppTVZ.Resources {
         public static string ApplicationBarShowMap {
             get {
                 return ResourceManager.GetString("ApplicationBarShowMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sort.
+        /// </summary>
+        public static string ApplicationBarSort {
+            get {
+                return ResourceManager.GetString("ApplicationBarSort", resourceCulture);
             }
         }
         

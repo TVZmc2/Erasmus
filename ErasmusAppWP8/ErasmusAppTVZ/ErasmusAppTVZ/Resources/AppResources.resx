@@ -155,4 +155,16 @@
   <data name="ApplicationBarHideMap" xml:space="preserve">
     <value>hide map</value>
   </data>
+  <data name="ApplicationBarAboutMenuItem" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="ApplicationBarOptionsMenuItem" xml:space="preserve">
+    <value>options</value>
+  </data>
+  <data name="ApplicationBarProfileMenuItem" xml:space="preserve">
+    <value>profile</value>
+  </data>
+  <data name="ApplicationBarSort" xml:space="preserve">
+    <value>sort</value>
+  </data>
 </root>
