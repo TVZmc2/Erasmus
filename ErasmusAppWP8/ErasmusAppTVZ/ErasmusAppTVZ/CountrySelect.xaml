@@ -51,7 +51,7 @@
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle,
                             Source={StaticResource LocalizedStrings}}" 
                        Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCitiesPageTitle,
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCountriesPageTitle,
                             Source={StaticResource LocalizedStrings}}"  
                        Margin="9,-7,0,0" 
                        Style="{StaticResource PhoneTextTitle1Style}"/>
@@ -71,7 +71,7 @@
                       Height="200"
                       Margin="0, 0, 0, 10"/>
 
-            <!-- Cities list -->
+            <!-- Countries list -->
             <ListBox Grid.Row="1"
                      Name="listBox"
                          ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -117,9 +117,7 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
-                                    <Rectangle Fill="Green" 
-                                               Height="50" 
-                                               Width="50"/>
+                                    <Image Source="{Binding FlagImage}" />
 
                                     <TextBlock Text="{Binding Name}"
                                        Grid.Column="1"
