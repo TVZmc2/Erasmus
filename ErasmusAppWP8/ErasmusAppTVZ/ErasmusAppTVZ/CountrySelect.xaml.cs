@@ -13,6 +13,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 
 namespace ErasmusAppTVZ
 {
@@ -47,11 +48,13 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            listBox.Opacity = 0;
+
             if (isFirstNavigation)
             {
                 SystemTray.ProgressIndicator = new ProgressIndicator();
                 SetProgressBar(true);
-                
+
                 model = new CountryModel()
                 {
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
@@ -90,6 +93,8 @@ namespace ErasmusAppTVZ
             else
                 DataContext = model;
 
+            Animate(listBox, 1, 2000, new PropertyPath(OpacityProperty));
+
         }
 
         /// <summary>
@@ -119,15 +124,41 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void showOnMapIconButton_Click(object sender, EventArgs e)
         {
-            if (map.Visibility == System.Windows.Visibility.Collapsed)
+            int height = 0;
+
+            if (map.Height == 0)
             {
-                map.Visibility = System.Windows.Visibility.Visible;
+                height = 200;
                 showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
-                return;
+            }
+            else
+            {
+                height = 0;
+                showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
             }
 
-            map.Visibility = System.Windows.Visibility.Collapsed;
-            showOnMapIconButton.Text = AppResources.ApplicationBarShowMap;
+            Animate(map, height, 300, new PropertyPath(HeightProperty));
+        }
+
+        /// <summary>
+        /// Helper method for avoiding reuse of code
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="value"></param>
+        /// <param name="milliseconds"></param>
+        /// <param name="property"></param>
+        private void Animate(DependencyObject sender, double value, double milliseconds, PropertyPath property)
+        {
+            Storyboard s = new Storyboard();
+            DoubleAnimation da = new DoubleAnimation();
+            da.To = value;
+            da.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
+
+            Storyboard.SetTarget(da, sender);
+            Storyboard.SetTargetProperty(da, property);
+
+            s.Children.Add(da);
+            s.Begin();
         }
 
         /// <summary>

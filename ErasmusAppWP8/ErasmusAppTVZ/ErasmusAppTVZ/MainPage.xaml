@@ -54,15 +54,38 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12, 12">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-                <Button Grid.Row="4" 
+            <Image Name="img"
+                   Height="100"
+                   Width="150"/>
+            
+            <!-- Drop down for countries -->
+            <toolkit:ListPicker ItemsSource="{Binding Countries}"
+                                Grid.Row="1"
+                                SelectionChanged="ListPicker_SelectionChanged">
+                <toolkit:ListPicker.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="Select..." 
+                                   FontSize="{StaticResource PhoneFontSizeLarge}" />
+                    </DataTemplate>
+                </toolkit:ListPicker.ItemTemplate>
+                <toolkit:ListPicker.FullModeItemTemplate>
+                    <DataTemplate>
+                        <Image Height="100"
+                               Width="80"
+                               Source="{Binding FlagImage}"/>
+                    </DataTemplate>
+                </toolkit:ListPicker.FullModeItemTemplate>
+            </toolkit:ListPicker>
+
+            <Button Grid.Row="4" 
                     Content="Enter"
                     FontSize="{StaticResource PhoneFontSizeLarge}"
                     Click="Button_Click"/>

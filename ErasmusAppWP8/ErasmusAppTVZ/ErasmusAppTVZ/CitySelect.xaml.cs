@@ -132,7 +132,7 @@ namespace ErasmusAppTVZ
         {
             Button bttn = sender as Button;
 
-            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag),
+            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
         }
     }
