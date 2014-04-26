@@ -27,24 +27,24 @@ namespace ErasmusAppTVZ
         /// <summary>
         /// 
         /// </summary>
-        private static CountryModel viewModel = null;
+        //private static CountryModel viewModel = null;
 
         /// <summary>
         /// 
         /// </summary>
-        public static CountryModel ViewModel
-        {
-            get
-            {
-                if (viewModel == null)
-                {
-                    viewModel = new CountryModel();
-                    viewModel.LoadData();
-                }
+        //public static CountryModel ViewModel
+        //{
+        //    get
+        //    {
+        //        if (viewModel == null)
+        //        {
+        //            viewModel = new CountryModel();
+        //            viewModel.LoadData();
+        //        }
 
-                return viewModel;
-            }
-        }
+        //        return viewModel;
+        //    }
+        //}
 
         /// <summary>
         /// Constructor for the Application object.

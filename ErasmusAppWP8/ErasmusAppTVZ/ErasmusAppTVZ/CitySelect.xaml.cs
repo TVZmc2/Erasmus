@@ -16,16 +16,11 @@ namespace ErasmusAppTVZ
 {
     public partial class CitySelect : PhoneApplicationPage
     {
-        private CityModel cm;
+        private static CityModel cm;
 
         public CitySelect()
         {
             InitializeComponent();
-
-            cm = new CityModel();
-            cm.LoadData();
-
-            DataContext = cm;
 
             BuildLocalizedApplicationBar();
         }
@@ -36,26 +31,26 @@ namespace ErasmusAppTVZ
         /// <param name="check"></param>
         private void SetProgressBar(bool check)
         {
+            SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCities;
             SystemTray.ProgressIndicator.IsIndeterminate = check;
             SystemTray.ProgressIndicator.IsVisible = check;
         }
 
         /// <summary>
         /// Checks if 'search' and 'countryId' parameters exist
-        /// If 'search' exists, get the filtered results and pass it to DataContext
+        /// If 'search' exists, get the filtered results
         /// If 'countryId' exists, get the data for the corresponding country
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            listbox.Opacity = 0;
+
             textBoxSearch.Text = String.Empty;
             textBoxSearch.Visibility = System.Windows.Visibility.Collapsed;
 
             if (NavigationContext.QueryString.ContainsKey("search"))
             {
-                SystemTray.ProgressIndicator = new ProgressIndicator();
-                SetProgressBar(true);
-
                 string searchTerm = NavigationContext.QueryString["search"];
 
                 CityModel model = new CityModel()
@@ -64,8 +59,6 @@ namespace ErasmusAppTVZ
                 };
 
                 DataContext = model;
-
-                SetProgressBar(false);
             }
             else if (NavigationContext.QueryString.ContainsKey("countryId"))
             {
@@ -73,9 +66,22 @@ namespace ErasmusAppTVZ
                 int id = 0;
                 Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
 
+                SystemTray.ProgressIndicator = new ProgressIndicator();
+                SetProgressBar(true);
+
+                //test data
+                cm = new CityModel();
+                cm.LoadData();
+
+                DataContext = cm;
+
+                SetProgressBar(false);
+
                 //TODO:
                 //Get the data based on id (countryId)
             }
+
+            AnimationHelper.Fade(listbox, 1, 750, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -85,28 +91,78 @@ namespace ErasmusAppTVZ
         {
             ApplicationBar = new ApplicationBar();
 
+            //Icon buttons
             ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
-            ApplicationBarIconButton showOnMapIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton showMapIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton sortIconButton = new ApplicationBarIconButton();
 
             searchIconButton.Text = AppResources.ApplicationBarSearch;
-            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            showMapIconButton.Text = AppResources.ApplicationBarShowMap;
             sortIconButton.Text = AppResources.ApplicationBarSort;
 
             searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
-            showOnMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
+            showMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             sortIconButton.IconUri = new Uri("/Assets/AppBar/sort.png", UriKind.Relative);
 
             searchIconButton.Click += searchIconButton_Click;
-            showOnMapIconButton.Click += showOnMapIconButton_Click;
+            showMapIconButton.Click += showMapIconButton_Click;
             sortIconButton.Click += sortIconButton_Click;
 
+            //Menu items
+            ApplicationBarMenuItem profileMenuItem = new ApplicationBarMenuItem();
+            ApplicationBarMenuItem optionsMenuItem = new ApplicationBarMenuItem();
+            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem();
+
+            profileMenuItem.Text = AppResources.ApplicationBarProfileMenuItem;
+            optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
+            aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
+
+            aboutMenuItem.Click += aboutMenuItem_Click;
+
             ApplicationBar.Buttons.Add(searchIconButton);
-            ApplicationBar.Buttons.Add(showOnMapIconButton);
+            ApplicationBar.Buttons.Add(showMapIconButton);
             ApplicationBar.Buttons.Add(sortIconButton);
+
+            ApplicationBar.MenuItems.Add(profileMenuItem);
+            ApplicationBar.MenuItems.Add(optionsMenuItem);
+            ApplicationBar.MenuItems.Add(aboutMenuItem);
+
+            ApplicationBar.IsVisible = true;
         }
 
         #region EventHandlers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ExpanderView ev = sender as ExpanderView;
+
+            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", ev.Tag.ToString().ToLower()),
+                UriKind.Relative));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            Grid grid = ApplicationBarHelper.GetAboutContentGrid();
+
+            CustomMessageBox aboutMsgBox = new CustomMessageBox()
+            {
+                Caption = AppResources.ApplicationBarAboutMenuItem,
+                Content = grid,
+                RightButtonContent = "ok"
+            };
+
+            aboutMsgBox.Show();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -124,7 +180,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void showOnMapIconButton_Click(object sender, EventArgs e)
+        private void showMapIconButton_Click(object sender, EventArgs e)
         {
             if (map.Visibility == System.Windows.Visibility.Visible)
             {
@@ -156,6 +212,11 @@ namespace ErasmusAppTVZ
                                     "?Refresh=true&search={0}", textBoxSearch.Text), UriKind.Relative));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button bttn = sender as Button;

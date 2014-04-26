@@ -69,7 +69,8 @@
 
             <maps:Map Name="map"
                       Height="200"
-                      Margin="0, 0, 0, 10"/>
+                      Margin="0, 0, 0, 10"
+                      Visibility="Collapsed"/>
 
             <!-- Countries list -->
             <ListBox Grid.Row="1"
@@ -83,6 +84,8 @@
                                               IsExpanded="False"
                                               Width="470"
                                               Margin="-24, 0, 0, 0"
+                                              Tag="{Binding Id}" 
+                                              DoubleTap="ExpanderView_DoubleTap" 
                                               Style="{StaticResource ExpanderViewStyle}">
                             <toolkit:ExpanderView.Items>
                                 <Grid>
@@ -103,7 +106,7 @@
                                             Grid.Column="1" 
                                             Grid.Row="3"
                                             Width="100" 
-                                            Click="Button_Click" 
+                                            Click="Button_Click"  
                                             Tag="{Binding Id}" />
                                 </Grid>
                             </toolkit:ExpanderView.Items>
