@@ -7,15 +7,15 @@
     xmlns:em="clr-namespace:ErasmusAppTVZ.ViewModel.Event">
     
     <vm:PanoramaModel.Students>
-        <sm:StudentData Name="Student 1" />
-        <sm:StudentData Name="Student 2" />
-        <sm:StudentData Name="Student 3" />
-        <sm:StudentData Name="Student 4" />
-        <sm:StudentData Name="Student 5" />
-        <sm:StudentData Name="Student 6" />
-        <sm:StudentData Name="Student 7" />
-        <sm:StudentData Name="Student 8" />
-        <sm:StudentData Name="Student 9" />
+        <sm:StudentData FirstName="Student 1" />
+        <sm:StudentData FirstName="Student 2" />
+        <sm:StudentData FirstName="Student 3" />
+        <sm:StudentData FirstName="Student 4" />
+        <sm:StudentData FirstName="Student 5" />
+        <sm:StudentData FirstName="Student 6" />
+        <sm:StudentData FirstName="Student 7" />
+        <sm:StudentData FirstName="Student 8" />
+        <sm:StudentData FirstName="Student 9" />
     </vm:PanoramaModel.Students>
     
     <vm:PanoramaModel.Universities>

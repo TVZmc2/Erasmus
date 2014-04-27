@@ -54,6 +54,7 @@
             <!-- Drop down for countries -->
             <toolkit:ListPicker ItemsSource="{Binding Countries}"
                                 Grid.Row="1"
+<<<<<<< HEAD
                                 BorderBrush="Transparent"
                                 SelectionChanged="listPickerCountries_SelectionChanged"
                                 ExpansionMode="ExpansionAllowed"
@@ -61,6 +62,9 @@
                                 Background="{x:Null}"
                                 Foreground="{x:Null}">
 
+=======
+                                SelectionChanged="ListPicker_SelectionChanged">                     
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
                 <toolkit:ListPicker.ItemTemplate>
                     <DataTemplate>
                         <Image Source="{Binding FlagImage}" />
@@ -68,6 +72,7 @@
                 </toolkit:ListPicker.ItemTemplate>
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
+<<<<<<< HEAD
                         <Image Height="120"
                                Width="100"
                                Source="{Binding FlagImage}" />
@@ -100,6 +105,22 @@
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" />
+=======
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="100"
+                                   Width="80"
+                                   Source="{Binding FlagImage}"/>
+                            
+                            <TextBlock Grid.Column="1"
+                                       Padding="24, 30, 0, 0"
+                                       Text="{Binding Name}"
+                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                        </Grid>
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
                     </DataTemplate>
                 </toolkit:ListPicker.FullModeItemTemplate>
             </toolkit:ListPicker>

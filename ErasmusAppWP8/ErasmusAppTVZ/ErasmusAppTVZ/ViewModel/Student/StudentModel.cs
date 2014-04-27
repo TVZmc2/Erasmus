@@ -14,7 +14,7 @@ namespace ErasmusAppTVZ.ViewModel.Student
             {
                 StudentData studentData = new StudentData() 
                 {
-                    Name = "Student " + i,
+                    FirstName = "Student " + i,
                     //University = "University " + i % 10,
                     Age = (i % 10) + 18
                 };

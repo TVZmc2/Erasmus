@@ -21,6 +21,7 @@ namespace ErasmusAppTVZ
     {
         private static bool isFirstNavigation = true;
         private static CountryModel model;
+        private static int sortCounter = 0;
 
         public CountrySelect()
         {
@@ -35,6 +36,7 @@ namespace ErasmusAppTVZ
         /// <param name="check"></param>
         private void SetProgressBar(bool check)
         {
+            SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCountries;
             SystemTray.ProgressIndicator.IsIndeterminate = check;
             SystemTray.ProgressIndicator.IsVisible = check;
         }
@@ -60,9 +62,12 @@ namespace ErasmusAppTVZ
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
                 };
 
+                Random rand = new Random();
                 foreach (CountryData data in model.Countries)
+                {
+                    data.Rating = rand.Next(0, 5);
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
-
+                }
                 SetProgressBar(false);
                 isFirstNavigation = false;
             }
@@ -82,7 +87,7 @@ namespace ErasmusAppTVZ
             else
                 DataContext = model;
 
-            AnimationHelper.Animate(listBox, 1, 1000, new PropertyPath(OpacityProperty));
+            AnimationHelper.Fade(listBox, 1, 750, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -92,25 +97,45 @@ namespace ErasmusAppTVZ
         {
             ApplicationBar = new ApplicationBar();
 
+            //Icon buttons
             ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
-            ApplicationBarIconButton showOnMapIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton showMapIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton sortIconButton = new ApplicationBarIconButton();
 
             searchIconButton.Text = AppResources.ApplicationBarSearch;
-            showOnMapIconButton.Text = AppResources.ApplicationBarHideMap;
+            showMapIconButton.Text = AppResources.ApplicationBarShowMap;
             sortIconButton.Text = AppResources.ApplicationBarSort;
 
             searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
-            showOnMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
+            showMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             sortIconButton.IconUri = new Uri("/Assets/AppBar/sort.png", UriKind.Relative);
 
             searchIconButton.Click += searchIconButton_Click;
-            showOnMapIconButton.Click += showOnMapIconButton_Click;
+            showMapIconButton.Click += showMapIconButton_Click;
             sortIconButton.Click += sortIconButton_Click;
 
+            //Menu items
+            ApplicationBarMenuItem profileMenuItem = new ApplicationBarMenuItem();
+            ApplicationBarMenuItem optionsMenuItem = new ApplicationBarMenuItem();
+            ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem();
+
+            profileMenuItem.Text = AppResources.ApplicationBarProfileMenuItem;
+            optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
+            aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
+
+            profileMenuItem.Click += profileMenuItem_Click;
+            optionsMenuItem.Click += optionsMenuItem_Click;
+            aboutMenuItem.Click += aboutMenuItem_Click;
+
             ApplicationBar.Buttons.Add(searchIconButton);
-            ApplicationBar.Buttons.Add(showOnMapIconButton);
+            ApplicationBar.Buttons.Add(showMapIconButton);
             ApplicationBar.Buttons.Add(sortIconButton);
+
+            ApplicationBar.MenuItems.Add(profileMenuItem);
+            ApplicationBar.MenuItems.Add(optionsMenuItem);
+            ApplicationBar.MenuItems.Add(aboutMenuItem);
+
+            ApplicationBar.IsVisible = true;
         }
 
         #region EventHandlers
@@ -119,11 +144,75 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void sortIconButton_Click(object sender, EventArgs e)
+        void profileMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO:
-            //implement sorting
-            MessageBox.Show("Not implemented");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void optionsMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ExpanderView ev = sender as ExpanderView;
+
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}", ev.Tag),
+                UriKind.Relative));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            Grid grid = ApplicationBarHelper.GetAboutContentGrid();
+
+            CustomMessageBox aboutMsgBox = new CustomMessageBox()
+            {
+                Caption = AppResources.ApplicationBarAboutMenuItem,
+                Content = grid,
+                RightButtonContent = "ok"
+            };
+
+            aboutMsgBox.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void sortIconButton_Click(object sender, EventArgs e)
+        {
+            CountryModel cm;
+
+            if (sortCounter == 0)
+                 cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
+            else if (sortCounter == 1)
+                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Rating).ToList() };
+            else
+                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Name).ToList() };
+
+            sortCounter += 1;
+
+            if (sortCounter == 3)
+                sortCounter = 0;
+
+            DataContext = cm;
         }
 
         /// <summary>
@@ -131,7 +220,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void showOnMapIconButton_Click(object sender, EventArgs e)
+        private void showMapIconButton_Click(object sender, EventArgs e)
         {
             if (map.Visibility == System.Windows.Visibility.Visible)
             {

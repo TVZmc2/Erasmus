@@ -9,31 +9,30 @@ namespace ErasmusAppTVZ.ViewModel.Country
         public List<CountryData> Countries { get; set; }
         public bool IsDataLoaded { get; set; }
 
-        public void LoadData()
-        {
-            Countries = CreateCountyData();
-            IsDataLoaded = true;
-        }
+        //public void LoadData()
+        //{
+        //    Countries = CreateCountyData();
+        //    IsDataLoaded = true;
+        //}
 
-        private List<CountryData> CreateCountyData()
-        {
-            List<CountryData> countryDataList = new List<CountryData>();
-            Random rand = new Random();
+        //private List<CountryData> CreateCountyData()
+        //{
+        //    List<CountryData> countryDataList = new List<CountryData>();
+        //    Random rand = new Random();
 
-            for (int i = 0; i < 20; i++)
-            {
-                CountryData country = new CountryData() 
-                {
-                    Name = "Country " + i,
-                    Rating = i % 10 < 6 ? i % 10 : (10 - (i % 10)),
-                    //Flag = new SolidColorBrush(Color.FromArgb((byte)255, (byte)rand.Next(255), (byte)rand.Next(255), (byte)rand.Next(255)))
-                };
+        //    for (int i = 0; i < 20; i++)
+        //    {
+        //        CountryData country = new CountryData() 
+        //        {
+        //            Name = "Country " + i,
+        //            Rating = i % 10 < 6 ? i % 10 : (10 - (i % 10)),
+        //        };
 
-                countryDataList.Add(country);
-            }
+        //        countryDataList.Add(country);
+        //    }
 
-            return countryDataList;
-        }
+        //    return countryDataList;
+        //}
 
     }//class
 }//namespace

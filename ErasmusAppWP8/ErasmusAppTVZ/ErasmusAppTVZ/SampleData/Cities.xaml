@@ -4,11 +4,11 @@
     xmlns:vm="clr-namespace:ErasmusAppTVZ.ViewModel.City">
 
     <vm:CityModel.Cities>
-        <vm:CityData Name="Zagreb" />
-        <vm:CityData Name="Split" />
-        <vm:CityData Name="Osijek" />
-        <vm:CityData Name="Varaždin" />
-        <vm:CityData Name="Zadar" />
+        <vm:CityData Name="Zagreb" Rating="3" />
+        <vm:CityData Name="Split" Rating="2.1" />
+        <vm:CityData Name="Osijek" Rating="5" />
+        <vm:CityData Name="Varaždin" Rating="1.2" />
+        <vm:CityData Name="Zadar" Rating="4.9" />
     </vm:CityModel.Cities>
 
 </vm:CityModel>

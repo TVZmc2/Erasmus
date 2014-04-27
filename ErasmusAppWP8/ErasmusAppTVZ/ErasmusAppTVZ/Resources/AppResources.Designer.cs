@@ -187,6 +187,24 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading cities....
+        /// </summary>
+        public static string ProgressIndicatorCities {
+            get {
+                return ResourceManager.GetString("ProgressIndicatorCities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading countries....
+        /// </summary>
+        public static string ProgressIndicatorCountries {
+            get {
+                return ResourceManager.GetString("ProgressIndicatorCountries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {

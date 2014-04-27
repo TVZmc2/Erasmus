@@ -13,15 +13,20 @@ using Microsoft.WindowsAzure.MobileServices;
 using System.Windows.Media.Imaging;
 using System.IO;
 using ErasmusAppTVZ.Helpers;
+<<<<<<< HEAD
 using System.Windows.Media;
 using ErasmusAppTVZ.ViewModel.University;
 using ErasmusAppTVZ.ViewModel.Programme;
+=======
+using ErasmusAppTVZ.ViewModel.University;
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
 
 namespace ErasmusAppTVZ
 {
     public partial class MainPage : PhoneApplicationPage
     {
         public CountryModel Country;
+<<<<<<< HEAD
         public UniversityModel University;
 
         public List<string> FlagValues;
@@ -32,15 +37,25 @@ namespace ErasmusAppTVZ
         public static bool isFirstNavigation = true;
         private int selectedCountryIndex;
 
+=======
+        public static UniversityModel University;
+        public List<string> Values;
+        public List<string> UniversityNames;
+        public static bool isFirstNavigation = true;
+
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+<<<<<<< HEAD
             Loaded += MainPage_Loaded;
 
             InitializeStudProf();
 
             // ((SolidColorBrush)App.Current.Resources["PhoneChromeBrush"]).Color = Colors.Black;
+=======
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
 
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
@@ -60,31 +75,33 @@ namespace ErasmusAppTVZ
         {
             if (isFirstNavigation)
             {
+<<<<<<< HEAD
                 #region Country
                 Country = new CountryModel();
                 FlagValues = await App.MobileService.GetTable<CountryData>().Select(x => x.Flag).ToListAsync();
                 Country.Countries = new List<CountryData>();
 
                 foreach (string s in FlagValues)
+=======
+                Country = new CountryModel()
+>>>>>>> c431c8a64e227f1fade538d206e972b23a19803a
                 {
-                    CountryData countryData = new CountryData() 
-                    { 
-                        FlagImage = ImageConversionHelper.ToImage(s) 
-                    };
+                    Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
+                };
 
-                    Country.Countries.Add(countryData);
+                foreach (CountryData data in Country.Countries)
+                {
+                    data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
+                    data.Flag = String.Empty;
                 }
+
+                UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryId == 1).Select(x => x.Name).ToListAsync();
 
                 DataContext = Country;
                 #endregion
 
                 isFirstNavigation = false;
             }
-        }
-
-        void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
         }
 
         /// <summary>

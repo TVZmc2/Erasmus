@@ -13,7 +13,7 @@ namespace ErasmusAppTVZ.Helpers
         /// <param name="value">Value of the property</param>
         /// <param name="milliseconds">Timespan of animation</param>
         /// <param name="property">Targeted property</param>
-        public static void Animate(DependencyObject sender, double value, double milliseconds, PropertyPath property)
+        public static void Fade(DependencyObject sender, double value, double milliseconds, PropertyPath property)
         {
             Storyboard s = new Storyboard();
             DoubleAnimation da = new DoubleAnimation();

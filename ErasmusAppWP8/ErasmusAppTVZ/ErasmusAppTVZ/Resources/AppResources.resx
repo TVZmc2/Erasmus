@@ -167,4 +167,10 @@
   <data name="ApplicationBarSort" xml:space="preserve">
     <value>sort</value>
   </data>
+  <data name="ProgressIndicatorCities" xml:space="preserve">
+    <value>Loading cities...</value>
+  </data>
+  <data name="ProgressIndicatorCountries" xml:space="preserve">
+    <value>Loading countries...</value>
+  </data>
 </root>
