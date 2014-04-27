@@ -123,6 +123,8 @@ namespace ErasmusAppTVZ
             optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
             aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
 
+            profileMenuItem.Click += profileMenuItem_Click;
+            optionsMenuItem.Click += optionsMenuItem_Click;
             aboutMenuItem.Click += aboutMenuItem_Click;
 
             ApplicationBar.Buttons.Add(searchIconButton);
@@ -137,6 +139,26 @@ namespace ErasmusAppTVZ
         }
 
         #region EventHandlers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void profileMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void optionsMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 
         /// </summary>

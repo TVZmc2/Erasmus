@@ -4,15 +4,15 @@ namespace ErasmusAppTVZ.ViewModel.City
 {
     public class CityData
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [JsonProperty(PropertyName="countryId")]
         public int CountryId { get; set; }
 
-        [JsonProperty(PropertyName = "city_name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "city_rating")]
+        [JsonProperty(PropertyName = "rating")]
         public float Rating { get; set; }
         
     }

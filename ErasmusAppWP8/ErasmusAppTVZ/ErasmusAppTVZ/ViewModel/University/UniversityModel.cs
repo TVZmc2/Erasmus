@@ -2,7 +2,7 @@
 
 namespace ErasmusAppTVZ.ViewModel.University
 {
-    class UniversityModel
+    public class UniversityModel
     {
         public List<UniversityData> Universities { get; set; }
 

@@ -13,6 +13,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using System.Windows.Media.Imaging;
 using System.IO;
 using ErasmusAppTVZ.Helpers;
+using ErasmusAppTVZ.ViewModel.University;
 
 namespace ErasmusAppTVZ
 {
@@ -22,13 +23,11 @@ namespace ErasmusAppTVZ
         public List<string> Values;
         public static bool isFirstNavigation = true;
 
-
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
-            Loaded += MainPage_Loaded;
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
         }
@@ -60,11 +59,6 @@ namespace ErasmusAppTVZ
 
                 isFirstNavigation = false;
             }
-        }
-
-        void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            //NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
         }
 
         /// <summary>
