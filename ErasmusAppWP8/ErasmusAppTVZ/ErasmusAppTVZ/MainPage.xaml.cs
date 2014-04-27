@@ -20,7 +20,9 @@ namespace ErasmusAppTVZ
     public partial class MainPage : PhoneApplicationPage
     {
         public CountryModel Country;
+        public static UniversityModel University;
         public List<string> Values;
+        public List<string> UniversityNames;
         public static bool isFirstNavigation = true;
 
         // Constructor
@@ -40,20 +42,18 @@ namespace ErasmusAppTVZ
         {
             if (isFirstNavigation)
             {
-                Country = new CountryModel();
-                Country.Countries = await App.MobileService.GetTable<CountryData>().ToListAsync();
-                //Country.Countries = new List<CountryData>();
+                Country = new CountryModel()
+                {
+                    Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
+                };
 
                 foreach (CountryData data in Country.Countries)
                 {
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
-                    //CountryData countryData = new CountryData() 
-                    //{ 
-                    //    FlagImage = ImageConversionHelper.ToImage(s) 
-                    //};
-
-                    //Country.Countries.Add(countryData);
+                    data.Flag = String.Empty;
                 }
+
+                UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryId == 1).Select(x => x.Name).ToListAsync();
 
                 DataContext = Country;
 
