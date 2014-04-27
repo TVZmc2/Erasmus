@@ -16,7 +16,8 @@ namespace ErasmusAppTVZ
 {
     public partial class CitySelect : PhoneApplicationPage
     {
-        private static CityModel cm;
+        private static CityModel model;
+        private static int sortCounter = 0;
 
         public CitySelect()
         {
@@ -53,12 +54,12 @@ namespace ErasmusAppTVZ
             {
                 string searchTerm = NavigationContext.QueryString["search"];
 
-                CityModel model = new CityModel()
+                CityModel cm = new CityModel()
                 {
-                    Cities = cm.Cities.Where(x => x.Name.Contains(searchTerm)).ToList()
+                    Cities = model.Cities.Where(x => x.Name.Contains(searchTerm)).ToList()
                 };
 
-                DataContext = model;
+                DataContext = cm;
             }
             else if (NavigationContext.QueryString.ContainsKey("countryId"))
             {
@@ -70,10 +71,10 @@ namespace ErasmusAppTVZ
                 SetProgressBar(true);
 
                 //test data
-                cm = new CityModel();
-                cm.LoadData();
+                model = new CityModel();
+                model.LoadData();
 
-                DataContext = cm;
+                DataContext = model;
 
                 SetProgressBar(false);
 
@@ -170,9 +171,21 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void sortIconButton_Click(object sender, EventArgs e)
         {
-            //TODO:
-            //implement sorting
-            MessageBox.Show("Not implemented");
+            CityModel cm;
+
+            if (sortCounter == 0)
+                cm = new CityModel() { Cities = model.Cities.OrderByDescending(x => x.Rating).ToList() };
+            else if (sortCounter == 1)
+                cm = new CityModel() { Cities = model.Cities.OrderBy(x => x.Rating).ToList() };
+            else
+                cm = new CityModel() { Cities = model.Cities.OrderBy(x => x.Name).ToList() };
+
+            sortCounter += 1;
+
+            if (sortCounter == 3)
+                sortCounter = 0;
+
+            DataContext = cm;
         }
 
         /// <summary>

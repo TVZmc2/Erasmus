@@ -42,17 +42,18 @@ namespace ErasmusAppTVZ
             if (isFirstNavigation)
             {
                 Country = new CountryModel();
-                Values = await App.MobileService.GetTable<CountryData>().Select(x => x.Flag).ToListAsync();
-                Country.Countries = new List<CountryData>();
+                Country.Countries = await App.MobileService.GetTable<CountryData>().ToListAsync();
+                //Country.Countries = new List<CountryData>();
 
-                foreach (string s in Values)
+                foreach (CountryData data in Country.Countries)
                 {
-                    CountryData countryData = new CountryData() 
-                    { 
-                        FlagImage = ImageConversionHelper.ToImage(s) 
-                    };
+                    data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
+                    //CountryData countryData = new CountryData() 
+                    //{ 
+                    //    FlagImage = ImageConversionHelper.ToImage(s) 
+                    //};
 
-                    Country.Countries.Add(countryData);
+                    //Country.Countries.Add(countryData);
                 }
 
                 DataContext = Country;

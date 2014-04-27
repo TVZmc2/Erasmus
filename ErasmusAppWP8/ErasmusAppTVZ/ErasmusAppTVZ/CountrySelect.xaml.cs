@@ -21,6 +21,7 @@ namespace ErasmusAppTVZ
     {
         private static bool isFirstNavigation = true;
         private static CountryModel model;
+        private static int sortCounter = 0;
 
         public CountrySelect()
         {
@@ -61,9 +62,12 @@ namespace ErasmusAppTVZ
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
                 };
 
+                Random rand = new Random();
                 foreach (CountryData data in model.Countries)
+                {
+                    data.Rating = rand.Next(0, 5);
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
-
+                }
                 SetProgressBar(false);
                 isFirstNavigation = false;
             }
@@ -151,7 +155,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void aboutMenuItem_Click(object sender, EventArgs e)
+        private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             Grid grid = ApplicationBarHelper.GetAboutContentGrid();
 
@@ -170,11 +174,23 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        static void sortIconButton_Click(object sender, EventArgs e)
+        private void sortIconButton_Click(object sender, EventArgs e)
         {
-            //TODO:
-            //implement sorting
-            MessageBox.Show("Not implemented");
+            CountryModel cm;
+
+            if (sortCounter == 0)
+                 cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
+            else if (sortCounter == 1)
+                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Rating).ToList() };
+            else
+                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Name).ToList() };
+
+            sortCounter += 1;
+
+            if (sortCounter == 3)
+                sortCounter = 0;
+
+            DataContext = cm;
         }
 
         /// <summary>

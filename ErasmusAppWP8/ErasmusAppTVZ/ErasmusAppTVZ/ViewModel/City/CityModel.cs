@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ErasmusAppTVZ.ViewModel.City
@@ -24,10 +25,20 @@ namespace ErasmusAppTVZ.ViewModel.City
                 CityData city = new CityData()
                 {
                     Name = "City " + i,
+                    Rating = i % 10 < 6 ? i % 10 : (10 - (i % 10))
                 };
 
                 cityDataList.Add(city);
             }
+
+            //sorting by name descending
+            IEnumerable<CityData> sorted;
+
+            sorted = from item in cityDataList
+                     orderby item.Name
+                     select item;
+
+            cityDataList = sorted.ToList();
 
             return cityDataList;
         }

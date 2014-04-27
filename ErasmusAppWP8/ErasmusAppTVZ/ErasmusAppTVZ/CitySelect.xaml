@@ -130,7 +130,7 @@
                                        VerticalAlignment="Center"
                                        FontSize="{StaticResource PhoneFontSizeLarge}"/>
 
-                                    <TextBlock Text="0.0" 
+                                    <TextBlock Text="{Binding Rating}" 
                                        Grid.Column="2"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"

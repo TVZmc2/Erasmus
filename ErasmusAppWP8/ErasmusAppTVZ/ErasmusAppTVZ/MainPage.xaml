@@ -50,7 +50,7 @@
             <!-- Drop down for countries -->
             <toolkit:ListPicker ItemsSource="{Binding Countries}"
                                 Grid.Row="1"
-                                SelectionChanged="ListPicker_SelectionChanged">
+                                SelectionChanged="ListPicker_SelectionChanged">                     
                 <toolkit:ListPicker.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="Select..." 
@@ -59,9 +59,20 @@
                 </toolkit:ListPicker.ItemTemplate>
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
-                        <Image Height="100"
-                               Width="80"
-                               Source="{Binding FlagImage}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Height="100"
+                                   Width="80"
+                                   Source="{Binding FlagImage}"/>
+                            
+                            <TextBlock Grid.Column="1"
+                                       Padding="24, 30, 0, 0"
+                                       Text="{Binding Name}"
+                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                        </Grid>
                     </DataTemplate>
                 </toolkit:ListPicker.FullModeItemTemplate>
             </toolkit:ListPicker>
