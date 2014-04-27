@@ -3,6 +3,7 @@
   <DefaultLanguage xmlns="" code="en-US" />
   <Languages xmlns="">
     <Language code="en" />
+    <Language code="hr" />
   </Languages>
   <App xmlns="" ProductID="{b719b949-9771-48f2-87c3-d028b0839e34}" Title="ErasmusAppTVZ" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ErasmusAppTVZ author" Description="Sample description" Publisher="ErasmusAppTVZ" PublisherID="{6ec59d99-6604-4f4c-8378-717f42dd6761}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
@@ -21,16 +22,11 @@
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
           <Title>ErasmusAppTVZ</Title>
-          <BackContent>
-          </BackContent>
-          <BackBackgroundImageURI>
-          </BackBackgroundImageURI>
-          <BackTitle>
-          </BackTitle>
-          <DeviceLockImageURI>
-          </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <BackContent></BackContent>
+          <BackBackgroundImageURI></BackBackgroundImageURI>
+          <BackTitle></BackTitle>
+          <DeviceLockImageURI></DeviceLockImageURI>
+          <HasLarge></HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>

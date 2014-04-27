@@ -14,24 +14,40 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.ViewModel.University;
+using ErasmusAppTVZ.ViewModel.Programme;
 
 namespace ErasmusAppTVZ
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        //public List<string> Values;
+        //public List<string> UniversityNames;
+        //public List<string> ProgrammeNames { get; set; }
+
         public CountryModel Country;
-        public static UniversityModel University;
-        public List<string> Values;
-        public List<string> UniversityNames;
+        public UniversityModel University;
+        public List<int> univIndex;
+
         public static bool isFirstNavigation = true;
+        private int selectedCountryIndex;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
+            InitializeStudProf();
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
+        }
+
+        /// <summary>
+        /// Initializes content for listPickerStudProf element
+        /// </summary>
+        private void InitializeStudProf()
+        {
+            listPickerStudProf.Items.Add("Student");
+            listPickerStudProf.Items.Add("Professor");
         }
 
         /// <summary>
@@ -53,13 +69,35 @@ namespace ErasmusAppTVZ
                     data.Flag = String.Empty;
                 }
 
-                UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryId == 1).Select(x => x.Name).ToListAsync();
+                //UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryId == 1).Select(x => x.Name).ToListAsync();
+
+                //listPickerUniversities.ItemsSource = UniversityNames;
 
                 DataContext = Country;
 
                 isFirstNavigation = false;
             }
         }
+
+        #region EventHandlers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //private void listPickerStudProf_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (listPickerStudProf.SelectedItem.ToString() == "Professor")
+        //    {
+        //        listPickerPrograms.IsEnabled = false;
+        //        listPickerPrograms.ItemsSource = null;
+        //    }
+        //    else
+        //    {
+        //        listPickerPrograms.IsEnabled = true;
+        //        listPickerUniversities_SelectionChanged(sender, null);
+        //    }
+        //}
 
         /// <summary>
         /// 
@@ -109,20 +147,70 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
+        /// Probably not needed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        //private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    CountryData flag = (sender as ListPicker).SelectedItem as CountryData;
+
+        //    if (flag != null)
+        //        img.Source = flag.FlagImage;
+        //}
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void listPickerCountries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CountryData flag = (sender as ListPicker).SelectedItem as CountryData;
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorUniversities);
 
-            if (flag != null)
-                img.Source = flag.FlagImage;
+            selectedCountryIndex = (sender as ListPicker).SelectedIndex + 1;
+
+            univIndex = null;
+            listPickerPrograms.ItemsSource = null;
+
+            List<string> UniversityNames = await App.MobileService.GetTable<UniversityData>().
+                Where(x => x.CountryId == selectedCountryIndex).
+                Select(x => x.Name).ToListAsync();
+            
+            listPickerUniversities.ItemsSource = UniversityNames;
+
+            ProgressIndicatorHelper.SetProgressBar(false, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void listPickerUniversities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listPickerUniversities.SelectedItem != null)
+            {
+                SystemTray.ProgressIndicator = new ProgressIndicator();
+                ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorProgrammes);
+
+                univIndex = await App.MobileService.GetTable<UniversityData>().
+                    Where(x => x.Name == listPickerUniversities.SelectedItem.ToString()).
+                    Select(x => x.ID).ToListAsync();
+
+                List<string> ProgrammeNames = await App.MobileService.GetTable<ProgrammeData>().
+                    Where(x => x.UniversityId == univIndex.First()).
+                    Select(x => x.Name).ToListAsync();
+
+                listPickerPrograms.ItemsSource = ProgrammeNames;
+
+                ProgressIndicatorHelper.SetProgressBar(false, null);
+            }
         }
 
 
-
+        #endregion
         // Sample code for building a localized ApplicationBar
         //private void BuildLocalizedApplicationBar()
         //{

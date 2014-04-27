@@ -34,12 +34,12 @@ namespace ErasmusAppTVZ
         /// Sets the visibillity and indertermination of ProgressIndicator
         /// </summary>
         /// <param name="check"></param>
-        private void SetProgressBar(bool check)
-        {
-            SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCountries;
-            SystemTray.ProgressIndicator.IsIndeterminate = check;
-            SystemTray.ProgressIndicator.IsVisible = check;
-        }
+        //private void SetProgressBar(bool check)
+        //{
+        //    SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCountries;
+        //    SystemTray.ProgressIndicator.IsIndeterminate = check;
+        //    SystemTray.ProgressIndicator.IsVisible = check;
+        //}
 
         /// <summary>
         /// Checks if 'search' parameter exists
@@ -55,7 +55,7 @@ namespace ErasmusAppTVZ
             if (isFirstNavigation)
             {
                 SystemTray.ProgressIndicator = new ProgressIndicator();
-                SetProgressBar(true);
+                ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCountries);
 
                 model = new CountryModel()
                 {
@@ -68,7 +68,8 @@ namespace ErasmusAppTVZ
                     data.Rating = rand.Next(0, 5);
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
                 }
-                SetProgressBar(false);
+                
+                ProgressIndicatorHelper.SetProgressBar(false, null);
                 isFirstNavigation = false;
             }
 
@@ -146,7 +147,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void profileMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Not implemented");
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void optionsMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Not implemented");
         }
 
         /// <summary>
@@ -203,7 +204,7 @@ namespace ErasmusAppTVZ
             if (sortCounter == 0)
                  cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Rating).ToList() };
+                cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Name).ToList() };
             else
                 cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Name).ToList() };
 
