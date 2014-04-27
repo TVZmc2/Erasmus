@@ -50,7 +50,8 @@
             </Grid.RowDefinitions>
 
             <!-- list picker countries -->
-            <toolkit:ListPicker ItemsSource="{Binding Countries}"
+            <toolkit:ListPicker Name="listPickerCountries"
+                                ItemsSource="{Binding Countries}"
                                 BorderBrush="Transparent"
                                 SelectionChanged="listPickerCountries_SelectionChanged"
                                 ExpansionMode="FullScreenOnly"
@@ -102,25 +103,15 @@
                 </toolkit:ListPicker.FullModeItemTemplate>
             </toolkit:ListPicker>
 
-            <!-- list picker for programes -->
+            <!-- list picker for programs -->
             <toolkit:ListPicker Name="listPickerPrograms"
                                 Grid.Row="3">
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Image Height="100"
-                                   Width="80"
-                                   Source="{Binding FlagImage}"/>
-
-                            <TextBlock Grid.Column="1"
-                                       Padding="24, 30, 0, 0"
-                                       Text="{Binding Name}"
-                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                        </Grid>
+                        <TextBlock Grid.Column="1"
+                                   Padding="24, 30, 0, 0"
+                                   Text="{Binding Name}"
+                                   FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
                     </DataTemplate>
                 </toolkit:ListPicker.FullModeItemTemplate>
             </toolkit:ListPicker>

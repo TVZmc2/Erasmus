@@ -15,6 +15,7 @@ using System.IO;
 using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.ViewModel.University;
 using ErasmusAppTVZ.ViewModel.Programme;
+using System.Threading.Tasks;
 
 namespace ErasmusAppTVZ
 {
@@ -30,6 +31,9 @@ namespace ErasmusAppTVZ
 
         public static bool isFirstNavigation = true;
         private int selectedCountryIndex;
+
+        public int loginCountryID;
+        public string loginProgrammeCategory;
 
         // Constructor
         public MainPage()
@@ -104,8 +108,20 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
+                Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
+                Select(x => x.Id).ToListAsync();
+
+            loginCountryID = tempCountry.First();
+
+            List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
+                Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
+                Select(x => x.Category).ToListAsync();
+
+            loginProgrammeCategory = tempCategory.First();
+
             CheckBox checkBox = new CheckBox()
             {
                 Content = "Remember me",
@@ -129,7 +145,7 @@ namespace ErasmusAppTVZ
                     case CustomMessageBoxResult.LeftButton:
                         if ((bool)checkBox.IsChecked)
                         {
-                            //Remember user
+                            //Remember user preferences
                         }
 
                         NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
@@ -205,6 +221,7 @@ namespace ErasmusAppTVZ
                     Select(x => x.Name).ToListAsync();
 
                 listPickerPrograms.ItemsSource = ProgrammeNames;
+                //listPickerPrograms.SelectedIndex = 1;
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
             }
