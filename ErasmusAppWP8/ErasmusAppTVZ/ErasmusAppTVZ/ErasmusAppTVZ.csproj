@@ -123,11 +123,11 @@
     <Compile Include="ViewModel\Event\EventData.cs" />
     <Compile Include="ViewModel\Event\EventModel.cs" />
     <Compile Include="ViewModel\Panorama\PanoramaModel.cs" />
+    <Compile Include="ViewModel\Programme\ProgrammeData.cs" />
     <Compile Include="ViewModel\Student\StudentData.cs" />
     <Compile Include="ViewModel\Student\StudentModel.cs" />
     <Compile Include="ViewModel\University\UniversityData.cs" />
     <Compile Include="ViewModel\University\UniversityModel.cs" />
-    <Compile Include="ViewModel\University\UniversityProgrammeData.cs" />
     <Compile Include="ViewModel\University\UniversityRankData.cs" />
   </ItemGroup>
   <ItemGroup>

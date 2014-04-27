@@ -13,26 +13,45 @@ using Microsoft.WindowsAzure.MobileServices;
 using System.Windows.Media.Imaging;
 using System.IO;
 using ErasmusAppTVZ.Helpers;
+using System.Windows.Media;
+using ErasmusAppTVZ.ViewModel.University;
+using ErasmusAppTVZ.ViewModel.Programme;
 
 namespace ErasmusAppTVZ
 {
     public partial class MainPage : PhoneApplicationPage
     {
         public CountryModel Country;
-        public List<string> Values;
-        public static bool isFirstNavigation = true;
+        public UniversityModel University;
 
+        public List<string> FlagValues;
+        public List<string> UniversityNames;
+        public List<string> ProgrammeNames;
+        public List<int> univIndex;
+
+        public static bool isFirstNavigation = true;
+        private int selectedCountryIndex;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-
             Loaded += MainPage_Loaded;
+
+            InitializeStudProf();
+
+            // ((SolidColorBrush)App.Current.Resources["PhoneChromeBrush"]).Color = Colors.Black;
+
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
         }
 
+        public void InitializeStudProf()
+        {
+            listPickerStudProf.Items.Add("Student");
+            listPickerStudProf.Items.Add("Professor");
+        }
+       
         /// <summary>
         /// 
         /// </summary>
@@ -41,11 +60,12 @@ namespace ErasmusAppTVZ
         {
             if (isFirstNavigation)
             {
+                #region Country
                 Country = new CountryModel();
-                Values = await App.MobileService.GetTable<CountryData>().Select(x => x.Flag).ToListAsync();
+                FlagValues = await App.MobileService.GetTable<CountryData>().Select(x => x.Flag).ToListAsync();
                 Country.Countries = new List<CountryData>();
 
-                foreach (string s in Values)
+                foreach (string s in FlagValues)
                 {
                     CountryData countryData = new CountryData() 
                     { 
@@ -56,6 +76,7 @@ namespace ErasmusAppTVZ
                 }
 
                 DataContext = Country;
+                #endregion
 
                 isFirstNavigation = false;
             }
@@ -73,7 +94,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CheckBox checkBox = new CheckBox() 
+            CheckBox checkBox = new CheckBox()
             {
                 Content = "Remember me",
                 Margin = new Thickness(0, 12, 0, 0)
@@ -82,7 +103,7 @@ namespace ErasmusAppTVZ
             CustomMessageBox rememberMeMsgBox = new CustomMessageBox()
             {
                 Caption = "Do you want your preferences to be remembered?",
-                Message = "If you choose to save your preferences, you will no longer see this screen. " + 
+                Message = "If you choose to save your preferences, you will no longer see this screen. " +
                 "But, if you want to change them later, you can easily access preference options located in Application Bar. ",
                 Content = checkBox,
                 LeftButtonContent = "ok",
@@ -118,13 +139,27 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        async private void listPickerCountries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CountryData flag = (sender as ListPicker).SelectedItem as CountryData;
+            selectedCountryIndex = ((sender as ListPicker).SelectedIndex + 1);
+            univIndex = null;
+            listPickrProgramee.ItemsSource = null;
 
-            if (flag != null)
-                img.Source = flag.FlagImage;
+            UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryID == selectedCountryIndex).Select(x => x.Name).ToListAsync();
+            listPickrUniversities.ItemsSource = UniversityNames;
         }
+
+        async private void listPickrUniversities_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listPickrUniversities.SelectedItem != null)
+            {
+                univIndex = await App.MobileService.GetTable<UniversityData>().Where(x => x.Name == listPickrUniversities.SelectedItem.ToString()).Select(x => x.ID).ToListAsync();
+                ProgrammeNames = await App.MobileService.GetTable<ProgrammeData>().Where(x => x.facultyID == univIndex.First()).Select(x => x.Name).ToListAsync();
+                listPickrProgramee.ItemsSource = ProgrammeNames;
+            }
+        }
+
 
 
 
