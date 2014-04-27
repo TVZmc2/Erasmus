@@ -16,6 +16,7 @@ using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.ViewModel.University;
 using ErasmusAppTVZ.ViewModel.Programme;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace ErasmusAppTVZ
 {
@@ -39,6 +40,9 @@ namespace ErasmusAppTVZ
         public MainPage()
         {
             InitializeComponent();
+
+            //if ((App.Current.Resources["PhoneBackgroundBrush"] as SolidColorBrush).Color == Colors.White)
+            //    listPickerCountries.Background = new SolidColorBrush(Colors.Gray);
 
             InitializeStudProf();
             // Sample code to localize the ApplicationBar
@@ -110,17 +114,23 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
-                Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
-                Select(x => x.Id).ToListAsync();
+            if (listPickerCountries.SelectedItem != null)
+            {
+                List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
+                    Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
+                    Select(x => x.Id).ToListAsync();
 
-            loginCountryID = tempCountry.First();
+                loginCountryID = tempCountry.First();
+            }
 
-            List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
-                Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
-                Select(x => x.Category).ToListAsync();
+            if (listPickerPrograms.SelectedItem != null)
+            {
+                List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
+                    Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
+                    Select(x => x.Category).ToListAsync();
 
-            loginProgrammeCategory = tempCategory.First();
+                loginProgrammeCategory = tempCategory.First();
+            }
 
             CheckBox checkBox = new CheckBox()
             {

@@ -78,6 +78,8 @@ namespace ErasmusAppTVZ
 
             if (NavigationContext.QueryString.ContainsKey("search"))
             {
+                sortCounter = 0;
+
                 string searchTerm = NavigationContext.QueryString["search"];
 
                 CountryModel filteredModel = new CountryModel();
@@ -199,21 +201,17 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void sortIconButton_Click(object sender, EventArgs e)
         {
-            CountryModel cm;
-
             if (sortCounter == 0)
-                cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Name).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderByDescending(x => x.Name).ToList() };
             else
-                cm = new CountryModel() { Countries = model.Countries.OrderBy(x => x.Name).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderBy(x => x.Name).ToList() };
 
             sortCounter += 1;
 
             if (sortCounter == 3)
                 sortCounter = 0;
-
-            DataContext = cm;
         }
 
         /// <summary>

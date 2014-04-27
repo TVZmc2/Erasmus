@@ -52,13 +52,14 @@
             <!-- list picker countries -->
             <toolkit:ListPicker Name="listPickerCountries"
                                 ItemsSource="{Binding Countries}"
-                                BorderBrush="Transparent"
+                                BorderThickness="1"
                                 SelectionChanged="listPickerCountries_SelectionChanged"
                                 ExpansionMode="FullScreenOnly"
-                                Width="150">
+                                Width="120">
                 <toolkit:ListPicker.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding FlagImage}" />
+                        <Image Margin="-12, -36, -12, -36"
+                               Source="{Binding FlagImage}" />
                     </DataTemplate>
                 </toolkit:ListPicker.ItemTemplate>
                 <toolkit:ListPicker.FullModeItemTemplate>

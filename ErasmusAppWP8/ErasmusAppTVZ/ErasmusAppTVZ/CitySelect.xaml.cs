@@ -52,6 +52,8 @@ namespace ErasmusAppTVZ
 
             if (NavigationContext.QueryString.ContainsKey("search"))
             {
+                sortCounter = 0;
+
                 string searchTerm = NavigationContext.QueryString["search"];
 
                 CityModel cm = new CityModel()
@@ -193,21 +195,17 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void sortIconButton_Click(object sender, EventArgs e)
         {
-            CityModel cm;
-
             if (sortCounter == 0)
-                cm = new CityModel() { Cities = model.Cities.OrderByDescending(x => x.Rating).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                cm = new CityModel() { Cities = model.Cities.OrderByDescending(x => x.Name).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderByDescending(x => x.Name).ToList() };
             else
-                cm = new CityModel() { Cities = model.Cities.OrderBy(x => x.Name).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderBy(x => x.Name).ToList() };
 
             sortCounter += 1;
 
             if (sortCounter == 3)
                 sortCounter = 0;
-
-            DataContext = cm;
         }
 
         /// <summary>
