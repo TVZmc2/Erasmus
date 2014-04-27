@@ -9,11 +9,10 @@ namespace ErasmusAppTVZ.ViewModel.Programme
 {
     class ProgrammeData
     {
-        [JsonProperty(PropertyName = "ID")]
         public int ID { get; set; }
 
         [JsonProperty(PropertyName = "facultyID")]
-        public int facultyID { get; set; }
+        public int UniversityId { get; set; }
 
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }

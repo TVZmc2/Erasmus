@@ -13,6 +13,7 @@ namespace ErasmusAppTVZ.ViewModel.Panorama
 
         public PanoramaModel()
         {
+            Universities = UniversityModel.CreateUniversityData();
             Students = StudentModel.CreateStudentData();
             Events = EventModel.CreateEventData();
         }

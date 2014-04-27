@@ -122,61 +122,61 @@
     <comment>Controls the FlowDirection for all elements in the RootFrame. Set to the traditional direction of this resource file's language</comment>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>en-US</value>
+    <value>hr</value>
     <comment>Controls the Language and ensures that the font for all elements in the RootFrame aligns with the app's language. Set to the language code of this resource file's language.</comment>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
     <value>erasmus</value>
   </data>
   <data name="ApplicationCountriesPageTitle" xml:space="preserve">
-    <value>countries</value>
+    <value>zemlje</value>
   </data>
   <data name="ApplicationBarShowMap" xml:space="preserve">
-    <value>show map</value>
+    <value>prikaži kartu</value>
   </data>
   <data name="ApplicationBarSearch" xml:space="preserve">
-    <value>search</value>
+    <value>pretraži</value>
   </data>
   <data name="ApplicationCitiesPageTitle" xml:space="preserve">
-    <value>cities</value>
+    <value>gradovi</value>
   </data>
   <data name="ApplicationLoginPageTitle" xml:space="preserve">
-    <value>login</value>
+    <value>prijava</value>
   </data>
   <data name="PanoramaEventsPageTitle" xml:space="preserve">
-    <value>events</value>
+    <value>događaji</value>
   </data>
   <data name="PanoramaStudentsPageTitle" xml:space="preserve">
-    <value>students</value>
+    <value>studenti</value>
   </data>
   <data name="PanoramaUniversitiesPageTitle" xml:space="preserve">
-    <value>universities</value>
+    <value>fakulteti</value>
   </data>
   <data name="ApplicationBarHideMap" xml:space="preserve">
-    <value>hide map</value>
+    <value>sakrij kartu</value>
   </data>
   <data name="ApplicationBarAboutMenuItem" xml:space="preserve">
-    <value>about</value>
+    <value>informacije</value>
   </data>
   <data name="ApplicationBarOptionsMenuItem" xml:space="preserve">
-    <value>options</value>
+    <value>opcije</value>
   </data>
   <data name="ApplicationBarProfileMenuItem" xml:space="preserve">
-    <value>profile</value>
+    <value>profil</value>
   </data>
   <data name="ApplicationBarSort" xml:space="preserve">
-    <value>sort</value>
+    <value>sortiraj</value>
   </data>
   <data name="ProgressIndicatorCities" xml:space="preserve">
-    <value>Loading cities...</value>
+    <value>Dohvaćam gradove...</value>
   </data>
   <data name="ProgressIndicatorCountries" xml:space="preserve">
-    <value>Loading countries...</value>
+    <value>Dohvaćam zemlje...</value>
   </data>
-  <data name="ProgressIndicatorPrograms" xml:space="preserve">
-    <value>Loading programs...</value>
+  <data name="ProgressIndicatorProgrammes" xml:space="preserve">
+    <value>Dohvaćam programe...</value>
   </data>
   <data name="ProgressIndicatorUniversities" xml:space="preserve">
-    <value>Loading universities...</value>
+    <value>Dohvaćam fakultete...</value>
   </data>
 </root>

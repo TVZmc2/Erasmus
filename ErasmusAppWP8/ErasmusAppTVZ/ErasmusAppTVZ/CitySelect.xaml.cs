@@ -30,12 +30,12 @@ namespace ErasmusAppTVZ
         /// Sets the visibillity and indertermination of ProgressIndicator
         /// </summary>
         /// <param name="check"></param>
-        private void SetProgressBar(bool check)
-        {
-            SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCities;
-            SystemTray.ProgressIndicator.IsIndeterminate = check;
-            SystemTray.ProgressIndicator.IsVisible = check;
-        }
+        //private void SetProgressBar(bool check)
+        //{
+        //    SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCities;
+        //    SystemTray.ProgressIndicator.IsIndeterminate = check;
+        //    SystemTray.ProgressIndicator.IsVisible = check;
+        //}
 
         /// <summary>
         /// Checks if 'search' and 'countryId' parameters exist
@@ -68,7 +68,7 @@ namespace ErasmusAppTVZ
                 Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
 
                 SystemTray.ProgressIndicator = new ProgressIndicator();
-                SetProgressBar(true);
+                ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCities);
 
                 //test data
                 model = new CityModel();
@@ -76,7 +76,7 @@ namespace ErasmusAppTVZ
 
                 DataContext = model;
 
-                SetProgressBar(false);
+                ProgressIndicatorHelper.SetProgressBar(false, null);
 
                 //TODO:
                 //Get the data based on id (countryId)
@@ -141,7 +141,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void optionsMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Not implemented");
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         void profileMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Not implemented");
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace ErasmusAppTVZ
             if (sortCounter == 0)
                 cm = new CityModel() { Cities = model.Cities.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                cm = new CityModel() { Cities = model.Cities.OrderBy(x => x.Rating).ToList() };
+                cm = new CityModel() { Cities = model.Cities.OrderByDescending(x => x.Name).ToList() };
             else
                 cm = new CityModel() { Cities = model.Cities.OrderBy(x => x.Name).ToList() };
 
@@ -258,8 +258,8 @@ namespace ErasmusAppTVZ
 
             NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
-        } 
+        }
         #endregion
-    
+
     }//class
 }//namespace
