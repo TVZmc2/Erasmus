@@ -21,7 +21,9 @@ namespace ErasmusAppTVZ
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         public static MobileServiceClient MobileService = new MobileServiceClient(
-            "https://erasmusapp.azure-mobile.net/",
+        ///  "https://erasmusapp.azure-mobile.net/",
+         
+        "http://erasmusapp.azure-mobile.net/",
             "FbFqxArtbiDJVApWFQBiYGGLQSScls35");
 
         /// <summary>

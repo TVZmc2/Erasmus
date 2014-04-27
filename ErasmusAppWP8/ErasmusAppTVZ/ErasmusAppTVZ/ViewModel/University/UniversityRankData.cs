@@ -1,6 +1,7 @@
 ﻿namespace ErasmusAppTVZ.ViewModel.University
 {
-    class UniversityRankData
+    public class UniversityRankData
     {
+
     }
 }

@@ -83,8 +83,7 @@
 
             <!-- list picker role -->
             <toolkit:ListPicker Name="listPickerStudProf"
-                                Grid.Row="1"
-                                SelectionChanged="listPickerStudProf_SelectionChanged">
+                                Grid.Row="1">
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" />

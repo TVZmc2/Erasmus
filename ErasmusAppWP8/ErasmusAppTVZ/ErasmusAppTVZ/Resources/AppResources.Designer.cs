@@ -214,6 +214,15 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading programs....
+        /// </summary>
+        public static string ProgressIndicatorPrograms {
+            get {
+                return ResourceManager.GetString("ProgressIndicatorPrograms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading universities....
         /// </summary>
         public static string ProgressIndicatorUniversities {

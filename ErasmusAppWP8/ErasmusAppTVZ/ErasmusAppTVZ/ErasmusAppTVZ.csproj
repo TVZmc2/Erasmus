@@ -129,7 +129,6 @@
     <Compile Include="ViewModel\Student\StudentModel.cs" />
     <Compile Include="ViewModel\University\UniversityData.cs" />
     <Compile Include="ViewModel\University\UniversityModel.cs" />
-    <Compile Include="ViewModel\University\UniversityProgrammeData.cs" />
     <Compile Include="ViewModel\University\UniversityRankData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +211,7 @@
     <EmbeddedResource Include="Resources\AppResources.hr.resx" />
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

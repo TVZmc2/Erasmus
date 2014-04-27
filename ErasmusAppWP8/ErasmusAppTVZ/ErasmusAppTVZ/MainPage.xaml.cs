@@ -106,7 +106,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CheckBox checkBox = new CheckBox() 
+            CheckBox checkBox = new CheckBox()
             {
                 Content = "Remember me",
                 Margin = new Thickness(0, 12, 0, 0)
@@ -115,7 +115,7 @@ namespace ErasmusAppTVZ
             CustomMessageBox rememberMeMsgBox = new CustomMessageBox()
             {
                 Caption = "Do you want your preferences to be remembered?",
-                Message = "If you choose to save your preferences, you will no longer see this screen. " + 
+                Message = "If you choose to save your preferences, you will no longer see this screen. " +
                 "But, if you want to change them later, you can easily access preference options located in Application Bar. ",
                 Content = checkBox,
                 LeftButtonContent = "ok",
@@ -123,25 +123,25 @@ namespace ErasmusAppTVZ
 
             //TODO: comment
             rememberMeMsgBox.Dismissed += (sender1, e1) =>
+            {
+                switch (e1.Result)
                 {
-                    switch (e1.Result)
-                    {
-                        case CustomMessageBoxResult.LeftButton:
-                            if ((bool)checkBox.IsChecked)
-                            {
-                                //Remember user
-                            }
+                    case CustomMessageBoxResult.LeftButton:
+                        if ((bool)checkBox.IsChecked)
+                        {
+                            //Remember user
+                        }
 
-                            NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
-                            break;
-                        case CustomMessageBoxResult.None:
-                            break;
-                        case CustomMessageBoxResult.RightButton:
-                            break;
-                        default:
-                            break;
-                    }
-                };
+                        NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
+                        break;
+                    case CustomMessageBoxResult.None:
+                        break;
+                    case CustomMessageBoxResult.RightButton:
+                        break;
+                    default:
+                        break;
+                }
+            };
 
             rememberMeMsgBox.Show();
         }
@@ -177,7 +177,7 @@ namespace ErasmusAppTVZ
             List<string> UniversityNames = await App.MobileService.GetTable<UniversityData>().
                 Where(x => x.CountryId == selectedCountryIndex).
                 Select(x => x.Name).ToListAsync();
-            
+
             listPickerUniversities.ItemsSource = UniversityNames;
 
             ProgressIndicatorHelper.SetProgressBar(false, null);
@@ -193,7 +193,8 @@ namespace ErasmusAppTVZ
             if (listPickerUniversities.SelectedItem != null)
             {
                 SystemTray.ProgressIndicator = new ProgressIndicator();
-                ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorProgrammes);
+
+                ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorPrograms);
 
                 univIndex = await App.MobileService.GetTable<UniversityData>().
                     Where(x => x.Name == listPickerUniversities.SelectedItem.ToString()).

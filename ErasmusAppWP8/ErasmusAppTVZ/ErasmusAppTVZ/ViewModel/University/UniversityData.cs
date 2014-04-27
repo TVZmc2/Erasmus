@@ -12,13 +12,15 @@ namespace ErasmusAppTVZ.ViewModel.University
         [JsonProperty(PropertyName = "countryID")]
         public int CountryId { get; set; }
 
-        [JsonProperty(PropertyName = "category")]
-        public char Category { get; set; }
-
-        [JsonProperty(PropertyName="name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         [JsonProperty(PropertyName = "rating")]
-        public float Rating { get; set; }
+        public decimal Rating { get; set; }
+
+        [JsonProperty(PropertyName = "category")]
+        public string Category { get; set; }
+
+        public UniversityRankData Rank { get; set; }
     }
 }

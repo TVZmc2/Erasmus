@@ -176,6 +176,9 @@
   <data name="ProgressIndicatorProgrammes" xml:space="preserve">
     <value>Loading programmes...</value>
   </data>
+  <data name="ProgressIndicatorPrograms" xml:space="preserve">
+    <value>Loading programs...</value>
+  </data>
   <data name="ProgressIndicatorUniversities" xml:space="preserve">
     <value>Loading universities...</value>
   </data>

@@ -68,7 +68,7 @@ namespace ErasmusAppTVZ
                     data.Rating = rand.Next(0, 5);
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
                 }
-                
+
                 ProgressIndicatorHelper.SetProgressBar(false, null);
                 isFirstNavigation = false;
             }
@@ -202,7 +202,7 @@ namespace ErasmusAppTVZ
             CountryModel cm;
 
             if (sortCounter == 0)
-                 cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
+                cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
                 cm = new CountryModel() { Countries = model.Countries.OrderByDescending(x => x.Name).ToList() };
             else

@@ -258,8 +258,8 @@ namespace ErasmusAppTVZ
 
             NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
-        } 
+        }
         #endregion
-    
+
     }//class
 }//namespace
