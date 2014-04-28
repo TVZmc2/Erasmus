@@ -19,19 +19,19 @@
     </vm:PanoramaModel.Students>
     
     <vm:PanoramaModel.Universities>
-        <um:UniversityData Name="University 1"/>
-        <um:UniversityData Name="University 2"/>
-        <um:UniversityData Name="University 3"/>
-        <um:UniversityData Name="University 4"/>
-        <um:UniversityData Name="University 5"/>
-        <um:UniversityData Name="University 6"/>
-        <um:UniversityData Name="University 7"/>
-        <um:UniversityData Name="University 8"/>
-        <um:UniversityData Name="University 9"/>
-        <um:UniversityData Name="University 10"/>
-        <um:UniversityData Name="University 11"/>
-        <um:UniversityData Name="University 12"/>
-        <um:UniversityData Name="University 13"/>
+        <um:UniversityData Name="University 1" Rating="5.0"/>
+        <um:UniversityData Name="University 2" Rating="4.2"/>
+        <um:UniversityData Name="University 3" Rating="2.2"/>
+        <um:UniversityData Name="University 4" Rating="2.1"/>
+        <um:UniversityData Name="University 5" Rating="4.6"/>
+        <um:UniversityData Name="University 6" Rating="4.4"/>
+        <um:UniversityData Name="University 7" Rating="4.0"/>
+        <um:UniversityData Name="University 8" Rating="5.0"/>
+        <um:UniversityData Name="University 9" Rating="5.0"/>
+        <um:UniversityData Name="University 10" Rating="5.0"/>
+        <um:UniversityData Name="University 11" Rating="2.9"/>
+        <um:UniversityData Name="University 12" Rating="3.4"/>
+        <um:UniversityData Name="University 13" Rating="3.6"/>
     </vm:PanoramaModel.Universities>
     
     <vm:PanoramaModel.Events>

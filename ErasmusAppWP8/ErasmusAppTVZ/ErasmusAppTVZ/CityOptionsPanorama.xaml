@@ -33,7 +33,48 @@
                              Margin="12, 0, 0, 0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                <toolkit:ExpanderView 
+                                    IsExpanded="False"
+                                    Width="450"
+                                    Style="{StaticResource ExpanderViewStyle}"
+                                    Margin="-24, 0, 0, 18">
+                                    <toolkit:ExpanderView.Items>
+                                        <Grid Margin="0, 12, 0, 0">
+                                            <StackPanel>
+                                                <TextBlock Foreground="White" 
+                                                           Text="Sample data"
+                                                           FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </toolkit:ExpanderView.Items>
+                                    <toolkit:ExpanderView.Expander>
+                                        <Grid Margin="-48, 0, 0, 0"
+                                              Width="420">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Ellipse Stroke="White" 
+                                                     StrokeThickness="2"
+                                                     Width="55"
+                                                     Height="55"/>
+                                            <Image Source="/Assets/ContentIcons/university.info.png"
+                                                   Width="55"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="0, 0, 0, 0"
+                                                       Text="{Binding Name}"
+                                                       TextWrapping="Wrap"
+                                                       VerticalAlignment="Center"
+                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                            <TextBlock Grid.Column="2"
+                                                       VerticalAlignment="Center"
+                                                       Padding="12, 0, 0, 0"
+                                                       Text="{Binding Rating}"
+                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                        </Grid>
+                                    </toolkit:ExpanderView.Expander>
+                                </toolkit:ExpanderView>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -99,11 +140,14 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Ellipse Stroke="White" 
-                                                     StrokeThickness="2" />
-                                            <Image Source="/Assets/ContentIcons/add.white.png"
+                                                     StrokeThickness="2"
+                                                     Width="55"
+                                                     Height="55"/>
+                                            <Image Source="/Assets/ContentIcons/group.png"
                                                    Width="50"/>
                                             <TextBlock Grid.Column="1"
                                                        Margin="24, 0, 0, 0"
+                                                       VerticalAlignment="Center"
                                                        Text="{Binding Title}"
                                                        FontSize="{StaticResource PhoneFontSizeLarge}"/>
                                         </Grid>
