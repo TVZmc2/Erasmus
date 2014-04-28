@@ -23,7 +23,7 @@ namespace ErasmusAppTVZ
     public partial class CountrySelect : PhoneApplicationPage
     {
         //constant for map zoom level
-        private const double ZOOM_LEVEL = 5;
+        private const double ZOOM_LEVEL = 6;
 
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
@@ -71,6 +71,7 @@ namespace ErasmusAppTVZ
                 {
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
                 };
+
 
                 Random rand = new Random();
                 foreach (CountryData data in model.Countries)
@@ -344,6 +345,7 @@ namespace ErasmusAppTVZ
             map.ZoomLevel -= 1;
         }
         #endregion
+
 
     }//class
 }//namespace
