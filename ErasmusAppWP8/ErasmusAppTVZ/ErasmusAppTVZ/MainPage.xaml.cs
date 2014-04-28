@@ -38,6 +38,8 @@ namespace ErasmusAppTVZ
         public int loginCountryID;
         public string loginProgrammeCategory;
 
+        //public IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+
         // Constructor
         public MainPage()
         {
@@ -126,7 +128,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             //if (listPickerCountries.SelectedItem != null)
             //{
@@ -137,16 +139,31 @@ namespace ErasmusAppTVZ
             //    loginCountryID = tempCountry.First();
             //}
 
-            System.Diagnostics.Debug.WriteLine(selectedCountryIndex);
+            IsolatedStorageSettings.ApplicationSettings["selectedCountryIndex"] = selectedCountryIndex;
+            IsolatedStorageSettings.ApplicationSettings.Save();
 
-            if (listPickerPrograms.SelectedItem != null)
-            {
-                List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
-                    Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
-                    Select(x => x.Category).ToListAsync();
+        
+            //if (listPickerPrograms.SelectedItem != null)
+            //{
+            //    List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
+            //        Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
+            //        Select(x => x.Category).ToListAsync();
 
-                loginProgrammeCategory = tempCategory.First();
-            }
+            //    loginProgrammeCategory = tempCategory.First();
+            //}
+
+            //if (isf.FileExists("login.txt"))
+            //{
+            //    isf.DeleteFile("login.txt");
+            //}
+
+            //using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream("login.txt", FileMode.CreateNew, isf))
+            //{
+            //    using (StreamWriter writer = new StreamWriter(isoStream))
+            //    {
+            //        writer.WriteLine(listPickerCountries.SelectedIndex.ToString());
+            //    }
+            //}
 
             CheckBox checkBox = new CheckBox()
             {
