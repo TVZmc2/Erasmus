@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,7 +24,7 @@ namespace ErasmusAppTVZ
     public partial class CountrySelect : PhoneApplicationPage
     {
         //constant for map zoom level
-        private const double ZOOM_LEVEL = 6;
+        private const double ZOOM_LEVEL = 5.5;
 
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
@@ -49,6 +50,16 @@ namespace ErasmusAppTVZ
             InitializeComponent();
 
             BuildLocalizedApplicationBar();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("preferences"))
+                Application.Current.Terminate();
         }
 
         /// <summary>
