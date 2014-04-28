@@ -16,8 +16,12 @@ namespace ErasmusAppTVZ
 {
     public partial class CitySelect : PhoneApplicationPage
     {
+        private const double ZOOM_LEVEL_COUNTRY = 5;
+        private const double ZOOM_LEVEL_CITY = 8;
+
         private static CityModel model;
         private static int sortCounter = 0;
+        private double[] countryCoordinates;
 
         public CitySelect()
         {
@@ -68,6 +72,10 @@ namespace ErasmusAppTVZ
                 //get id for retrieving country data
                 int id = 0;
                 Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
+
+                countryCoordinates = new double[2];
+                double.TryParse(NavigationContext.QueryString["lat"], out countryCoordinates[0]);
+                double.TryParse(NavigationContext.QueryString["lon"], out countryCoordinates[1]);
 
                 SystemTray.ProgressIndicator = new ProgressIndicator();
                 ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCities);
@@ -224,6 +232,8 @@ namespace ErasmusAppTVZ
 
             (sender as ApplicationBarIconButton).Text = AppResources.ApplicationBarHideMap;
             map.Visibility = System.Windows.Visibility.Visible;
+            CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL_CITY);
+            
         }
 
         /// <summary>

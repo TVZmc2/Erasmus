@@ -71,6 +71,8 @@
             <maps:Map Name="map"
                       Height="200"
                       Margin="0, 0, 0, 10"
+                      Center="56.20, 13.20"
+                      ZoomLevel="2"
                       Visibility="Collapsed"/>
 
             <!-- Countries list -->
@@ -86,6 +88,7 @@
                                               Width="470"
                                               Margin="-24, 0, 0, 0"
                                               Tag="{Binding Id}" 
+                                              Tap="ExpanderView_Tap"
                                               DoubleTap="ExpanderView_DoubleTap" 
                                               Style="{StaticResource ExpanderViewStyle}">
                             <toolkit:ExpanderView.Items>

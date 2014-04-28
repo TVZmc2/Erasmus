@@ -17,5 +17,8 @@ namespace ErasmusAppTVZ.ViewModel.Country
         public string Flag { get; set; }
 
         public BitmapImage FlagImage { get; set; }
+
+        [JsonProperty(PropertyName="country_code")]
+        public string CountryCode { get; set; }
     }
 }

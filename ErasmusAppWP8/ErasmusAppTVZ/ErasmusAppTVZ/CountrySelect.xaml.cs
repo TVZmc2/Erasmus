@@ -5,11 +5,14 @@ using ErasmusAppTVZ.ViewModel.Country;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -19,10 +22,19 @@ namespace ErasmusAppTVZ
 {
     public partial class CountrySelect : PhoneApplicationPage
     {
+        private const double ZOOM_LEVEL = 5;
+
+        private static bool hasCoordinates = false;
         private static bool isFirstNavigation = true;
+        private static bool isMapVisible = false;
         private static CountryModel model;
         private static int sortCounter = 0;
+        private static string countryCode;
+        private double[] countryCoordinates;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public CountrySelect()
         {
             InitializeComponent();
@@ -86,6 +98,9 @@ namespace ErasmusAppTVZ
                 filteredModel.Countries = model.Countries.Where(x => x.Name.Contains(searchTerm)).ToList();
 
                 DataContext = filteredModel;
+
+                if (isMapVisible)
+                    map.Visibility = System.Windows.Visibility.Visible;
             }
             else
                 DataContext = model;
@@ -163,16 +178,55 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
+        /// Gets the countryCode for determining country latitude and longitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            hasCoordinates = false;
+            ExpanderView ev = sender as ExpanderView;
+
+            if (ev.IsExpanded)
+            {
+                int id = Int32.Parse(ev.Tag.ToString());
+                countryCode = model.Countries.Single(x => x.Id == id).CountryCode;
+                countryCoordinates = await CoordinatesHelper.GetCoordinates(countryCode);
+
+                if (map.Visibility == System.Windows.Visibility.Visible)
+                    CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL);
+            }
+
+            hasCoordinates = true;
+        }
+
+        /// <summary>
+        /// Waits until country coordinates are populated if double tap event handler is invoked
+        /// </summary>
+        /// <returns></returns>
+        private Task Wait()
+        {
+            return Task.Run(() =>
+            {
+                while(true)
+                    if(hasCoordinates == true)
+                        return;
+            });
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private async void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ExpanderView ev = sender as ExpanderView;
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}", ev.Tag),
-                UriKind.Relative));
+            await Wait();
+
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&lat={1}&lon={2}",
+                ev.Tag, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
         }
 
         /// <summary>
@@ -219,17 +273,22 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void showMapIconButton_Click(object sender, EventArgs e)
+        private async void showMapIconButton_Click(object sender, EventArgs e)
         {
             if (map.Visibility == System.Windows.Visibility.Visible)
             {
                 map.Visibility = System.Windows.Visibility.Collapsed;
                 (sender as ApplicationBarIconButton).Text = AppResources.ApplicationBarShowMap;
+                isMapVisible = false;
                 return;
             }
 
             (sender as ApplicationBarIconButton).Text = AppResources.ApplicationBarHideMap;
             map.Visibility = System.Windows.Visibility.Visible;
+            isMapVisible = true;
+
+            if(countryCode != null)
+                CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode), ZOOM_LEVEL);
         }
 
         /// <summary>
@@ -260,8 +319,8 @@ namespace ErasmusAppTVZ
         {
             Button bttn = sender as Button;
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}", bttn.Tag),
-                UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&lat={1}&lon={2}", 
+                bttn.Tag, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }
         #endregion
 
