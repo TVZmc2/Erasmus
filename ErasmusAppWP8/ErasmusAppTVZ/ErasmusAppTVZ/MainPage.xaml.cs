@@ -17,6 +17,8 @@ using ErasmusAppTVZ.ViewModel.University;
 using ErasmusAppTVZ.ViewModel.Programme;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.IO.IsolatedStorage;
+using Newtonsoft.Json;
 
 namespace ErasmusAppTVZ
 {
@@ -59,13 +61,25 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Checks if user preferences already exist.
+        /// If so, redirect user to the next page.
+        /// If not, initialize starting page
         /// </summary>
         /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (isFirstNavigation)
             {
+                if (IsolatedStorageSettings.ApplicationSettings.Contains("preferences"))
+                {
+                    string[] preferences = JsonConvert.DeserializeObject<string[]>
+                        (IsolatedStorageSettings.ApplicationSettings["preferences"].ToString());
+
+                    NavigationService.Navigate(new Uri(string.Format("/CountrySelect.xaml?countryId={0}&role={1}&prog={2}",
+                        preferences[0], preferences[1], preferences[2]), UriKind.Relative));
+                    return;
+                }
+
                 Country = new CountryModel()
                 {
                     Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
@@ -134,20 +148,20 @@ namespace ErasmusAppTVZ
 
             CheckBox checkBox = new CheckBox()
             {
-                Content = "Remember me",
+                Content = AppResources.MessageBoxRemember,
                 Margin = new Thickness(0, 12, 0, 0)
             };
 
             CustomMessageBox rememberMeMsgBox = new CustomMessageBox()
             {
-                Caption = "Do you want your preferences to be remembered?",
+                Caption = AppResources.MessageBoxCaption,
                 Message = "If you choose to save your preferences, you will no longer see this screen. " +
                 "But, if you want to change them later, you can easily access preference options located in Application Bar. ",
                 Content = checkBox,
                 LeftButtonContent = "ok",
             };
 
-            //TODO: comment
+            //Prompts the user if he wants his choices remembered or not
             rememberMeMsgBox.Dismissed += (sender1, e1) =>
             {
                 switch (e1.Result)
@@ -156,14 +170,25 @@ namespace ErasmusAppTVZ
                         if ((bool)checkBox.IsChecked)
                         {
                             //Remember user preferences
+                            string[] preferences = new string[3];
+                            preferences[0] = selectedCountryIndex.ToString();
+                            preferences[1] = listPickerStudProf.SelectedIndex.ToString();
+                            preferences[2] = listPickerPrograms.SelectedIndex.ToString();
+
+                            //serialize for easier saving
+                            string result = JsonConvert.SerializeObject(preferences);
+
+                            //save under 'preferences' key
+                            IsolatedStorageSettings.ApplicationSettings["preferences"] = result;
+                            IsolatedStorageSettings.ApplicationSettings.Save();
                         }
 
                         NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
                         break;
-                    case CustomMessageBoxResult.None:
-                        break;
-                    case CustomMessageBoxResult.RightButton:
-                        break;
+                    //case CustomMessageBoxResult.None:
+                    //    break;
+                    //case CustomMessageBoxResult.RightButton:
+                    //    break;
                     default:
                         break;
                 }
@@ -231,7 +256,6 @@ namespace ErasmusAppTVZ
                     Select(x => x.Name).ToListAsync();
 
                 listPickerPrograms.ItemsSource = ProgrammeNames;
-                //listPickerPrograms.SelectedIndex = 1;
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
             }

@@ -1,9 +1,16 @@
 ﻿using ErasmusAppTVZ.ViewModel.Geolocation;
 using Microsoft.Phone.Maps.Controls;
+using Microsoft.Phone.Maps.Toolkit;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Phone.Maps.Services;
+using System.Windows.Shapes;
+using System.Windows.Media;
+using System.Windows;
+using System.Device.Location;
+
 
 namespace ErasmusAppTVZ.Helpers
 {
@@ -46,7 +53,26 @@ namespace ErasmusAppTVZ.Helpers
         /// <param name="zoom"></param>
         public static void SetMapCenter(ref Map map, double[] coords, double zoom)
         {
-            map.Center = new System.Device.Location.GeoCoordinate(coords[0], coords[1]);
+            //GeoCoordinate coord = new GeoCoordinate(coords[0], coords[1]);
+            //map.Layers.Clear();
+
+            //Polygon polygon = new Polygon();
+            //polygon.Points.Add(new Point(-12, 0));
+            //polygon.Points.Add(new Point(0, 55));
+            //polygon.Points.Add(new Point(12, 0));
+            //polygon.Fill = new SolidColorBrush(Colors.Green);
+
+            //MapLayer mapLayer = new MapLayer();
+            //MapOverlay overlay = new MapOverlay();
+
+            //overlay.Content = polygon;
+            //overlay.GeoCoordinate = coord;
+            //overlay.PositionOrigin = new Point(0.0, 1.0);
+
+            //mapLayer.Add(overlay);
+
+            //map.Layers.Add(mapLayer);
+            map.Center = new GeoCoordinate(coords[0], coords[1]);
             map.ZoomLevel = zoom;
         }
     }

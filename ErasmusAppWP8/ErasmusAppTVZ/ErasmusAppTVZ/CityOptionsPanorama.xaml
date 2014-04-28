@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"        
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
@@ -28,7 +29,8 @@
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaUniversitiesPageTitle,
                                         Source={StaticResource LocalizedStrings}}">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Universities}">
+                    <ListBox ItemsSource="{Binding Universities}"
+                             Margin="12, 0, 0, 0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"></TextBlock>
@@ -73,7 +75,40 @@
                     <ListBox ItemsSource="{Binding Events}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Title}" />
+                                <toolkit:ExpanderView 
+                                    IsExpanded="False"
+                                    Width="450"
+                                    Style="{StaticResource ExpanderViewStyle}"
+                                    Margin="-24, 0, 0, 18">
+                                    <toolkit:ExpanderView.Items>
+                                        <Grid Margin="0, 12, 0, 0">
+                                            <StackPanel>
+                                                <TextBlock Foreground="White" 
+                                                           Text="{Binding Description}"
+                                                           FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                                                <CheckBox Margin="-12, 0, 0, 0"
+                                                          Content="Reminder" 
+                                                          Click="CheckBox_Click"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </toolkit:ExpanderView.Items>
+                                    <toolkit:ExpanderView.Expander>
+                                        <Grid Margin="-12, 0, 0, 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Ellipse Stroke="White" 
+                                                     StrokeThickness="2" />
+                                            <Image Source="/Toolkit.Content/ApplicationBar.Add.png"
+                                                   Width="50"/>
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="24, 0, 0, 0"
+                                                       Text="{Binding Title}"
+                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                        </Grid>
+                                    </toolkit:ExpanderView.Expander>
+                                </toolkit:ExpanderView>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

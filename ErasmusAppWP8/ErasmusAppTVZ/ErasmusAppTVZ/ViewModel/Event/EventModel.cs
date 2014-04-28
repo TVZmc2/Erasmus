@@ -10,11 +10,15 @@ namespace ErasmusAppTVZ.ViewModel.Event
         {
             List<EventData> eventDataList = new List<EventData>();
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
                 EventData eventData = new EventData() 
                 {
-                    Title = "Event title " + i
+                    Title = "Event title " + i,
+                    Description = "Sample description of selected event\n" +
+                        "Sample description of selected event\n" +
+                        "Sample description of selected event\n" +
+                        "Sample description of selected event"
                 };
 
                 eventDataList.Add(eventData);

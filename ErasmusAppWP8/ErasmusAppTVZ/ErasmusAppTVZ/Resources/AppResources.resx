@@ -182,4 +182,10 @@
   <data name="ProgressIndicatorUniversities" xml:space="preserve">
     <value>Loading universities...</value>
   </data>
+  <data name="MessageBoxCaption" xml:space="preserve">
+    <value>Do you want your preferences to be remembered?</value>
+  </data>
+  <data name="MessageBoxRemember" xml:space="preserve">
+    <value>remember me</value>
+  </data>
 </root>

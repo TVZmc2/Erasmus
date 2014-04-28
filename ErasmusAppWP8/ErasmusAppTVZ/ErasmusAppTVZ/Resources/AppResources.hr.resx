@@ -179,4 +179,10 @@
   <data name="ProgressIndicatorUniversities" xml:space="preserve">
     <value>Dohvaćam fakultete...</value>
   </data>
+  <data name="MessageBoxCaption" xml:space="preserve">
+    <value>Želiš li spremiti svoj odabir?</value>
+  </data>
+  <data name="MessageBoxRemember" xml:space="preserve">
+    <value>zapamti me</value>
+  </data>
 </root>

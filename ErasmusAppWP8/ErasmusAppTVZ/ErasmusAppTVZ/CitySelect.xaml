@@ -82,7 +82,6 @@
                     <DataTemplate>
                         <toolkit:ExpanderView BorderThickness="0"
                                               IsExpanded="False"
-                                              Width="470"
                                               Margin="-24, 0, 0, 0"
                                               Tag="{Binding Name}"
                                               Tap="ExpanderView_Tap"

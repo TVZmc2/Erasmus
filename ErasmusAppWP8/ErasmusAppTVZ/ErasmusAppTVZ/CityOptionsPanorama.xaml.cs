@@ -86,5 +86,10 @@ namespace ErasmusAppTVZ
         }
         #endregion
 
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }//class
 }//namespace

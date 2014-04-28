@@ -2,6 +2,7 @@
 using ErasmusAppTVZ.Resources;
 using ErasmusAppTVZ.ViewModel.City;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
 using System;

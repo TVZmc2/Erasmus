@@ -35,17 +35,17 @@
     </vm:PanoramaModel.Universities>
     
     <vm:PanoramaModel.Events>
-        <em:EventData Title="Event 1"/>
-        <em:EventData Title="Event 2"/>
-        <em:EventData Title="Event 3"/>
-        <em:EventData Title="Event 4"/>
-        <em:EventData Title="Event 5"/>
-        <em:EventData Title="Event 6"/>
-        <em:EventData Title="Event 7"/>
-        <em:EventData Title="Event 8"/>
-        <em:EventData Title="Event 9"/>
-        <em:EventData Title="Event 10"/>
-        <em:EventData Title="Event 11"/>
+        <em:EventData Title="Event 1" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 2" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 3" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 4" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 5" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 6" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 7" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 8" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 9" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 10" Description="Sample description of selected event"/>
+        <em:EventData Title="Event 11" Description="Sample description of selected event"/>
     </vm:PanoramaModel.Events>
     
 </vm:PanoramaModel>
