@@ -38,6 +38,7 @@ namespace ErasmusAppTVZ
         public int loginCountryID;
         public string loginProgrammeCategory;
 
+        public IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
         // Constructor
         public MainPage()
         {
@@ -126,24 +127,37 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (listPickerCountries.SelectedItem != null)
-            {
-                List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
-                    Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
-                    Select(x => x.Id).ToListAsync();
+            //if (listPickerCountries.SelectedItem != null)
+            //{
+            //    List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
+            //        Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
+            //        Select(x => x.Id).ToListAsync();
 
-                loginCountryID = tempCountry.First();
+            //    loginCountryID = tempCountry.First();
+            //}
+
+            //if (listPickerPrograms.SelectedItem != null)
+            //{
+            //    List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
+            //        Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
+            //        Select(x => x.Category).ToListAsync();
+
+            //    loginProgrammeCategory = tempCategory.First();
+            //}
+
+            if (isf.FileExists("login.txt"))
+            {
+                isf.DeleteFile("login.txt");
             }
 
-            if (listPickerPrograms.SelectedItem != null)
+            using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream("login.txt", FileMode.CreateNew, isf))
             {
-                List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
-                    Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
-                    Select(x => x.Category).ToListAsync();
-
-                loginProgrammeCategory = tempCategory.First();
+                using (StreamWriter writer = new StreamWriter(isoStream))
+                {
+                    writer.WriteLine(listPickerCountries.SelectedIndex.ToString());
+                }
             }
 
             CheckBox checkBox = new CheckBox()

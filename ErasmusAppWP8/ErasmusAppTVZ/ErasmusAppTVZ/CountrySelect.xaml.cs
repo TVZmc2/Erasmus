@@ -42,6 +42,9 @@ namespace ErasmusAppTVZ
 
         private static CountryModel model;
 
+        private int selectedCountryIndex;
+        MainPage mp = new MainPage();
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -49,7 +52,20 @@ namespace ErasmusAppTVZ
         {
             InitializeComponent();
 
+            loadLoginProperties();
+
             BuildLocalizedApplicationBar();
+        }
+
+        protected void loadLoginProperties()
+        {
+            using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream("login.txt", FileMode.Open, mp.isf))
+            {
+                using (StreamReader reader = new StreamReader(isoStream))
+                {
+                    selectedCountryIndex = int.Parse(reader.ReadToEnd()) + 1;
+                }
+            }
         }
 
         /// <summary>
@@ -80,7 +96,7 @@ namespace ErasmusAppTVZ
 
                 model = new CountryModel()
                 {
-                    Countries = await App.MobileService.GetTable<CountryData>().ToListAsync()
+                    Countries = await App.MobileService.GetTable<CountryData>().Where(x => x.Id != selectedCountryIndex).ToListAsync()
                 };
 
 
