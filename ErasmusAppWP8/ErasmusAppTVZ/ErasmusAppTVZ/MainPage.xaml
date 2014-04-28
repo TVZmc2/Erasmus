@@ -58,7 +58,7 @@
                                 Width="120">
                 <toolkit:ListPicker.ItemTemplate>
                     <DataTemplate>
-                        <Image Margin="-12, -36, -12, -36"
+                        <Image Margin="-12, -29, -12, -29"
                                Source="{Binding FlagImage}" />
                     </DataTemplate>
                 </toolkit:ListPicker.ItemTemplate>
@@ -70,8 +70,8 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <Image Height="100"
-                                   Width="80"
+                            <Image Height="120"
+                                   Width="100"
                                    Source="{Binding FlagImage}"/>
 
                             <TextBlock Grid.Column="1"
