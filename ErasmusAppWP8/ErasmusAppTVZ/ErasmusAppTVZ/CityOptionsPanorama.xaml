@@ -100,7 +100,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Ellipse Stroke="White" 
                                                      StrokeThickness="2" />
-                                            <Image Source="/Toolkit.Content/ApplicationBar.Add.png"
+                                            <Image Source="/Assets/ContentIcons/add.white.png"
                                                    Width="50"/>
                                             <TextBlock Grid.Column="1"
                                                        Margin="24, 0, 0, 0"

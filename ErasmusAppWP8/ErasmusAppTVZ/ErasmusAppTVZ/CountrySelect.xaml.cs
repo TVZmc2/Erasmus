@@ -221,6 +221,9 @@ namespace ErasmusAppTVZ
         {
             ExpanderView ev = sender as ExpanderView;
 
+            //Expander Tap event is also invoked, so waiting is needed until Inception passes
+            //We should not wait long as it is only one layer in
+            //No timeout, so theoretically, we could be stuck in Limbo
             await Wait();
 
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
@@ -319,6 +322,26 @@ namespace ErasmusAppTVZ
 
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}", 
                 bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
+        }
+
+        /// <summary>
+        /// Increments map zoom level by 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            map.ZoomLevel += 1;
+        }
+
+        /// <summary>
+        /// Decrements map zoom level by 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            map.ZoomLevel -= 1;
         }
         #endregion
 

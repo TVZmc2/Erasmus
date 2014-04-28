@@ -186,6 +186,9 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\ContentIcons\add.white.png" />
+    <Content Include="Assets\ContentIcons\add.black.png" />
+    <Content Include="Assets\ContentIcons\minus.png" />
     <Content Include="Assets\ContentIcons\next.png" />
     <Content Include="Assets\students.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">

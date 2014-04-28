@@ -60,7 +60,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" 
               Grid.Row="1" 
-              Margin="12,0,12,0">
+              Margin="12, 0, 0, 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="2*" />
@@ -69,8 +69,34 @@
 
             <maps:Map Name="map"
                       Height="200"
-                      Margin="12, 0, 0, 12"
-                      Visibility="Collapsed"/>
+                      Visibility="Collapsed"
+                      Margin="12, 0, 0, 0">
+                <maps:Map.Layers>
+                    <maps:MapLayer>
+                        <maps:MapOverlay>
+                            <Grid Height="200"
+                                  Background="Transparent">
+                                <Button Width="80" 
+                                        Height="80" 
+                                        BorderBrush="Black"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Click="ButtonZoomIn_Click">
+                                    <Image Source="/Assets/ContentIcons/add.black.png" />
+                                </Button>
+                                <Button Width="80" 
+                                        Height="80" 
+                                        BorderBrush="Black"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"
+                                        Click="ButtonZoomOut_Click">
+                                    <Image Source="/Assets/ContentIcons/minus.png"/>
+                                </Button>
+                            </Grid>
+                        </maps:MapOverlay>
+                    </maps:MapLayer>
+                </maps:Map.Layers>
+            </maps:Map>
 
             <!-- Cities list -->
             <ListBox Name="listbox"

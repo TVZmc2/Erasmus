@@ -314,6 +314,26 @@ namespace ErasmusAppTVZ
             NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
         }
+
+        /// <summary>
+        /// Increments map zoom level by 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            map.ZoomLevel += 1;
+        }
+
+        /// <summary>
+        /// Decrements map zoom level by 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            map.ZoomLevel -= 1;
+        }
         #endregion
 
     }//class
