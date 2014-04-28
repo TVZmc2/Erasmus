@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ErasmusAppTVZ.Helpers
+namespace ErasmusAppTVZ.ViewModel.Geolocation
 {
     public class AddressComponent
     {

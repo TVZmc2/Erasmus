@@ -104,7 +104,7 @@
     <Compile Include="Helpers\ApplicationBarHelper.cs" />
     <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\CoordinatesHelper.cs" />
-    <Compile Include="Helpers\GeolocationDataHelper.cs" />
+    <Compile Include="ViewModel\Geolocation\GeolocationData.cs" />
     <Compile Include="Helpers\ImageConversionHelper.cs" />
     <Compile Include="Helpers\ProgressIndicatorHelper.cs" />
     <Compile Include="LocalizedStrings.cs" />
