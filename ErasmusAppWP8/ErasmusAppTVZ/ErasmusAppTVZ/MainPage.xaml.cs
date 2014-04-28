@@ -128,14 +128,16 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (listPickerCountries.SelectedItem != null)
-            {
-                List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
-                    Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
-                    Select(x => x.Id).ToListAsync();
+            //if (listPickerCountries.SelectedItem != null)
+            //{
+            //    List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
+            //        Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
+            //        Select(x => x.Id).ToListAsync();
 
-                loginCountryID = tempCountry.First();
-            }
+            //    loginCountryID = tempCountry.First();
+            //}
+
+            System.Diagnostics.Debug.WriteLine(selectedCountryIndex);
 
             if (listPickerPrograms.SelectedItem != null)
             {
