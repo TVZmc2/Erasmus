@@ -13,17 +13,20 @@ namespace ErasmusAppTVZ.Helpers
         /// Gets country latitude and longitude using Google geocode API
         /// </summary>
         /// <param name="code"></param>
+        /// <param name="value">Specifies country (1) or city(2)</param>
         /// <returns></returns>
-        public static async Task<double[]> GetCoordinates(string code)
+        public static async Task<double[]> GetCoordinates(string code, int value)
         {
             double[] latLon = new double[2];
+            string baseUrl = "http://maps.googleapis.com/maps/api/geocode/json?";
+
+            if (value == 1)
+                baseUrl += String.Format("components=country:{0}&sensor=false", code);
+            else if (value == 2)
+                baseUrl += String.Format("address={0}&sensor=false", code);
 
             using (HttpClient httpClient = new HttpClient())
             {
-                string baseUrl = "http://maps.googleapis.com/maps/api/geocode/json?";
-
-                baseUrl += String.Format("components=country:{0}&sensor=false", code);
-
                 string result = await httpClient.GetStringAsync(baseUrl);
 
                 GeolocationData data = JsonConvert.DeserializeObject<GeolocationData>(result);

@@ -22,15 +22,24 @@ namespace ErasmusAppTVZ
 {
     public partial class CountrySelect : PhoneApplicationPage
     {
+        //constant for map zoom level
         private const double ZOOM_LEVEL = 5;
 
+        //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
         private static bool isFirstNavigation = true;
         private static bool isMapVisible = false;
-        private static CountryModel model;
-        private static int sortCounter = 0;
+
+        //variable for storing country code by ISO 3166-1 standard
         private static string countryCode;
+
+        //helper for deciding which sort parameter is used
+        private static int sortCounter = 0;
+
+        //array for storing latitude and longitude
         private double[] countryCoordinates;
+
+        private static CountryModel model;
 
         /// <summary>
         /// Constructor
@@ -41,17 +50,6 @@ namespace ErasmusAppTVZ
 
             BuildLocalizedApplicationBar();
         }
-
-        /// <summary>
-        /// Sets the visibillity and indertermination of ProgressIndicator
-        /// </summary>
-        /// <param name="check"></param>
-        //private void SetProgressBar(bool check)
-        //{
-        //    SystemTray.ProgressIndicator.Text = AppResources.ProgressIndicatorCountries;
-        //    SystemTray.ProgressIndicator.IsIndeterminate = check;
-        //    SystemTray.ProgressIndicator.IsVisible = check;
-        //}
 
         /// <summary>
         /// Checks if 'search' parameter exists
@@ -191,7 +189,7 @@ namespace ErasmusAppTVZ
             {
                 int id = Int32.Parse(ev.Tag.ToString());
                 countryCode = model.Countries.Single(x => x.Id == id).CountryCode;
-                countryCoordinates = await CoordinatesHelper.GetCoordinates(countryCode);
+                countryCoordinates = await CoordinatesHelper.GetCoordinates(countryCode, 1);
 
                 if (map.Visibility == System.Windows.Visibility.Visible)
                     CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL);
@@ -225,8 +223,8 @@ namespace ErasmusAppTVZ
 
             await Wait();
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&lat={1}&lon={2}",
-                ev.Tag, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
+                ev.Tag, isMapVisible, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
         }
 
         /// <summary>
@@ -288,7 +286,7 @@ namespace ErasmusAppTVZ
             isMapVisible = true;
 
             if(countryCode != null)
-                CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode), ZOOM_LEVEL);
+                CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);
         }
 
         /// <summary>
@@ -319,8 +317,8 @@ namespace ErasmusAppTVZ
         {
             Button bttn = sender as Button;
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&lat={1}&lon={2}", 
-                bttn.Tag, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}", 
+                bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }
         #endregion
 
