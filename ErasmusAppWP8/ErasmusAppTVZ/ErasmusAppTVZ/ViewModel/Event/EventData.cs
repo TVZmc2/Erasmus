@@ -18,7 +18,5 @@ namespace ErasmusAppTVZ.ViewModel.Event
 
         [JsonProperty(PropertyName = "date_time")]
         public DateTime Date { get; set; }
-        
-        //a
     }
 }

@@ -67,22 +67,14 @@ namespace ErasmusAppTVZ
 
         #region EventHandlers
         /// <summary>
-        /// 
+        /// Gets the CustomMessageBox with content
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            Grid grid = ApplicationBarHelper.GetAboutContentGrid();
-
-            CustomMessageBox aboutMsgBox = new CustomMessageBox() 
-            {
-                Caption = AppResources.ApplicationBarAboutMenuItem,
-                Content = grid,
-                RightButtonContent = "ok"
-            };
-
-            aboutMsgBox.Show();
+            CustomMessageBox aboutMessageBox = ApplicationBarHelper.GetAboutMessageBox();
+            aboutMessageBox.Show();
         }
         #endregion
 

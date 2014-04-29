@@ -219,22 +219,14 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Gets the CustomMessageBox with content
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            Grid grid = ApplicationBarHelper.GetAboutContentGrid();
-
-            CustomMessageBox aboutMsgBox = new CustomMessageBox()
-            {
-                Caption = AppResources.ApplicationBarAboutMenuItem,
-                Content = grid,
-                RightButtonContent = "ok"
-            };
-
-            aboutMsgBox.Show();
+            CustomMessageBox aboutMessageBox = ApplicationBarHelper.GetAboutMessageBox();
+            aboutMessageBox.Show();
         }
 
         /// <summary>
@@ -245,11 +237,14 @@ namespace ErasmusAppTVZ
         private void sortIconButton_Click(object sender, EventArgs e)
         {
             if (sortCounter == 0)
-                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderByDescending(x => x.Rating).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).
+                    Cities.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderByDescending(x => x.Name).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).
+                    Cities.OrderByDescending(x => x.Name).ToList() };
             else
-                DataContext = new CityModel() { Cities = (DataContext as CityModel).Cities.OrderBy(x => x.Name).ToList() };
+                DataContext = new CityModel() { Cities = (DataContext as CityModel).
+                    Cities.OrderBy(x => x.Name).ToList() };
 
             sortCounter += 1;
 

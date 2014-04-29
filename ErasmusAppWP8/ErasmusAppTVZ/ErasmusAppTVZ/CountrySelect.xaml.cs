@@ -3,11 +3,13 @@ using ErasmusAppTVZ.Resources;
 using ErasmusAppTVZ.ViewModel.City;
 using ErasmusAppTVZ.ViewModel.Country;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace ErasmusAppTVZ
         private static bool isMapVisible = false;
 
         //variable for storing country code by ISO 3166-1 standard
-        private static string countryCode;
+        //private static string countryCode;
 
         //helper for deciding which sort parameter is used
         private static int sortCounter = 0;
@@ -89,25 +91,40 @@ namespace ErasmusAppTVZ
         {
             listBox.Opacity = 0;
 
+            //If this is initial call to the event
             if (isFirstNavigation)
             {
                 SystemTray.ProgressIndicator = new ProgressIndicator();
                 ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCountries);
 
+                //Get index of previously selected country
                 int selectedCountryIndex = Int32.Parse(IsolatedStorageSettings.
                     ApplicationSettings["selectedCountryIndex"].ToString());
                 
+                //Populate CountryModel with every CountryData that satisfies parameters 
                 model = new CountryModel()
                 {
-                    Countries = await App.MobileService.GetTable<CountryData>().Where(x => x.Id != selectedCountryIndex).ToListAsync()
+                    Countries = await App.MobileService.GetTable<CountryData>().
+                        Where(x => x.Id != selectedCountryIndex).
+                        ToListAsync()
                 };
 
+                
                 Random rand = new Random();
+
+                //Convert Flag to FlagImage
+                //After conversion, empty Flag property
                 foreach (CountryData data in model.Countries)
                 {
-                    data.Rating = rand.Next(0, 5);
+                    if(data.Rating == 0.0)
+                        data.Rating = rand.Next(0, 5);
+
                     data.FlagImage = ImageConversionHelper.ToImage(data.Flag);
+                    data.Flag = String.Empty;
                 }
+
+                //initialize double array for country coordinates
+                countryCoordinates = new double[2];
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
                 isFirstNavigation = false;
@@ -116,23 +133,31 @@ namespace ErasmusAppTVZ
             textBoxSearch.Text = String.Empty;
             textBoxSearch.Visibility = System.Windows.Visibility.Collapsed;
 
+            //If user has entered a search term
             if (NavigationContext.QueryString.ContainsKey("search"))
             {
                 sortCounter = 0;
 
                 string searchTerm = NavigationContext.QueryString["search"];
 
-                CountryModel filteredModel = new CountryModel();
-                filteredModel.Countries = model.Countries.Where(x => x.Name.Contains(searchTerm)).ToList();
+                //Populate CountryModel with data that satisfies search term
+                //Always search entire model, not DataContext
+                CountryModel filteredModel = new CountryModel() 
+                {
+                    Countries = model.Countries.Where(x => x.Name.Contains(searchTerm)).ToList()
+                };
+                //filteredModel.Countries = model.Countries.Where(x => x.Name.Contains(searchTerm)).ToList();
 
                 DataContext = filteredModel;
 
+                //Preserve map visibility across navigation/refresh
                 if (isMapVisible)
                     map.Visibility = System.Windows.Visibility.Visible;
             }
             else
                 DataContext = model;
 
+            //Animate listBox with countries
             AnimationHelper.Fade(listBox, 1, 750, new PropertyPath(OpacityProperty));
         }
 
@@ -210,22 +235,48 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            hasCoordinates = false;
             ExpanderView ev = sender as ExpanderView;
 
+            //Execute only if expander is opened
+            //No point to execute if user closes currently opened expander
             if (ev.IsExpanded)
             {
+                hasCoordinates = false;
                 int id = Int32.Parse(ev.Tag.ToString());
-                countryCode = model.Countries.Single(x => x.Id == id).CountryCode;
-                countryCoordinates = await CoordinatesHelper.GetCoordinates(countryCode, 1);
+
+                GeocodeQuery query = new GeocodeQuery()
+                {
+                    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+                    SearchTerm = (DataContext as CountryModel).Countries.Single(x => x.Id == id).Name
+                };
+
+                query.QueryCompleted += query_QueryCompleted;
+                query.QueryAsync();
+            }
+        }
+
+        /// <summary>
+        /// Gets the latitude and longitude and centers the map accordingly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            //defensive programming, trust no one
+            if (e.Result != null)
+            {
+                countryCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
+                countryCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
 
                 if (map.Visibility == System.Windows.Visibility.Visible)
-                    CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL);
-            }
+                    CoordinatesHelper.SetMapCenter(ref map,
+                        new double[] { countryCoordinates[0], countryCoordinates[1] },
+                        ZOOM_LEVEL);
 
-            hasCoordinates = true;
+                hasCoordinates = true;
+            }
         }
 
         /// <summary>
@@ -253,7 +304,7 @@ namespace ErasmusAppTVZ
 
             //Expander Tap event is also invoked, so waiting is needed until Inception passes
             //We should not wait long as it is only one layer in
-            //No timeout, so theoretically, we could be stuck in Limbo
+            //No timeout, so theoretically, we could be stuck in Limbo (I'm lying)
             await Wait();
 
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
@@ -261,22 +312,14 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Gets the CustomMessageBox with content
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            Grid grid = ApplicationBarHelper.GetAboutContentGrid();
-
-            CustomMessageBox aboutMsgBox = new CustomMessageBox()
-            {
-                Caption = AppResources.ApplicationBarAboutMenuItem,
-                Content = grid,
-                RightButtonContent = "ok"
-            };
-
-            aboutMsgBox.Show();
+            CustomMessageBox aboutMessageBox = ApplicationBarHelper.GetAboutMessageBox();
+            aboutMessageBox.Show();
         }
 
         /// <summary>
@@ -287,11 +330,14 @@ namespace ErasmusAppTVZ
         private void sortIconButton_Click(object sender, EventArgs e)
         {
             if (sortCounter == 0)
-                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderByDescending(x => x.Rating).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).
+                    Countries.OrderByDescending(x => x.Rating).ToList() };
             else if (sortCounter == 1)
-                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderByDescending(x => x.Name).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).
+                    Countries.OrderByDescending(x => x.Name).ToList() };
             else
-                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).Countries.OrderBy(x => x.Name).ToList() };
+                DataContext = new CountryModel() { Countries = (DataContext as CountryModel).
+                    Countries.OrderBy(x => x.Name).ToList() };
 
             sortCounter += 1;
 
@@ -304,7 +350,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void showMapIconButton_Click(object sender, EventArgs e)
+        private void showMapIconButton_Click(object sender, EventArgs e)
         {
             if (map.Visibility == System.Windows.Visibility.Visible)
             {
@@ -318,8 +364,12 @@ namespace ErasmusAppTVZ
             map.Visibility = System.Windows.Visibility.Visible;
             isMapVisible = true;
 
-            if(countryCode != null)
-                CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);
+            if(hasCoordinates)
+                CoordinatesHelper.SetMapCenter(ref map,
+                    new double[] { countryCoordinates[0], countryCoordinates[1] },
+                    ZOOM_LEVEL);
+            //if(countryCode != null)
+            //    CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);
         }
 
         /// <summary>
@@ -359,20 +409,20 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
-        {
-            map.ZoomLevel += 1;
-        }
+        //private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    map.ZoomLevel += 1;
+        //}
 
         /// <summary>
         /// Decrements map zoom level by 1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
-        {
-            map.ZoomLevel -= 1;
-        }
+        //private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
+        //{
+        //    map.ZoomLevel -= 1;
+        //}
         #endregion
 
 

@@ -12,10 +12,10 @@ namespace ErasmusAppTVZ.Helpers
     class ApplicationBarHelper
     {
         /// <summary>
-        /// Formats the content of the Grid for CustomMessageBox
+        /// Creates CustomMessageBox with About content
         /// </summary>
         /// <returns>Grid</returns>
-        public static Grid GetAboutContentGrid()
+        public static CustomMessageBox GetAboutMessageBox()
         {
             XElement appInfo = XDocument.Load("WMAppManifest.xml")
                 .Root.Element("App");
@@ -28,6 +28,7 @@ namespace ErasmusAppTVZ.Helpers
             { 
                 Margin = new Thickness(12, 0, 0, 0) 
             };
+
             grid.RowDefinitions.Add(new RowDefinition());
             grid.RowDefinitions.Add(new RowDefinition());
 
@@ -48,7 +49,14 @@ namespace ErasmusAppTVZ.Helpers
             grid.Children.Add(txtBlockTitle);
             grid.Children.Add(txtBlockMessage);
 
-            return grid;
+            CustomMessageBox msgBox = new CustomMessageBox() 
+            {
+                Caption = AppResources.ApplicationBarAboutMenuItem,
+                Content = grid,
+                LeftButtonContent = "ok"
+            };
+
+            return msgBox;
         }
     }
 }
