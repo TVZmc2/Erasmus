@@ -158,7 +158,7 @@ namespace ErasmusAppTVZ
                 DataContext = model;
 
             //Animate listBox with countries
-            AnimationHelper.Fade(listBox, 1, 750, new PropertyPath(OpacityProperty));
+            AnimationHelper.Fade(listBox, 1, 900, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -265,14 +265,14 @@ namespace ErasmusAppTVZ
         void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
             //defensive programming, trust no one
-            if (e.Result != null)
+            if (e.Error == null)
             {
                 countryCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
                 countryCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
 
                 if (map.Visibility == System.Windows.Visibility.Visible)
                     CoordinatesHelper.SetMapCenter(ref map,
-                        new double[] { countryCoordinates[0], countryCoordinates[1] },
+                        countryCoordinates,
                         ZOOM_LEVEL);
 
                 hasCoordinates = true;
@@ -283,15 +283,15 @@ namespace ErasmusAppTVZ
         /// Waits until country coordinates are populated if double tap event handler is invoked
         /// </summary>
         /// <returns></returns>
-        private Task Wait()
-        {
-            return Task.Run(() =>
-            {
-                while(true)
-                    if(hasCoordinates == true)
-                        return;
-            });
-        }
+        //private Task Wait()
+        //{
+        //    return Task.Run(() =>
+        //    {
+        //        while(true)
+        //            if(hasCoordinates == true)
+        //                return;
+        //    });
+        //}
 
         /// <summary>
         /// 
@@ -305,7 +305,12 @@ namespace ErasmusAppTVZ
             //Expander Tap event is also invoked, so waiting is needed until Inception passes
             //We should not wait long as it is only one layer in
             //No timeout, so theoretically, we could be stuck in Limbo (I'm lying)
-            await Wait();
+            await Task.Run(() =>
+                {
+                    while (true)
+                        if (hasCoordinates)
+                            return;
+                });
 
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
                 ev.Tag, isMapVisible, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
@@ -366,7 +371,7 @@ namespace ErasmusAppTVZ
 
             if(hasCoordinates)
                 CoordinatesHelper.SetMapCenter(ref map,
-                    new double[] { countryCoordinates[0], countryCoordinates[1] },
+                    countryCoordinates,
                     ZOOM_LEVEL);
             //if(countryCode != null)
             //    CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);

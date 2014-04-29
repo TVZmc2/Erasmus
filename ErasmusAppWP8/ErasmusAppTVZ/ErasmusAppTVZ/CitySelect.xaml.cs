@@ -2,6 +2,7 @@
 using ErasmusAppTVZ.Resources;
 using ErasmusAppTVZ.ViewModel.City;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
@@ -19,15 +20,16 @@ namespace ErasmusAppTVZ
     public partial class CitySelect : PhoneApplicationPage
     {
         //constants for map zoom level
-        private const double ZOOM_LEVEL_COUNTRY = 5;
-        private const double ZOOM_LEVEL_CITY = 12;
+        private const double ZOOM_LEVEL_COUNTRY = 5.5;
+        private const double ZOOM_LEVEL_CITY = 8.5;
 
         //helper for deciding which sort parameter is used
         private static int sortCounter = 0;
 
         //helpers for preserving and controlling elements state
-        private static bool isExpanderTapped;
+        private static bool hasCoordinates = false;
         private static bool isMapVisible;
+        //private static bool isExpanderTapped;
 
         //arrays for storing latitude and longitude
         private double[] countryCoordinates;
@@ -51,7 +53,7 @@ namespace ErasmusAppTVZ
         /// If 'countryId' exists, get the data for the corresponding country
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             listbox.Opacity = 0;
 
@@ -83,9 +85,10 @@ namespace ErasmusAppTVZ
                 ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCities);
 
                 //get id for retrieving country data
-                int id = 0;
-                Int32.TryParse(NavigationContext.QueryString["countryId"], out id);
+                int selectedCountryId = 0;
+                Int32.TryParse(NavigationContext.QueryString["countryId"], out selectedCountryId);
 
+                //get the value which will help to determine if map was visible or not
                 isMapVisible = false;
                 bool.TryParse(NavigationContext.QueryString["mapVisible"], out isMapVisible);
 
@@ -94,25 +97,26 @@ namespace ErasmusAppTVZ
                 double.TryParse(NavigationContext.QueryString["lat"], out countryCoordinates[0]);
                 double.TryParse(NavigationContext.QueryString["lon"], out countryCoordinates[1]);
 
+                //if map was visible, set it visible and center it to selected country coordinates
                 if (isMapVisible)
                 {
                     CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL_COUNTRY);
                     map.Visibility = System.Windows.Visibility.Visible;
                 }
 
-                //test data
-                model = new CityModel();
-                model.LoadData();
+                //Get the CityData based on selectedCountryId
+                model = new CityModel() 
+                {
+                    Cities = await App.MobileService.GetTable<CityData>().
+                        Where(x => x.CountryId == selectedCountryId).ToListAsync()
+                };
 
                 DataContext = model;
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
-
-                //TODO:
-                //Get the data based on id (countryId)
             }
 
-            AnimationHelper.Fade(listbox, 1, 750, new PropertyPath(OpacityProperty));
+            AnimationHelper.Fade(listbox, 1, 900, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -189,19 +193,45 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (!isExpanderTapped)
-                isExpanderTapped = true;
+            //if (!isExpanderTapped)
+            //    isExpanderTapped = true;
 
             ExpanderView ev = sender as ExpanderView;
 
             if (ev.IsExpanded)
             {
                 //hardcoded Zagreb for testing purposes
-                cityCoordinates = await CoordinatesHelper.GetCoordinates("Zagreb", 2);
+                //cityCoordinates = await CoordinatesHelper.GetCoordinates("Zagreb", 2);
 
-                CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
+                //CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
+                hasCoordinates = false;
+
+                GeocodeQuery query = new GeocodeQuery()
+                {
+                    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+                    SearchTerm = ev.Tag.ToString()
+                };
+
+                query.QueryCompleted += query_QueryCompleted;
+                query.QueryAsync();
+            }
+        }
+
+        private void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
+        {
+            if (e.Error == null)
+            {
+                cityCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
+                cityCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
+
+                if (map.Visibility == System.Windows.Visibility.Visible)
+                    CoordinatesHelper.SetMapCenter(ref map,
+                        cityCoordinates,
+                        ZOOM_LEVEL_CITY);
+
+                hasCoordinates = true;
             }
         }
 
@@ -271,7 +301,7 @@ namespace ErasmusAppTVZ
             map.Visibility = System.Windows.Visibility.Visible;
             isMapVisible = true;
 
-            if(isExpanderTapped)
+            if(hasCoordinates)
                 CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
             else
                 CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL_COUNTRY);

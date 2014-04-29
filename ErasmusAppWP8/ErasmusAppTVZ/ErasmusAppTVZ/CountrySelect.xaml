@@ -71,7 +71,7 @@
             <maps:Map Name="map"
                       Height="200"
                       Width="Auto"
-                      Visibility="Visible"
+                      Visibility="Collapsed"
                       Margin="-12, 0, 0, 0"
                       Center="56.20, 13.20"
                       ZoomLevel="2"

@@ -30,7 +30,7 @@ namespace ErasmusAppTVZ
 
         public CountryModel Country;
         public UniversityModel University;
-        public List<int> univIndex;
+        //public List<int> univIndex;
 
         public static bool isFirstNavigation = true;
         private int selectedCountryIndex;
@@ -48,7 +48,7 @@ namespace ErasmusAppTVZ
             //if ((App.Current.Resources["PhoneBackgroundBrush"] as SolidColorBrush).Color == Colors.White)
             //    listPickerCountries.Background = new SolidColorBrush(Colors.Gray);
 
-            InitializeStudProf();
+            //InitializeStudProf();
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
         }
@@ -56,11 +56,11 @@ namespace ErasmusAppTVZ
         /// <summary>
         /// Initializes content for listPickerStudProf element
         /// </summary>
-        private void InitializeStudProf()
-        {
-            listPickerStudProf.Items.Add("Student");
-            listPickerStudProf.Items.Add("Professor");
-        }
+        //private void InitializeStudProf()
+        //{
+        //    listPickerStudProf.Items.Add("Student");
+        //    listPickerStudProf.Items.Add("Professor");
+        //}
 
         /// <summary>
         /// Checks if user preferences already exist.
@@ -173,7 +173,7 @@ namespace ErasmusAppTVZ
 
             CustomMessageBox rememberMeMsgBox = new CustomMessageBox()
             {
-                Caption = AppResources.MessageBoxCaption,
+                Caption = AppResources.MessageBoxRememberCaption,
                 Message = "If you choose to save your preferences, you will no longer see this screen. " +
                 "But, if you want to change them later, you can easily access preference options located in Application Bar. ",
                 Content = checkBox,
@@ -241,7 +241,7 @@ namespace ErasmusAppTVZ
 
             selectedCountryIndex = (sender as ListPicker).SelectedIndex + 1;
 
-            univIndex = null;
+            //univIndex = null;
             listPickerPrograms.ItemsSource = null;
 
             List<string> UniversityNames = await App.MobileService.GetTable<UniversityData>().
@@ -266,15 +266,13 @@ namespace ErasmusAppTVZ
 
                 ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorPrograms);
 
-                univIndex = await App.MobileService.GetTable<UniversityData>().
+                List<int> univIndex = await App.MobileService.GetTable<UniversityData>().
                     Where(x => x.Name == listPickerUniversities.SelectedItem.ToString()).
                     Select(x => x.ID).ToListAsync();
 
-                List<string> ProgrammeNames = await App.MobileService.GetTable<ProgrammeData>().
+                listPickerPrograms.ItemsSource = await App.MobileService.GetTable<ProgrammeData>().
                     Where(x => x.UniversityId == univIndex.First()).
                     Select(x => x.Name).ToListAsync();
-
-                listPickerPrograms.ItemsSource = ProgrammeNames;
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
             }

@@ -69,6 +69,16 @@
 
             <maps:Map Name="map"
                       Height="200"
+                      Width="Auto"
+                      Visibility="Collapsed"
+                      Margin="-12, 0, 0, 0"
+                      Center="56.20, 13.20"
+                      ZoomLevel="2"
+                      IsHitTestVisible="False">
+            </maps:Map>
+
+            <!--<maps:Map Name="map"
+                      Height="200"
                       Visibility="Collapsed"
                       Margin="12, 0, 0, 0">
                 <maps:Map.Layers>
@@ -96,7 +106,7 @@
                         </maps:MapOverlay>
                     </maps:MapLayer>
                 </maps:Map.Layers>
-            </maps:Map>
+            </maps:Map>-->
 
             <!-- Cities list -->
             <ListBox Name="listbox"

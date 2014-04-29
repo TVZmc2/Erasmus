@@ -160,20 +160,20 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want your preferences to be remembered?.
-        /// </summary>
-        public static string MessageBoxCaption {
-            get {
-                return ResourceManager.GetString("MessageBoxCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to remember me.
         /// </summary>
         public static string MessageBoxRemember {
             get {
                 return ResourceManager.GetString("MessageBoxRemember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want your preferences to be remembered?.
+        /// </summary>
+        public static string MessageBoxRememberCaption {
+            get {
+                return ResourceManager.GetString("MessageBoxRememberCaption", resourceCulture);
             }
         }
         
