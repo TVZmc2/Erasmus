@@ -28,28 +28,22 @@ namespace ErasmusAppTVZ.Helpers
             string[] interestsInfo = studentInfo[2].Split(',');
             string[] contactInfo = studentInfo[3].Split(',');
 
+            ScrollViewer scrollViewer = new ScrollViewer() { Height = App.Current.Host.Content.ActualHeight - 100 };
+            StackPanel stackPanel = new StackPanel();
 
-            Grid grid = new Grid() { Margin = new Thickness(12, 12, 0, 0) };
-            grid.RowDefinitions.Add(new RowDefinition());
-            grid.RowDefinitions.Add(new RowDefinition());
-            grid.RowDefinitions.Add(new RowDefinition());
-            grid.RowDefinitions.Add(new RowDefinition());
-            grid.RowDefinitions.Add(new RowDefinition());
-
-
-            //first main row
+            //header
             TextBlock header = new TextBlock() 
             {
                 Text = studentName,
                 FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeLarge"].ToString())
             };
 
-            //add first main row content
-            grid.Children.Add(header);
+            //add header
+            stackPanel.Children.Add(header);
 
 
-            //second main row
-            Grid secondRowGrid = new Grid() { Margin = new Thickness(-48, 24, 0, 0) };
+            //image and basic info
+            Grid secondRowGrid = new Grid() { Margin = new Thickness(-54, 24, 0, 0) };
             secondRowGrid.ColumnDefinitions.Add(new ColumnDefinition());
             secondRowGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
@@ -74,13 +68,11 @@ namespace ErasmusAppTVZ.Helpers
             secondRowGrid.Children.Add(image);
             secondRowGrid.Children.Add(info);
 
-            Grid.SetRow(secondRowGrid, 1);
-
-            //add second main row content
-            grid.Children.Add(secondRowGrid);
+            //add image and basic info
+            stackPanel.Children.Add(secondRowGrid);
 
 
-            //third main row
+            //languages
             Grid thirdRowGrid = new Grid() { Margin = new Thickness(0, 24, 0, 0) };
             thirdRowGrid.RowDefinitions.Add(new RowDefinition());
             thirdRowGrid.RowDefinitions.Add(new RowDefinition());
@@ -89,7 +81,8 @@ namespace ErasmusAppTVZ.Helpers
             TextBlock languages = new TextBlock()
             { 
                 Text = "Languages",
-                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString())
+                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString()),
+                FontWeight = FontWeights.Bold
             };
 
             //second row
@@ -133,13 +126,11 @@ namespace ErasmusAppTVZ.Helpers
             thirdRowGrid.Children.Add(languages);
             thirdRowGrid.Children.Add(thirdRowHelperGrid);
 
-            Grid.SetRow(thirdRowGrid, 2);
-
-            //add third main row content
-            grid.Children.Add(thirdRowGrid);
+            //add languages
+            stackPanel.Children.Add(thirdRowGrid);
 
 
-            //fourth main row
+            //interests
             Grid fourthRowGrid = new Grid() { Margin = new Thickness(0, 24, 0, 0) };
             fourthRowGrid.RowDefinitions.Add(new RowDefinition());
             fourthRowGrid.RowDefinitions.Add(new RowDefinition());
@@ -148,7 +139,8 @@ namespace ErasmusAppTVZ.Helpers
             TextBlock interests = new TextBlock()
             {
                 Text = "Interests",
-                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString())
+                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString()),
+                FontWeight = FontWeights.Bold
             };
 
             //second row
@@ -192,13 +184,11 @@ namespace ErasmusAppTVZ.Helpers
             fourthRowGrid.Children.Add(interests);
             fourthRowGrid.Children.Add(fourthRowHelperGrid);
 
-            Grid.SetRow(fourthRowGrid, 3);
-
-            //add fourth main row content
-            grid.Children.Add(fourthRowGrid);
+            //add interests
+            stackPanel.Children.Add(fourthRowGrid);
 
 
-            //fifth main row
+            //contacts
             Grid fifthRowGrid = new Grid() { Margin = new Thickness(0, 24, 0, 0) };
             fifthRowGrid.RowDefinitions.Add(new RowDefinition());
             fifthRowGrid.RowDefinitions.Add(new RowDefinition());
@@ -207,7 +197,8 @@ namespace ErasmusAppTVZ.Helpers
             TextBlock contacts = new TextBlock()
             {
                 Text = "Contacts",
-                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString())
+                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString()),
+                FontWeight = FontWeights.Bold
             };
 
             //second row
@@ -256,17 +247,17 @@ namespace ErasmusAppTVZ.Helpers
             fifthRowGrid.Children.Add(contacts);
             fifthRowGrid.Children.Add(fifthRowHelperGrid);
 
-            Grid.SetRow(fifthRowGrid, 4);
+            //add contacts
+            stackPanel.Children.Add(fifthRowGrid);
 
-            //add fifth main row content
-            grid.Children.Add(fifthRowGrid);
-
+            //add student profile
+            scrollViewer.Content = stackPanel;
 
             CustomMessageBox customMessageBox = new CustomMessageBox() 
             {
-                Content = grid,
+                Content = scrollViewer,
                 LeftButtonContent = "ok",
-                IsFullScreen = true
+                Height = App.Current.Host.Content.ActualHeight
             };
 
             return customMessageBox;

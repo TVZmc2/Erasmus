@@ -52,12 +52,12 @@ namespace ErasmusAppTVZ
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            //model = null;
-            //hasCoordinates = false;
-            //model.Dispose();
-        }
+        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //{
+        //    //model = null;
+        //    //hasCoordinates = false;
+        //    //model.Dispose();
+        //}
 
         /// <summary>
         /// Checks if 'search' and 'countryId' parameters exist
@@ -148,7 +148,7 @@ namespace ErasmusAppTVZ
                 ProgressIndicatorHelper.SetProgressBar(false, null);
             }
 
-            AnimationHelper.Fade(listbox, 1, 900, new PropertyPath(OpacityProperty));
+            AnimationHelper.Fade(listbox, 1, 700, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
-            if (e.Error == null)
+            if (e.Result.Count > 0)
             {
                 cityCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
                 cityCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;

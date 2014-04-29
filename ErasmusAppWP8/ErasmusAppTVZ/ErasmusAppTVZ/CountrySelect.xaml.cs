@@ -169,7 +169,7 @@ namespace ErasmusAppTVZ
                 DataContext = model;
 
             //Animate listBox with countries
-            AnimationHelper.Fade(listBox, 1, 900, new PropertyPath(OpacityProperty));
+            AnimationHelper.Fade(listBox, 1, 700, new PropertyPath(OpacityProperty));
         }
 
         /// <summary>

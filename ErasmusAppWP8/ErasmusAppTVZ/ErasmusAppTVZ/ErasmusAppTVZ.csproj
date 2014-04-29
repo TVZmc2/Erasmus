@@ -171,8 +171,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ErasmusAppTVZ_2014_04_29_22_23_13.sap" />
-    <None Include="ErasmusAppTVZ_2014_04_29_22_25_31.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -189,6 +187,7 @@
     </Content>
     <Content Include="Assets\ContentIcons\add.white.png" />
     <Content Include="Assets\ContentIcons\add.black.png" />
+    <Content Include="Assets\ContentIcons\city.png" />
     <Content Include="Assets\ContentIcons\university.info.png" />
     <Content Include="Assets\ContentIcons\group.png" />
     <Content Include="Assets\ContentIcons\minus.png" />

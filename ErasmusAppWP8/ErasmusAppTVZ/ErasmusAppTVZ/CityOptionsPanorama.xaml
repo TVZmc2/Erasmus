@@ -20,7 +20,8 @@
     <Grid x:Name="LayoutRoot">
         <controls:Panorama x:Name="MainPanorama"
                            Title="{Binding LocalizedResources.ApplicationTitle, 
-                                Source={StaticResource LocalizedStrings}}">
+                                Source={StaticResource LocalizedStrings}}"
+                           Foreground="{StaticResource ThemeSafeBrush}">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="/Assets/students.png" 
                             Stretch="UniformToFill"/>
@@ -28,7 +29,8 @@
             
             <!--Panorama item one-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaUniversitiesPageTitle,
-                                        Source={StaticResource LocalizedStrings}}">
+                                        Source={StaticResource LocalizedStrings}}"
+                                   Foreground="{StaticResource ThemeSafeBrush}">
                 <Grid>
                     <ListBox ItemsSource="{Binding Universities}"
                              Margin="12, 0, 0, 0">
@@ -65,10 +67,12 @@
                                             <TextBlock Grid.Column="1"
                                                        Margin="0, 0, 0, 0"
                                                        Text="{Binding Name}"
+                                                       Foreground="{StaticResource ThemeSafeBrush}"
                                                        TextWrapping="Wrap"
                                                        VerticalAlignment="Center"
                                                        FontSize="{StaticResource PhoneFontSizeLarge}"/>
                                             <TextBlock Grid.Column="2"
+                                                       Foreground="{StaticResource ThemeSafeBrush}"
                                                        VerticalAlignment="Center"
                                                        Padding="12, 0, 0, 0"
                                                        Text="{Binding Rating}"
@@ -85,36 +89,47 @@
 
             <!--Panorama item two-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaStudentsPageTitle,
-                                        Source={StaticResource LocalizedStrings}}">
+                                        Source={StaticResource LocalizedStrings}}"
+                                   Foreground="{StaticResource ThemeSafeBrush}">
                 <Grid>
-                    <phone:LongListSelector ItemsSource="{Binding Students}"
+                    <Grid Name="studentDetails"
+                          Visibility="Visible">
+                        
+                    </Grid>
+
+                    <Grid Name="studentList"
+                          Visibility="Visible">
+                        <phone:LongListSelector ItemsSource="{Binding Students}"
                                             LayoutMode="Grid"
                                             GridCellSize="180, 160">
-                        <phone:LongListSelector.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Background="#333333"
+                            <phone:LongListSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Background="#333333"
                                       Margin="12, 12, 0, 0" 
                                       Tap="GridStudents_Tap"
                                       Tag="{Binding FirstName}">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    
-                                    <TextBlock Text="{Binding FirstName}"
-                                               Grid.Row="1" 
-                                               Margin="5, 0, 0, 0"/>
-                                </Grid>
-                            </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="{Binding FirstName}"
+                                                   Foreground="{StaticResource ThemeSafeBrush}"
+                                                   Grid.Row="1" 
+                                                   Margin="5, 0, 0, 0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </phone:LongListSelector.ItemTemplate>
+                        </phone:LongListSelector>
+                    </Grid>
                 </Grid>
 
             </controls:PanoramaItem>
 
             <!--Panorama item three-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaEventsPageTitle,
-                                        Source={StaticResource LocalizedStrings}}">
+                                        Source={StaticResource LocalizedStrings}}"
+                                   Foreground="{StaticResource ThemeSafeBrush}">
                 <Grid>
                     <ListBox ItemsSource="{Binding Events}">
                         <ListBox.ItemTemplate>
@@ -127,12 +142,13 @@
                                     <toolkit:ExpanderView.Items>
                                         <Grid Margin="0, 12, 0, 0">
                                             <StackPanel>
-                                                <TextBlock Foreground="White" 
+                                                <TextBlock Foreground="{StaticResource ThemeSafeBrush}" 
                                                            Text="{Binding Description}"
                                                            FontSize="{StaticResource PhoneFontSizeMedium}"/>
                                                 <CheckBox Margin="-12, 0, 0, 0"
                                                           Content="Reminder" 
-                                                          Click="CheckBox_Click"/>
+                                                          Click="CheckBox_Click"
+                                                          Foreground="{StaticResource ThemeSafeBrush}"/>
                                             </StackPanel>
                                         </Grid>
                                     </toolkit:ExpanderView.Items>
@@ -149,6 +165,7 @@
                                             <Image Source="/Assets/ContentIcons/group.png"
                                                    Width="50"/>
                                             <TextBlock Grid.Column="1"
+                                                       Foreground="{StaticResource ThemeSafeBrush}"
                                                        Margin="24, 0, 0, 0"
                                                        VerticalAlignment="Center"
                                                        Text="{Binding Title}"

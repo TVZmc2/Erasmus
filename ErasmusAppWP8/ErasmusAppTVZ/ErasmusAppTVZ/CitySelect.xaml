@@ -138,12 +138,21 @@
                                     <TextBlock Text="Content 1"></TextBlock>
                                     <TextBlock Text="Content 2" Grid.Row="1" />
                                     <TextBlock Text="Content 3" Grid.Row="2" />
-                                    <Button Content=">" 
-                                            Grid.Column="1" 
+                                    <Button Grid.Column="1" 
                                             Grid.Row="3"
                                             Width="100" 
+                                            Height="100"
                                             Click="Button_Click" 
-                                            Tag="{Binding Name}" />
+                                            Tag="{Binding Name}"
+                                            BorderThickness="0"
+                                            HorizontalContentAlignment="Center">
+                                        <Rectangle Fill="{StaticResource PhoneForegroundBrush}"
+                                               Height="60" Width="60">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="/Assets/ContentIcons/next.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                    </Button>
                                 </Grid>
                             </toolkit:ExpanderView.Items>
                             <toolkit:ExpanderView.Expander>
@@ -156,9 +165,11 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
-                                    <Rectangle Fill="Green" 
-                                               Height="50" 
-                                               Width="50"/>
+                                    <Rectangle Fill="{StaticResource PhoneForegroundBrush}">
+                                        <Rectangle.OpacityMask>
+                                            <ImageBrush ImageSource="/Assets/ContentIcons/city.png" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
 
                                     <TextBlock Text="{Binding Name}"
                                        Grid.Column="1"

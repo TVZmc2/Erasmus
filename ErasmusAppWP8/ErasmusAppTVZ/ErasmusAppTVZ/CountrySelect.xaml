@@ -117,7 +117,12 @@
                                             Tag="{Binding Id}"
                                             BorderThickness="0"
                                             HorizontalContentAlignment="Center">
-                                        <Image Source="/Assets/ContentIcons/next.png"/>
+                                        <Rectangle Fill="{StaticResource PhoneForegroundBrush}"
+                                               Height="60" Width="60">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="/Assets/ContentIcons/next.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
                                     </Button>
                                 </Grid>
                             </toolkit:ExpanderView.Items>
