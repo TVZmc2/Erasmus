@@ -32,6 +32,7 @@ namespace ErasmusAppTVZ
         private static bool hasCoordinates = false;
         private static bool isFirstNavigation = true;
         private static bool isMapVisible = false;
+        private static string currentlyOpenedExpander = null;
 
         //variable for storing country code by ISO 3166-1 standard
         //private static string countryCode;
@@ -209,6 +210,15 @@ namespace ErasmusAppTVZ
             ApplicationBar.IsVisible = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetMapCenter()
+        {
+            map.Center = new GeoCoordinate(countryCoordinates[0], countryCoordinates[1]);
+            map.ZoomLevel = ZOOM_LEVEL;
+        }
+
         #region EventHandlers
         /// <summary>
         /// 
@@ -239,10 +249,10 @@ namespace ErasmusAppTVZ
         {
             ExpanderView ev = sender as ExpanderView;
 
-            //Execute only if expander is opened
-            //No point to execute if user closes currently opened expander
-            if (ev.IsExpanded)
+            if (currentlyOpenedExpander != ev.Tag.ToString())
             {
+                //if (ev.IsExpanded)
+                //{
                 hasCoordinates = false;
                 int id = Int32.Parse(ev.Tag.ToString());
 
@@ -254,7 +264,26 @@ namespace ErasmusAppTVZ
 
                 query.QueryCompleted += query_QueryCompleted;
                 query.QueryAsync();
+
+                currentlyOpenedExpander = ev.Tag.ToString();
+                //}
             }
+
+            //Execute only if expander is opened
+            //if (ev.IsExpanded)
+            //{
+            //    hasCoordinates = false;
+            //    int id = Int32.Parse(ev.Tag.ToString());
+
+            //    GeocodeQuery query = new GeocodeQuery()
+            //    {
+            //        GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+            //        SearchTerm = (DataContext as CountryModel).Countries.Single(x => x.Id == id).Name
+            //    };
+
+            //    query.QueryCompleted += query_QueryCompleted;
+            //    query.QueryAsync();
+            //}
         }
 
         /// <summary>
@@ -271,9 +300,7 @@ namespace ErasmusAppTVZ
                 countryCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
 
                 if (map.Visibility == System.Windows.Visibility.Visible)
-                    CoordinatesHelper.SetMapCenter(ref map,
-                        countryCoordinates,
-                        ZOOM_LEVEL);
+                    SetMapCenter();
 
                 hasCoordinates = true;
             }
@@ -298,22 +325,24 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private /*async*/ void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ExpanderView ev = sender as ExpanderView;
 
             //Expander Tap event is also invoked, so waiting is needed until Inception passes
             //We should not wait long as it is only one layer in
             //No timeout, so theoretically, we could be stuck in Limbo (I'm lying)
-            await Task.Run(() =>
-                {
-                    while (true)
-                        if (hasCoordinates)
-                            return;
-                });
+            //await Task.Run(() =>
+            //    {
+            //        while (true)
+            //            if (hasCoordinates)
+            //                return;
+            //    });
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
-                ev.Tag, isMapVisible, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
+            //NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
+            //    ev.Tag, isMapVisible, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}",
+                ev.Tag, isMapVisible), UriKind.Relative));
         }
 
         /// <summary>
@@ -369,10 +398,8 @@ namespace ErasmusAppTVZ
             map.Visibility = System.Windows.Visibility.Visible;
             isMapVisible = true;
 
-            if(hasCoordinates)
-                CoordinatesHelper.SetMapCenter(ref map,
-                    countryCoordinates,
-                    ZOOM_LEVEL);
+            if (hasCoordinates)
+                SetMapCenter();
             //if(countryCode != null)
             //    CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);
         }
@@ -405,7 +432,7 @@ namespace ErasmusAppTVZ
         {
             Button bttn = sender as Button;
 
-            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}", 
+            NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
                 bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }
 

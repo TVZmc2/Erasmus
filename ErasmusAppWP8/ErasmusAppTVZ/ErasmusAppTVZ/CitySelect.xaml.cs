@@ -21,7 +21,7 @@ namespace ErasmusAppTVZ
     {
         //constants for map zoom level
         private const double ZOOM_LEVEL_COUNTRY = 5.5;
-        private const double ZOOM_LEVEL_CITY = 8.5;
+        private const double ZOOM_LEVEL_CITY = 8.75;
 
         //helper for deciding which sort parameter is used
         private static int sortCounter = 0;
@@ -29,10 +29,11 @@ namespace ErasmusAppTVZ
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
         private static bool isMapVisible;
+        private string currentlyOpenedExpander = null;
         //private static bool isExpanderTapped;
 
         //arrays for storing latitude and longitude
-        private double[] countryCoordinates;
+        //private double[] countryCoordinates;
         private static double[] cityCoordinates;
 
         private static CityModel model;
@@ -45,6 +46,15 @@ namespace ErasmusAppTVZ
             InitializeComponent();
 
             BuildLocalizedApplicationBar();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            hasCoordinates = false;
         }
 
         /// <summary>
@@ -76,7 +86,7 @@ namespace ErasmusAppTVZ
                 if (isMapVisible)
                 {
                     map.Visibility = System.Windows.Visibility.Visible;
-                    CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
+                    SetMapCenter(true);
                 }
             }
             else if (NavigationContext.QueryString.ContainsKey("countryId"))
@@ -85,24 +95,15 @@ namespace ErasmusAppTVZ
                 ProgressIndicatorHelper.SetProgressBar(true, AppResources.ProgressIndicatorCities);
 
                 //get id for retrieving country data
-                int selectedCountryId = 0;
-                Int32.TryParse(NavigationContext.QueryString["countryId"], out selectedCountryId);
+                int selectedCountryId = Int32.Parse(NavigationContext.QueryString["countryId"]);
 
                 //get the value which will help to determine if map was visible or not
-                isMapVisible = false;
-                bool.TryParse(NavigationContext.QueryString["mapVisible"], out isMapVisible);
+                isMapVisible = bool.Parse(NavigationContext.QueryString["mapVisible"]);
 
                 cityCoordinates = new double[2];
-                countryCoordinates = new double[2];
-                double.TryParse(NavigationContext.QueryString["lat"], out countryCoordinates[0]);
-                double.TryParse(NavigationContext.QueryString["lon"], out countryCoordinates[1]);
-
-                //if map was visible, set it visible and center it to selected country coordinates
-                if (isMapVisible)
-                {
-                    CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL_COUNTRY);
-                    map.Visibility = System.Windows.Visibility.Visible;
-                }
+                //countryCoordinates = new double[2];
+                //double.TryParse(NavigationContext.QueryString["lat"], out countryCoordinates[0]);
+                //double.TryParse(NavigationContext.QueryString["lon"], out countryCoordinates[1]);
 
                 //Get the CityData based on selectedCountryId
                 model = new CityModel() 
@@ -110,6 +111,35 @@ namespace ErasmusAppTVZ
                     Cities = await App.MobileService.GetTable<CityData>().
                         Where(x => x.CountryId == selectedCountryId).ToListAsync()
                 };
+
+                //find index of city with highest rating
+                int index = 0;
+                float temp = model.Cities[index].Rating;
+                for (int i = 1; i < model.Cities.Count; i++)
+                {
+                    if (model.Cities[i].Rating > temp)
+                    {
+                        temp = model.Cities[i].Rating;
+                        index = i;
+                    }
+                }
+
+                //find geocoordinates of the city with highest rating
+                FindGeoCoordinates(model.Cities[index].Name);
+
+                //GeocodeQuery query = new GeocodeQuery()
+                //{
+                //    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+                //    SearchTerm = model.Cities[index].Name
+                //};
+
+                //query.QueryCompleted += query_QueryCompleted;
+                //query.QueryAsync();
+
+                //if map was visible, set it visible and center it to selected country coordinates
+                if (isMapVisible)
+                    map.Visibility = System.Windows.Visibility.Visible;
+                    //SetMapCenter(false);
 
                 DataContext = model;
 
@@ -167,6 +197,31 @@ namespace ErasmusAppTVZ
             ApplicationBar.IsVisible = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetMapCenter(bool CityOrCountry)
+        {
+            map.Center = new GeoCoordinate(cityCoordinates[0], cityCoordinates[1]);
+            map.ZoomLevel = ZOOM_LEVEL_CITY;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchTerm"></param>
+        private void FindGeoCoordinates(string searchTerm)
+        {
+            GeocodeQuery query = new GeocodeQuery()
+            {
+                GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+                SearchTerm = searchTerm
+            };
+
+            query.QueryCompleted += query_QueryCompleted;
+            query.QueryAsync();
+        }
+
         #region EventHandlers
         /// <summary>
         /// 
@@ -200,25 +255,46 @@ namespace ErasmusAppTVZ
 
             ExpanderView ev = sender as ExpanderView;
 
-            if (ev.IsExpanded)
+            if (currentlyOpenedExpander != ev.Tag.ToString())
             {
-                //hardcoded Zagreb for testing purposes
-                //cityCoordinates = await CoordinatesHelper.GetCoordinates("Zagreb", 2);
-
-                //CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
+                //if (ev.IsExpanded)
+                //{
                 hasCoordinates = false;
+                currentlyOpenedExpander = ev.Tag.ToString();
 
-                GeocodeQuery query = new GeocodeQuery()
-                {
-                    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
-                    SearchTerm = ev.Tag.ToString()
-                };
+                string searchTerm = (DataContext as CityModel).Cities.Where(x => x.Name == currentlyOpenedExpander).First().Name;
+                FindGeoCoordinates(searchTerm);
+                //GeocodeQuery query = new GeocodeQuery()
+                //{
+                //    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
+                //    SearchTerm = (DataContext as CityModel).Cities.Single(x => x.Name == currentlyOpenedExpander).Name
+                //};
 
-                query.QueryCompleted += query_QueryCompleted;
-                query.QueryAsync();
+                //query.QueryCompleted += query_QueryCompleted;
+                //query.QueryAsync();
+
+                //}
             }
+            //if (ev.IsExpanded)
+            //{
+            //    hasCoordinates = false;
+
+            //    GeocodeQuery query = new GeocodeQuery()
+            //    {
+            //        GeoCoordinate = new System.Device.Location.GeoCoordinate(),
+            //        SearchTerm = ev.Tag.ToString()
+            //    };
+
+            //    query.QueryCompleted += query_QueryCompleted;
+            //    query.QueryAsync();
+            //}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
             if (e.Error == null)
@@ -227,9 +303,7 @@ namespace ErasmusAppTVZ
                 cityCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
 
                 if (map.Visibility == System.Windows.Visibility.Visible)
-                    CoordinatesHelper.SetMapCenter(ref map,
-                        cityCoordinates,
-                        ZOOM_LEVEL_CITY);
+                    SetMapCenter(true);
 
                 hasCoordinates = true;
             }
@@ -301,10 +375,10 @@ namespace ErasmusAppTVZ
             map.Visibility = System.Windows.Visibility.Visible;
             isMapVisible = true;
 
-            if(hasCoordinates)
-                CoordinatesHelper.SetMapCenter(ref map, cityCoordinates, ZOOM_LEVEL_CITY);
+            if (hasCoordinates)
+                SetMapCenter(true);
             else
-                CoordinatesHelper.SetMapCenter(ref map, countryCoordinates, ZOOM_LEVEL_COUNTRY);
+                SetMapCenter(false);
             
         }
 
@@ -345,20 +419,20 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
-        {
-            map.ZoomLevel += 1;
-        }
+        //private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    map.ZoomLevel += 1;
+        //}
 
         /// <summary>
         /// Decrements map zoom level by 1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
-        {
-            map.ZoomLevel -= 1;
-        }
+        //private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
+        //{
+        //    map.ZoomLevel -= 1;
+        //}
         #endregion
 
     }//class
