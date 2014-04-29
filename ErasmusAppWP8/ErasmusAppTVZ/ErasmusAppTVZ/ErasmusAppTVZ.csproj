@@ -101,7 +101,7 @@
     <Compile Include="CountrySelect.xaml.cs">
       <DependentUpon>CountrySelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ApplicationBarHelper.cs" />
+    <Compile Include="Helpers\ContentHelper.cs" />
     <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="ViewModel\Geolocation\GeolocationData.cs" />
     <Compile Include="Helpers\ImageConversionHelper.cs" />

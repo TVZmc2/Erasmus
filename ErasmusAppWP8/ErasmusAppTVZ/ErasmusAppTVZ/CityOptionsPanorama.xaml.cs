@@ -73,7 +73,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            CustomMessageBox aboutMessageBox = ApplicationBarHelper.GetAboutMessageBox();
+            CustomMessageBox aboutMessageBox = ContentHelper.GetAboutMessageBox();
             aboutMessageBox.Show();
         }
         #endregion
@@ -81,6 +81,19 @@ namespace ErasmusAppTVZ
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GridStudents_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            CustomMessageBox customMessageBox = ContentHelper.GetStudentsPopUp(
+                (sender as Grid).Tag.ToString());
+
+            customMessageBox.Show();
         }
 
     }//class

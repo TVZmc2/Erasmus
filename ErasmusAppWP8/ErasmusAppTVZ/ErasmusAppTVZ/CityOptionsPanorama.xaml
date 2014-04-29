@@ -92,7 +92,9 @@
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Grid Background="#333333"
-                                      Margin="12, 12, 0, 0" >
+                                      Margin="12, 12, 0, 0" 
+                                      Tap="GridStudents_Tap"
+                                      Tag="{Binding FirstName}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition Height="Auto" />

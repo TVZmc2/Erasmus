@@ -352,7 +352,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            CustomMessageBox aboutMessageBox = ApplicationBarHelper.GetAboutMessageBox();
+            CustomMessageBox aboutMessageBox = ContentHelper.GetAboutMessageBox();
             aboutMessageBox.Show();
         }
 
