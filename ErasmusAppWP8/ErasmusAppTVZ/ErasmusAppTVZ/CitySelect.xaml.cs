@@ -54,8 +54,9 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            hasCoordinates = false;
-            model.Dispose();
+            //model = null;
+            //hasCoordinates = false;
+            //model.Dispose();
         }
 
         /// <summary>

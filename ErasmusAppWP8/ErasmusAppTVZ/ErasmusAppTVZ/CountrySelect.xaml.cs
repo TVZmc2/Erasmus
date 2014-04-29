@@ -77,7 +77,9 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            model.Dispose();
+            //model.Countries.Clear();
+            //model = null;
+            //isFirstNavigation = true;
         }
 
         /// <summary>
@@ -118,8 +120,7 @@ namespace ErasmusAppTVZ
                         Where(x => x.Id != selectedCountryIndex).
                         ToListAsync()
                 };
-
-                
+              
                 Random rand = new Random();
 
                 //Convert Flag to FlagImage

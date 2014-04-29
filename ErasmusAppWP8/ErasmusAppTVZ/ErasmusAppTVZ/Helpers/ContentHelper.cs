@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace ErasmusAppTVZ.Helpers
 {
-    class ContentHelper
+    sealed class ContentHelper
     {
         /// <summary>
         /// 
