@@ -173,9 +173,6 @@
   <data name="ProgressIndicatorCountries" xml:space="preserve">
     <value>Loading countries...</value>
   </data>
-  <data name="ProgressIndicatorProgrammes" xml:space="preserve">
-    <value>Loading programmes...</value>
-  </data>
   <data name="ProgressIndicatorPrograms" xml:space="preserve">
     <value>Loading programs...</value>
   </data>
@@ -187,5 +184,10 @@
   </data>
   <data name="MessageBoxRemember" xml:space="preserve">
     <value>remember me</value>
+  </data>
+  <data name="MessageBoxRememberText" xml:space="preserve">
+    <value>If you choose to save your preferences, you will no longer see this screen.
+If you want to change them later, you can easily access preference options located in Application Bar.</value>
+    <comment>Sets the text that is displayed when user is prompted to save his choices</comment>
   </data>
 </root>

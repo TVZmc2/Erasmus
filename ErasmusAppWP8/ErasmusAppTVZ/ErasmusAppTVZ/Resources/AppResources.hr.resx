@@ -179,10 +179,15 @@
   <data name="ProgressIndicatorUniversities" xml:space="preserve">
     <value>Dohvaćam fakultete...</value>
   </data>
-  <data name="MessageBoxCaption" xml:space="preserve">
+  <data name="MessageBoxRememberCaption" xml:space="preserve">
     <value>Želiš li spremiti svoj odabir?</value>
   </data>
   <data name="MessageBoxRemember" xml:space="preserve">
     <value>zapamti me</value>
+  </data>
+  <data name="MessageBoxRememberText" xml:space="preserve">
+    <value>Ako se odlučiš na spremanje postavki, više nećeš vidjeti ovaj ekran prilikom pokretanja aplikacije.
+Ukoliko želiš promijeniti ove postavke, možeš to učiniti odabirom "opcije" u aplikacijskom traci.</value>
+    <comment>Postavlja tekst u MessageBox-u kada je korisnik upitan želi li spremiti odabir</comment>
   </data>
 </root>

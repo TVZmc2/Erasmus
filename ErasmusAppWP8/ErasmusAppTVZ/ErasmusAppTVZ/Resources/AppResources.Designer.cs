@@ -178,6 +178,16 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you choose to save your preferences, you will no longer see this screen.
+        ///If you want to change them later, you can easily access preference options located in Application Bar..
+        /// </summary>
+        public static string MessageBoxRememberText {
+            get {
+                return ResourceManager.GetString("MessageBoxRememberText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to events.
         /// </summary>
         public static string PanoramaEventsPageTitle {
@@ -219,15 +229,6 @@ namespace ErasmusAppTVZ.Resources {
         public static string ProgressIndicatorCountries {
             get {
                 return ResourceManager.GetString("ProgressIndicatorCountries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading programmes....
-        /// </summary>
-        public static string ProgressIndicatorProgrammes {
-            get {
-                return ResourceManager.GetString("ProgressIndicatorProgrammes", resourceCulture);
             }
         }
         

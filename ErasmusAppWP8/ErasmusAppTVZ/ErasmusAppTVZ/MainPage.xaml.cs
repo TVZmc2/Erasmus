@@ -174,8 +174,7 @@ namespace ErasmusAppTVZ
             CustomMessageBox rememberMeMsgBox = new CustomMessageBox()
             {
                 Caption = AppResources.MessageBoxRememberCaption,
-                Message = "If you choose to save your preferences, you will no longer see this screen. " +
-                "But, if you want to change them later, you can easily access preference options located in Application Bar. ",
+                Message = AppResources.MessageBoxRememberText,
                 Content = checkBox,
                 LeftButtonContent = "ok",
             };
