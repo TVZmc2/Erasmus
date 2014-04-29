@@ -4,10 +4,15 @@ using System.Windows.Media;
 
 namespace ErasmusAppTVZ.ViewModel.Country
 {
-    public class CountryModel
+    public class CountryModel : IDisposable
     {
         public List<CountryData> Countries { get; set; }
         public bool IsDataLoaded { get; set; }
+
+        public void Dispose()
+        {
+            Countries = null;
+        }
 
         //public void LoadData()
         //{

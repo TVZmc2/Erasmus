@@ -90,8 +90,14 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void GridStudents_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            //test data and formatting
+            string content = "17.03.1992,London,Great Britain,Cambridge;" +
+                             "English,German,Spanish,Danish,Croatian,Italian,Slovenian;" +
+                             "Science fiction,Astronomy,Sports,Physics,Mathematics,Cars,Books,Cooking;" +
+                             "someGuy,blabla;";
+
             CustomMessageBox customMessageBox = ContentHelper.GetStudentsPopUp(
-                (sender as Grid).Tag.ToString());
+                (sender as Grid).Tag.ToString(), content);
 
             customMessageBox.Show();
         }

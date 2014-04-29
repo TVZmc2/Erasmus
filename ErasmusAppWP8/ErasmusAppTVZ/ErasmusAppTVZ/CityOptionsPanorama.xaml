@@ -22,9 +22,10 @@
                            Title="{Binding LocalizedResources.ApplicationTitle, 
                                 Source={StaticResource LocalizedStrings}}">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Assets/students.png" />
+                <ImageBrush ImageSource="/Assets/students.png" 
+                            Stretch="UniformToFill"/>
             </controls:Panorama.Background>
-
+            
             <!--Panorama item one-->
             <controls:PanoramaItem Header="{Binding LocalizedResources.PanoramaUniversitiesPageTitle,
                                         Source={StaticResource LocalizedStrings}}">

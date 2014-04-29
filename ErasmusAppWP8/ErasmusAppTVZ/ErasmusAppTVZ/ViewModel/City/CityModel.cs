@@ -4,10 +4,15 @@ using System.Collections.Generic;
 
 namespace ErasmusAppTVZ.ViewModel.City
 {
-    public class CityModel
+    public class CityModel : IDisposable
     {
         public List<CityData> Cities { get; set; }
         public bool isDataLoaded { get; set; }
+
+        public void Dispose()
+        {
+            Cities = null;
+        }
 
         //public void LoadData()
         //{
@@ -42,5 +47,7 @@ namespace ErasmusAppTVZ.ViewModel.City
 
         //    return cityDataList;
         //}
+
+
     }
 }

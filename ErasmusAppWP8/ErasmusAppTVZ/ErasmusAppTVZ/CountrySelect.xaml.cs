@@ -75,6 +75,15 @@ namespace ErasmusAppTVZ
         /// 
         /// </summary>
         /// <param name="e"></param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            model.Dispose();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             if (IsolatedStorageSettings.ApplicationSettings.Contains("preferences"))
