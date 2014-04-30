@@ -126,9 +126,26 @@ namespace ErasmusAppTVZ
         }
         #endregion
 
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        private async void CheckBox_Click(object sender, RoutedEventArgs e)
         {
+            Button bttn = sender as Button;
+
+            List<EventData> Event = await App.MobileService.GetTable<EventData>().Where(x => x.ID == Convert.ToInt32(bttn.Tag)).ToListAsync();
+            EventData ed = new EventData();
+
+            ed = Event.ElementAt(0);
            
+            SaveAppointmentTask saveAppointment = new SaveAppointmentTask();
+
+            saveAppointment.StartTime = ed.Date;
+            saveAppointment.EndTime = ed.Date.AddMinutes(Convert.ToDouble(ed.Duration));
+            saveAppointment.Subject = ed.Title;
+            saveAppointment.Location = ed.Location;
+            saveAppointment.Details = ed.Description;
+            saveAppointment.Reminder = Reminder.OneHour;
+            saveAppointment.AppointmentStatus = Microsoft.Phone.UserData.AppointmentStatus.Busy;
+
+            saveAppointment.Show();
         }
 
         /// <summary>
