@@ -190,4 +190,37 @@
 If you want to change them later, you can easily access preference options located in Application Bar.</value>
     <comment>Sets the text that is displayed when user is prompted to save his choices</comment>
   </data>
+  <data name="ProfileCreatorTitle" xml:space="preserve">
+    <value>create profile</value>
+  </data>
+  <data name="ProfileEditTitle" xml:space="preserve">
+    <value>edit profile</value>
+  </data>
+  <data name="ApplicationCancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="ProfileAge" xml:space="preserve">
+    <value>age</value>
+  </data>
+  <data name="ProfileContacts" xml:space="preserve">
+    <value>contacts</value>
+  </data>
+  <data name="ProfileGender" xml:space="preserve">
+    <value>gender</value>
+  </data>
+  <data name="ProfileHomeCity" xml:space="preserve">
+    <value>hometown</value>
+  </data>
+  <data name="ProfileHomeUniversity" xml:space="preserve">
+    <value>home university</value>
+  </data>
+  <data name="ProfileInterests" xml:space="preserve">
+    <value>interests</value>
+  </data>
+  <data name="ProfileLanguages" xml:space="preserve">
+    <value>languages</value>
+  </data>
+  <data name="ProfileName" xml:space="preserve">
+    <value>full name</value>
+  </data>
 </root>

@@ -124,6 +124,15 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cancel.
+        /// </summary>
+        public static string ApplicationCancel {
+            get {
+                return ResourceManager.GetString("ApplicationCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to cities.
         /// </summary>
         public static string ApplicationCitiesPageTitle {
@@ -211,6 +220,96 @@ namespace ErasmusAppTVZ.Resources {
         public static string PanoramaUniversitiesPageTitle {
             get {
                 return ResourceManager.GetString("PanoramaUniversitiesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to age.
+        /// </summary>
+        public static string ProfileAge {
+            get {
+                return ResourceManager.GetString("ProfileAge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to contacts.
+        /// </summary>
+        public static string ProfileContacts {
+            get {
+                return ResourceManager.GetString("ProfileContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create profile.
+        /// </summary>
+        public static string ProfileCreatorTitle {
+            get {
+                return ResourceManager.GetString("ProfileCreatorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit profile.
+        /// </summary>
+        public static string ProfileEditTitle {
+            get {
+                return ResourceManager.GetString("ProfileEditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gender.
+        /// </summary>
+        public static string ProfileGender {
+            get {
+                return ResourceManager.GetString("ProfileGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hometown.
+        /// </summary>
+        public static string ProfileHomeCity {
+            get {
+                return ResourceManager.GetString("ProfileHomeCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to home university.
+        /// </summary>
+        public static string ProfileHomeUniversity {
+            get {
+                return ResourceManager.GetString("ProfileHomeUniversity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to interests.
+        /// </summary>
+        public static string ProfileInterests {
+            get {
+                return ResourceManager.GetString("ProfileInterests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to languages.
+        /// </summary>
+        public static string ProfileLanguages {
+            get {
+                return ResourceManager.GetString("ProfileLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to full name.
+        /// </summary>
+        public static string ProfileName {
+            get {
+                return ResourceManager.GetString("ProfileName", resourceCulture);
             }
         }
         

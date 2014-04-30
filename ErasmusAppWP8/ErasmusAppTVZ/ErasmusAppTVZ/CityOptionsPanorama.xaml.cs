@@ -1,5 +1,7 @@
 ﻿using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.Interest;
+using ErasmusAppTVZ.ViewModel.Language;
 using ErasmusAppTVZ.ViewModel.Panorama;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -55,6 +57,7 @@ namespace ErasmusAppTVZ
             optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
             aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
 
+            profileMenuItem.Click += profileMenuItem_Click;
             aboutMenuItem.Click += aboutMenuItem_Click;
 
             ApplicationBar.MenuItems.Add(profileMenuItem);
@@ -63,6 +66,16 @@ namespace ErasmusAppTVZ
 
             ApplicationBar.Mode = ApplicationBarMode.Minimized;
             ApplicationBar.IsVisible = true;
+        }
+
+        async void profileMenuItem_Click(object sender, EventArgs e)
+        {
+            List<InterestData> Interests = await App.MobileService.GetTable<InterestData>().ToListAsync();
+            List<LanguageData> Languages = await App.MobileService.GetTable<LanguageData>().ToListAsync();
+
+            CustomMessageBox customMessageBox = ContentHelper.GetStudentProfileEditor(true, Interests, Languages);
+
+            customMessageBox.Show();
         }
 
         #region EventHandlers
@@ -96,7 +109,7 @@ namespace ErasmusAppTVZ
                              "Science fiction,Astronomy,Sports,Physics,Mathematics,Cars,Books,Cooking;" +
                              "someGuy,blabla;";
 
-            CustomMessageBox customMessageBox = ContentHelper.GetStudentsPopUp(
+            CustomMessageBox customMessageBox = ContentHelper.GetStudentProfileViewer(
                 (sender as Grid).Tag.ToString(), content);
 
             customMessageBox.Show();

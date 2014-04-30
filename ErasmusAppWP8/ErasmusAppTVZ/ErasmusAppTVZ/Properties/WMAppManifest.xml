@@ -5,12 +5,13 @@
     <Language code="en" />
     <Language code="hr" />
   </Languages>
-  <App xmlns="" ProductID="{b719b949-9771-48f2-87c3-d028b0839e34}" Title="ErasmusApp" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ErasmusAppTVZ author" Description="Sample description" Publisher="ErasmusAppTVZ" PublisherID="{6ec59d99-6604-4f4c-8378-717f42dd6761}">
+  <App xmlns="" ProductID="{b719b949-9771-48f2-87c3-d028b0839e34}" Title="ErasmusApp" RuntimeType="Silverlight" Version="0.9.0.0" Genre="apps.normal" Author="ErasmusAppTVZ author" Description="Sample description" Publisher="WPTeam" PublisherID="{6ec59d99-6604-4f4c-8378-717f42dd6761}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_MAP" />
+      <Capability Name="ID_CAP_LOCATION" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />

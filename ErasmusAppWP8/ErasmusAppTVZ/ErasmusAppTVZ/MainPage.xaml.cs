@@ -188,10 +188,11 @@ namespace ErasmusAppTVZ
                         if ((bool)checkBox.IsChecked)
                         {
                             //Remember user preferences
-                            string[] preferences = new string[3];
+                            string[] preferences = new string[4];
                             preferences[0] = selectedCountryIndex.ToString();
                             preferences[1] = listPickerStudProf.SelectedIndex.ToString();
-                            preferences[2] = listPickerPrograms.SelectedIndex.ToString();
+                            preferences[2] = listPickerUniversities.SelectedItem.ToString();
+                            preferences[3] = listPickerPrograms.SelectedIndex.ToString();
 
                             //serialize for easier saving
                             string result = JsonConvert.SerializeObject(preferences);

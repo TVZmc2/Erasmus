@@ -1,8 +1,13 @@
 ﻿using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.Interest;
+using ErasmusAppTVZ.ViewModel.Language;
+using ErasmusAppTVZ.ViewModel.Student;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,12 +19,308 @@ namespace ErasmusAppTVZ.Helpers
 {
     sealed class ContentHelper
     {
+        private static List<string> studentInterests;
+        private static List<string> studentLanguages;
+        private static List<InterestData> Interests;
+        private static List<LanguageData> Languages;
+        private static string gender;
+        private static SolidColorBrush backgroundColor;
+
+        private static TextBlock GetTextBlock(string text)
+        {
+            TextBlock tb = new TextBlock() 
+            {
+                Text = text,
+                FontWeight = FontWeights.Bold,
+                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeMediumLarge"].ToString())
+            };
+
+            return tb;
+        }
+
         /// <summary>
-        /// 
+        /// Generates content for profile editor
+        /// </summary>
+        /// <returns></returns>
+        public static CustomMessageBox GetStudentProfileEditor(bool hasProfile, List<InterestData> interests, List<LanguageData> languages) 
+        {
+            Interests = interests;
+            Languages = languages;
+
+            CustomMessageBox customMessageBox = new CustomMessageBox();
+
+            backgroundColor = customMessageBox.Background as SolidColorBrush;
+
+            ScrollViewer scrollViewer = new ScrollViewer() 
+            { 
+                Height = App.Current.Host.Content.ActualHeight - 100,
+                Margin = new Thickness(12, 0, 0, 0)
+            };
+            StackPanel stackPanel = new StackPanel();
+
+            TextBlock headerTextBlock = new TextBlock() 
+            {
+                Text = hasProfile ? AppResources.ProfileEditTitle : AppResources.ProfileCreatorTitle,
+                FontSize = double.Parse(Application.Current.Resources["PhoneFontSizeLarge"].ToString())
+            };
+
+            stackPanel.Children.Add(headerTextBlock);
+
+
+            TextBlock textBlockName = GetTextBlock(AppResources.ProfileName);
+
+            TextBox textBoxName = new TextBox() { Margin = new Thickness(-12, 0, 0, 0) };
+
+            stackPanel.Children.Add(textBlockName);
+            stackPanel.Children.Add(textBoxName);
+
+
+            TextBlock textBlockGender = GetTextBlock(AppResources.ProfileGender);
+            stackPanel.Children.Add(textBlockGender);
+
+            Grid genderGrid = new Grid();
+            genderGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            genderGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+            RadioButton radioButtonM = new RadioButton() { Content = "M" };
+            radioButtonM.Click += (senderM, eM) =>
+                { gender = radioButtonM.Content.ToString(); };
+            RadioButton radioButtonF = new RadioButton() { Content = "F" };
+            radioButtonF.Click += (senderM, eM) =>
+                { gender = radioButtonF.Content.ToString(); };
+
+            Grid.SetColumn(radioButtonF, 1);
+
+            genderGrid.Children.Add(radioButtonM);
+            genderGrid.Children.Add(radioButtonF);
+
+            stackPanel.Children.Add(genderGrid);
+
+            TextBlock textBlockDob = GetTextBlock(AppResources.ProfileAge);
+
+            TextBox textBoxAge = new TextBox() { Margin = new Thickness(-12, 0, 0, 0) };
+
+            stackPanel.Children.Add(textBlockDob);
+            stackPanel.Children.Add(textBoxAge);
+
+
+            TextBlock textBlockHometown = GetTextBlock(AppResources.ProfileHomeCity);
+            TextBox textBoxHomeTown = new TextBox() { Margin = new Thickness(-12, 0, 0, 0) };
+            stackPanel.Children.Add(textBlockHometown);
+            stackPanel.Children.Add(textBoxHomeTown);
+
+
+            //TextBlock textBlockHomeUniversity = GetTextBlock(AppResources.ProfileHomeUniversity);
+            //TextBox textBoxHomeUniversity = new TextBox() { Margin = new Thickness(-12, 0, 0, 0) };
+            //stackPanel.Children.Add(textBlockHomeUniversity);
+            //stackPanel.Children.Add(textBoxHomeUniversity);
+
+
+            TextBlock textBlockLanguages = GetTextBlock(AppResources.ProfileLanguages);
+
+            Grid languagesGrid = new Grid() { Margin = new Thickness(-12, 0, 0, 0) };
+            languagesGrid.RowDefinitions.Add(new RowDefinition());
+            Button bttn;
+
+            int width = 160;
+            int column = 0;
+            int row = 0;
+            for (int i = 0; i < Languages.Count; i++)
+            {
+                width += 160;
+                languagesGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                languagesGrid.ColumnDefinitions[i].Width = new GridLength(160);
+
+                bttn = new Button()
+                {
+                    Content = Languages[i].Name,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    BorderThickness = new Thickness(1),
+                    Tag = Languages[i].ID
+                };
+
+                bttn.Click += languagesButton_Click;
+
+                Grid.SetColumn(bttn, column);
+                Grid.SetRow(bttn, row);
+                languagesGrid.Children.Add(bttn);
+
+                column += 1;
+
+                if (width > Application.Current.Host.Content.ActualWidth)
+                {
+                    languagesGrid.RowDefinitions.Add(new RowDefinition());
+                    row += 1;
+                    column = 0;
+                    width = 160;
+                }
+            }
+
+            stackPanel.Children.Add(textBlockLanguages);
+            stackPanel.Children.Add(languagesGrid);
+
+            TextBlock textBlockInterests = GetTextBlock(AppResources.ProfileInterests);
+
+            Grid interestsGrid = new Grid() { Margin = new Thickness(-12, 0, 0, 0) };
+            interestsGrid.RowDefinitions.Add(new RowDefinition());
+
+            width = 160;
+            column = 0;
+            row = 0;
+            for (int i = 0; i < Interests.Count; i++)
+            {
+                width += 160;
+                interestsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                interestsGrid.ColumnDefinitions[i].Width = new GridLength(160);
+
+                bttn = new Button() 
+                {
+                    Content = Interests[i].InterestName,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    BorderThickness = new Thickness(1),
+                    Tag = Interests[i].ID
+                };
+
+                bttn.Click += interestButton_Click;
+
+                Grid.SetColumn(bttn, column);
+                Grid.SetRow(bttn, row);
+                interestsGrid.Children.Add(bttn);
+
+                column += 1;
+
+                if (width > Application.Current.Host.Content.ActualWidth)
+                {
+                    interestsGrid.RowDefinitions.Add(new RowDefinition());
+                    row += 1;
+                    column = 0;
+                    width = 160;
+                }
+            }
+
+            stackPanel.Children.Add(textBlockInterests);
+            stackPanel.Children.Add(interestsGrid);
+
+
+            TextBlock textBlockContacts = GetTextBlock(AppResources.ProfileContacts);
+            TextBox textBoxFacebook = new TextBox() { Text = "Facebook channel name" };
+            textBoxFacebook.GotFocus += (senderFacebook, eFacebook) =>
+                {
+                    if (textBoxFacebook.Text.Contains(" "))
+                        textBoxFacebook.Text = String.Empty;
+                };
+            TextBox textBoxTwitter = new TextBox() { Text = "Twitter channel name" };
+            textBoxTwitter.GotFocus += (senderTwitter, eTwitter) =>
+            {
+                if (textBoxTwitter.Text.Contains(" "))
+                    textBoxTwitter.Text = String.Empty;
+            };
+
+            stackPanel.Children.Add(textBlockContacts);
+            stackPanel.Children.Add(textBoxFacebook);
+            stackPanel.Children.Add(textBoxTwitter);
+
+
+            scrollViewer.Content = stackPanel;
+
+
+            customMessageBox.Content = scrollViewer;
+            customMessageBox.LeftButtonContent = AppResources.ProfileCreatorTitle.Substring(0, AppResources.ProfileCreatorTitle.IndexOf(" "));
+            customMessageBox.RightButtonContent = AppResources.ApplicationCancel;
+
+            customMessageBox.Dismissed += async (sender, e) =>
+                {
+                    if (e.Result == CustomMessageBoxResult.LeftButton)
+                    {
+                        StudentData studentData = new StudentData();
+
+                        studentData.FirstName = textBoxName.Text.Substring(0, textBoxName.Text.IndexOf(" "));
+                        studentData.LastName = textBoxName.Text.Substring(textBoxName.Text.IndexOf(" ") + 1);
+                        studentData.Age = Int32.Parse(textBoxAge.Text);
+                        studentData.HomeCity = textBoxHomeTown.Text;
+
+                        //string[] preferences = JsonConvert.DeserializeObject<string[]>
+                        //(IsolatedStorageSettings.ApplicationSettings["preferences"].ToString());
+                        //studentData.HomeUniversity = preferences[2];
+                        studentData.HomeUniversity = "Test University";
+
+                        studentData.Gender = gender;
+                        studentData.Facebook = textBoxFacebook.Text.Contains(" ") ? String.Empty : textBoxFacebook.Text;
+                        studentData.Twitter = textBoxTwitter.Text.Contains(" ") ? String.Empty : textBoxTwitter.Text;
+
+                        //test
+                        studentData.Email = "test@test.com";
+                        studentData.Image = String.Empty;
+                        studentData.University = String.Empty;
+                        studentData.DestinationCityID = 4;
+
+                        foreach (string data in studentLanguages)
+                            studentData.Languages += data + ";";
+
+                        foreach (string data in studentInterests)
+                            studentData.Interests += data + ";";
+
+                        //studentData.ID = 2;
+
+                        //await App.MobileService.GetTable<StudentData>().InsertAsync(studentData);
+                    }
+                    else
+                    {
+                        customMessageBox.Show();
+                        System.Diagnostics.Debug.WriteLine("cancelled");
+                    }
+                };
+
+            return customMessageBox;
+        }
+
+        private static void languagesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (studentLanguages == null)
+                studentLanguages = new List<string>();
+
+            int id = Int32.Parse((sender as Button).Tag.ToString());
+
+            if (!studentLanguages.Contains(id.ToString()))
+            {
+                studentLanguages.Add(id.ToString());
+                Color currentAccentColorHex = (Color)Application.Current.Resources["PhoneAccentColor"];
+                (sender as Button).Background = new SolidColorBrush(currentAccentColorHex);
+            }
+            else
+            {
+                (sender as Button).Background = backgroundColor;
+                studentLanguages.Remove(id.ToString());
+            }
+
+        }
+
+        private static void interestButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (studentInterests == null)
+                studentInterests = new List<string>();
+
+            int id = Int32.Parse((sender as Button).Tag.ToString());
+
+            if (!studentInterests.Contains(id.ToString()))
+            {
+                studentInterests.Add(id.ToString());
+                Color currentAccentColorHex = (Color)Application.Current.Resources["PhoneAccentColor"];
+                (sender as Button).Background = new SolidColorBrush(currentAccentColorHex);
+            }
+            else
+            {
+                studentInterests.Remove(id.ToString());
+                (sender as Button).Background = backgroundColor;
+            }
+        }
+
+        /// <summary>
+        /// Generates content for profile viewer
         /// </summary>
         /// <param name="studentName"></param>
         /// <returns></returns>
-        public static CustomMessageBox GetStudentsPopUp(string studentName, string content)
+        public static CustomMessageBox GetStudentProfileViewer(string studentName, string content)
         {
             string[] studentInfo = content.Split(';');
 
@@ -57,7 +358,7 @@ namespace ErasmusAppTVZ.Helpers
             //second column
             TextBlock info = new TextBlock() 
             {
-                Text = string.Format("Date of birth: {0}\nHometown: {1}\nCountry: {2}\nUniversity: {3}",
+                Text = string.Format("Age: {0}\nHometown: {1}\nCountry: {2}\nUniversity: {3}",
                     basicInfo[0], basicInfo[1], basicInfo[2], basicInfo[3]),
                 Margin = new Thickness(-12, 0, 0, 0)
             };

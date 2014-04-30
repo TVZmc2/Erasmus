@@ -124,6 +124,8 @@
     <Compile Include="ViewModel\Country\CountryModel.cs" />
     <Compile Include="ViewModel\Event\EventData.cs" />
     <Compile Include="ViewModel\Event\EventModel.cs" />
+    <Compile Include="ViewModel\Interest\InterestData.cs" />
+    <Compile Include="ViewModel\Language\LanguageData.cs" />
     <Compile Include="ViewModel\Panorama\PanoramaModel.cs" />
     <Compile Include="ViewModel\Programme\ProgrammeData.cs" />
     <Compile Include="ViewModel\Student\StudentData.cs" />

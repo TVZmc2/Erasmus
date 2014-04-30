@@ -190,4 +190,13 @@
 Ukoliko želiš promijeniti ove postavke, možeš to učiniti odabirom "opcije" u aplikacijskom traci.</value>
     <comment>Postavlja tekst u MessageBox-u kada je korisnik upitan želi li spremiti odabir</comment>
   </data>
+  <data name="ProfileCreatorTitle" xml:space="preserve">
+    <value>stvori profil</value>
+  </data>
+  <data name="ProfileEditTitle" xml:space="preserve">
+    <value>uredi profil</value>
+  </data>
+  <data name="ApplicationCancel" xml:space="preserve">
+    <value>otkaži</value>
+  </data>
 </root>
