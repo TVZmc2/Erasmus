@@ -18,58 +18,8 @@
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot">
-        <!--<Grid Margin="12, 12, 0, 0"
-              Name="profile"
-              Visibility="Visible">
-            <ScrollViewer>
-                <StackPanel>
-                    <TextBlock Text="profile creator" 
-                               Margin="0, 0, 0, 12"/>
-                    <TextBlock Text="name" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <TextBox />
-                    <TextBlock Text="hometown" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <TextBox />
-                    <TextBlock Text="date of birth" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <toolkit:DatePicker />
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Interests"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                        <Button Content="Add" 
-                                Grid.Row="1"
-                                Width="100" 
-                                HorizontalAlignment="Left"/>
-                        <toolkit:WrapPanel Grid.Row="1"
-                                           Grid.Column="1">
-                            
-                        </toolkit:WrapPanel>
-                    </Grid>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="create"/>
-                        <Button Content="cancel" 
-                                Grid.Column="1"
-                                Click="ButtonProfileCancel_Click"/>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>-->
 
-        <toolkit:CustomMessageBox>
+        <!--<toolkit:CustomMessageBox>
             <ScrollViewer>
                 <StackPanel>
                     <TextBlock Text="create profile" />
@@ -92,13 +42,13 @@
                     <TextBlock Text="languages" />
                 </StackPanel>
             </ScrollViewer>
-        </toolkit:CustomMessageBox>
+        </toolkit:CustomMessageBox>-->
         
         <controls:Panorama x:Name="MainPanorama"
                            Title="{Binding LocalizedResources.ApplicationTitle, 
                                 Source={StaticResource LocalizedStrings}}"
                            Foreground="{StaticResource ThemeSafeBrush}"
-                           Visibility="Collapsed">
+                           Visibility="Visible">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="/Assets/students.png" 
                             Stretch="UniformToFill"/>
