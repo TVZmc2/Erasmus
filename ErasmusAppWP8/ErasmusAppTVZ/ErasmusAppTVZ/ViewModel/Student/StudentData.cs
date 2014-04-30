@@ -54,6 +54,6 @@ namespace ErasmusAppTVZ.ViewModel.Student
         public string Image { get; set; }
 
         [JsonProperty(PropertyName = "destination_cityID")]
-        public int DestinationCityID { get; set; }
+        public int DestinationCityId { get; set; }
     }
 }

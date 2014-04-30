@@ -29,7 +29,7 @@ namespace ErasmusAppTVZ
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
         private static bool isMapVisible;
-        private string currentlyOpenedExpander = null;
+        private int currentlyOpenedExpander = 0;
         //private static bool isExpanderTapped;
 
         //arrays for storing latitude and longitude
@@ -129,19 +129,9 @@ namespace ErasmusAppTVZ
                 //find geocoordinates of the city with highest rating
                 FindGeoCoordinates(model.Cities[index].Name);
 
-                //GeocodeQuery query = new GeocodeQuery()
-                //{
-                //    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
-                //    SearchTerm = model.Cities[index].Name
-                //};
-
-                //query.QueryCompleted += query_QueryCompleted;
-                //query.QueryAsync();
-
                 //if map was visible, set it visible and center it to selected country coordinates
                 if (isMapVisible)
                     map.Visibility = System.Windows.Visibility.Visible;
-                    //SetMapCenter(false);
 
                 DataContext = model;
 
@@ -209,7 +199,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Finds geocoordinates based on the search term
         /// </summary>
         /// <param name="searchTerm"></param>
         private void FindGeoCoordinates(string searchTerm)
@@ -256,15 +246,16 @@ namespace ErasmusAppTVZ
             //    isExpanderTapped = true;
 
             ExpanderView ev = sender as ExpanderView;
+            int evTag = Int32.Parse(ev.Tag.ToString());
 
-            if (currentlyOpenedExpander != ev.Tag.ToString())
+            if (currentlyOpenedExpander != evTag)
             {
                 //if (ev.IsExpanded)
                 //{
                 hasCoordinates = false;
-                currentlyOpenedExpander = ev.Tag.ToString();
+                currentlyOpenedExpander = evTag;
 
-                string searchTerm = (DataContext as CityModel).Cities.Where(x => x.Name == currentlyOpenedExpander).First().Name;
+                string searchTerm = (DataContext as CityModel).Cities.Where(x => x.ID == currentlyOpenedExpander).First().Name;
                 FindGeoCoordinates(searchTerm);
                 //GeocodeQuery query = new GeocodeQuery()
                 //{
@@ -320,7 +311,7 @@ namespace ErasmusAppTVZ
         {
             ExpanderView ev = sender as ExpanderView;
 
-            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", ev.Tag.ToString().ToLower()),
+            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityId={0}", ev.Tag.ToString().ToLower()),
                 UriKind.Relative));
         }
 
@@ -412,7 +403,7 @@ namespace ErasmusAppTVZ
         {
             Button bttn = sender as Button;
 
-            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityName={0}", bttn.Tag.ToString().ToLower()),
+            NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityId={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
         }
 

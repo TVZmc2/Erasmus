@@ -252,7 +252,7 @@ namespace ErasmusAppTVZ.Helpers
                         studentData.Email = "test@test.com";
                         studentData.Image = String.Empty;
                         studentData.University = String.Empty;
-                        studentData.DestinationCityID = 4;
+                        studentData.DestinationCityId = 4;
 
                         foreach (string data in studentLanguages)
                             studentData.Languages += data + ";";

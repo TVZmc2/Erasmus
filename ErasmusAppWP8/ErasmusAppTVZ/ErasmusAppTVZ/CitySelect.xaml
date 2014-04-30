@@ -77,37 +77,6 @@
                       IsHitTestVisible="False">
             </maps:Map>
 
-            <!--<maps:Map Name="map"
-                      Height="200"
-                      Visibility="Collapsed"
-                      Margin="12, 0, 0, 0">
-                <maps:Map.Layers>
-                    <maps:MapLayer>
-                        <maps:MapOverlay>
-                            <Grid Height="200"
-                                  Background="Transparent">
-                                <Button Width="80" 
-                                        Height="80" 
-                                        BorderBrush="Black"
-                                        VerticalAlignment="Top"
-                                        HorizontalAlignment="Right"
-                                        Click="ButtonZoomIn_Click">
-                                    <Image Source="/Assets/ContentIcons/add.black.png" />
-                                </Button>
-                                <Button Width="80" 
-                                        Height="80" 
-                                        BorderBrush="Black"
-                                        VerticalAlignment="Bottom"
-                                        HorizontalAlignment="Right"
-                                        Click="ButtonZoomOut_Click">
-                                    <Image Source="/Assets/ContentIcons/minus.png"/>
-                                </Button>
-                            </Grid>
-                        </maps:MapOverlay>
-                    </maps:MapLayer>
-                </maps:Map.Layers>
-            </maps:Map>-->
-
             <!-- Cities list -->
             <ListBox Name="listbox"
                      Grid.Row="1"
@@ -119,7 +88,7 @@
                         <toolkit:ExpanderView BorderThickness="0"
                                               IsExpanded="False"
                                               Margin="-24, 0, 0, 0"
-                                              Tag="{Binding Name}"
+                                              Tag="{Binding ID}"
                                               Tap="ExpanderView_Tap"
                                               DoubleTap="ExpanderView_DoubleTap"
                                               Style="{StaticResource ExpanderViewStyle}">
@@ -143,7 +112,7 @@
                                             Width="100" 
                                             Height="100"
                                             Click="Button_Click" 
-                                            Tag="{Binding Name}"
+                                            Tag="{Binding ID}"
                                             BorderThickness="0"
                                             HorizontalContentAlignment="Center">
                                         <Rectangle Fill="{StaticResource PhoneForegroundBrush}"

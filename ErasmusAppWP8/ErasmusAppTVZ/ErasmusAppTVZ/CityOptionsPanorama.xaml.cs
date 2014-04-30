@@ -1,9 +1,12 @@
 ﻿using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.City;
 using ErasmusAppTVZ.ViewModel.Event;
 using ErasmusAppTVZ.ViewModel.Interest;
 using ErasmusAppTVZ.ViewModel.Language;
 using ErasmusAppTVZ.ViewModel.Panorama;
+using ErasmusAppTVZ.ViewModel.Student;
+using ErasmusAppTVZ.ViewModel.University;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
@@ -22,14 +25,15 @@ namespace ErasmusAppTVZ
     public partial class CityOptionsPanorama : PhoneApplicationPage
     {
         private PanoramaModel panoramaData;
+        private int selectedCityIndex = 0;
 
         public CityOptionsPanorama()
         {
             InitializeComponent();
 
-            panoramaData = new PanoramaModel();
+            //panoramaData = new PanoramaModel();
 
-            DataContext = panoramaData;
+            //DataContext = panoramaData;
 
             BuildLocalizedApplicationBar();
         }
@@ -38,10 +42,26 @@ namespace ErasmusAppTVZ
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string cityName = NavigationContext.QueryString["cityName"];
-            MainPanorama.Title = cityName;
+            selectedCityIndex = Int32.Parse(NavigationContext.QueryString["cityId"]);
+
+            panoramaData = new PanoramaModel() 
+            {
+                Universities = await App.MobileService.GetTable<UniversityData>().
+                    Where(x => x.CityId == selectedCityIndex).ToListAsync(),
+                Students = await App.MobileService.GetTable<StudentData>().
+                    Where(x => x.DestinationCityId == selectedCityIndex).ToListAsync(),
+                Events = await App.MobileService.GetTable<EventData>().
+                    Where(x => x.CityId == selectedCityIndex).ToListAsync()
+            };
+
+            DataContext = panoramaData;
+
+            List<string> cityName = await App.MobileService.GetTable<CityData>().
+                Where(x => x.ID == selectedCityIndex).Select(x => x.Name).ToListAsync();
+
+            MainPanorama.Title = cityName.ElementAt(0);
 
         }
 

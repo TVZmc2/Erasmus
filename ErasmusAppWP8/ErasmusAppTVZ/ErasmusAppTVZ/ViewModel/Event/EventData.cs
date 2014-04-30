@@ -23,6 +23,6 @@ namespace ErasmusAppTVZ.ViewModel.Event
         public DateTime Date { get; set; }
 
         [JsonProperty(PropertyName = "duration")]
-        public DateTime Duration { get; set; }
+        public string Duration { get; set; }
     }
 }
