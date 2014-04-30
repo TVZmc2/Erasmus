@@ -199,4 +199,22 @@ Ukoliko želiš promijeniti ove postavke, možeš to učiniti odabirom "opcije" 
   <data name="ApplicationCancel" xml:space="preserve">
     <value>otkaži</value>
   </data>
+  <data name="ProfileAge" xml:space="preserve">
+    <value>dob</value>
+  </data>
+  <data name="ProfileContacts" xml:space="preserve">
+    <value>društvene mreže</value>
+  </data>
+  <data name="ProfileHomeCity" xml:space="preserve">
+    <value>grad stanovanja</value>
+  </data>
+  <data name="ProfileInterests" xml:space="preserve">
+    <value>interesi</value>
+  </data>
+  <data name="ProfileLanguages" xml:space="preserve">
+    <value>jezici</value>
+  </data>
+  <data name="ProfileName" xml:space="preserve">
+    <value>ime i prezime</value>
+  </data>
 </root>
