@@ -195,6 +195,7 @@
     <Content Include="Assets\ContentIcons\group.png" />
     <Content Include="Assets\ContentIcons\minus.png" />
     <Content Include="Assets\ContentIcons\next.png" />
+    <Content Include="Assets\panorama.png" />
     <Content Include="Assets\students.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
