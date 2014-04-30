@@ -69,10 +69,36 @@
             </ScrollViewer>
         </Grid>-->
 
+        <toolkit:CustomMessageBox>
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="create profile" />
+                    <TextBlock Text="full name" />
+                    <TextBox />
+                    <TextBlock Text="gender" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Content="M" />
+                        <RadioButton Content="F" 
+                                     Grid.Column="1"/>
+                    </Grid>
+                    <TextBlock Text="age"/>
+                    <TextBox />
+                    <TextBlock Text="hometown" />
+                    <TextBox />
+                    <TextBlock Text="languages" />
+                </StackPanel>
+            </ScrollViewer>
+        </toolkit:CustomMessageBox>
+        
         <controls:Panorama x:Name="MainPanorama"
                            Title="{Binding LocalizedResources.ApplicationTitle, 
                                 Source={StaticResource LocalizedStrings}}"
-                           Foreground="{StaticResource ThemeSafeBrush}">
+                           Foreground="{StaticResource ThemeSafeBrush}"
+                           Visibility="Collapsed">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="/Assets/students.png" 
                             Stretch="UniformToFill"/>
