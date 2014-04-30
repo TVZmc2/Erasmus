@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Helpers\ContentHelper.cs" />
     <Compile Include="Helpers\AnimationHelper.cs" />
+    <Compile Include="Helpers\OptionsHelper.cs" />
     <Compile Include="ViewModel\Geolocation\GeolocationData.cs" />
     <Compile Include="Helpers\ImageConversionHelper.cs" />
     <Compile Include="Helpers\ProgressIndicatorHelper.cs" />

@@ -13,10 +13,16 @@ namespace ErasmusAppTVZ.ViewModel.Event
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
+        [JsonProperty(PropertyName = "location")]
+        public string Location { get; set; }
+
         [JsonProperty(PropertyName = "text")]
         public string Description { get; set; }
 
         [JsonProperty(PropertyName = "date_time")]
         public DateTime Date { get; set; }
+
+        [JsonProperty(PropertyName = "duration")]
+        public DateTime Duration { get; set; }
     }
 }

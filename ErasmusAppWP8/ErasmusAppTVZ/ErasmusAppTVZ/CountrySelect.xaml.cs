@@ -441,7 +441,7 @@ namespace ErasmusAppTVZ
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button bttn = sender as Button;
-
+            
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
                 bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }

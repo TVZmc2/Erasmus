@@ -1,10 +1,12 @@
 ﻿using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.Event;
 using ErasmusAppTVZ.ViewModel.Interest;
 using ErasmusAppTVZ.ViewModel.Language;
 using ErasmusAppTVZ.ViewModel.Panorama;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,7 @@ namespace ErasmusAppTVZ
         {
             string cityName = NavigationContext.QueryString["cityName"];
             MainPanorama.Title = cityName;
+
         }
 
         /// <summary>
@@ -93,7 +96,7 @@ namespace ErasmusAppTVZ
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         /// <summary>
