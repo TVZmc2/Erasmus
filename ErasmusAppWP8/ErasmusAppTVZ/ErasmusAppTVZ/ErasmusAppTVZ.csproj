@@ -103,7 +103,6 @@
     </Compile>
     <Compile Include="Helpers\ContentHelper.cs" />
     <Compile Include="Helpers\AnimationHelper.cs" />
-    <Compile Include="Helpers\OptionsHelper.cs" />
     <Compile Include="Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>

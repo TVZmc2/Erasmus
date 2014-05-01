@@ -2,8 +2,6 @@
 using ErasmusAppTVZ.Resources;
 using ErasmusAppTVZ.ViewModel.City;
 using ErasmusAppTVZ.ViewModel.Event;
-using ErasmusAppTVZ.ViewModel.Interest;
-using ErasmusAppTVZ.ViewModel.Language;
 using ErasmusAppTVZ.ViewModel.Panorama;
 using ErasmusAppTVZ.ViewModel.Student;
 using ErasmusAppTVZ.ViewModel.University;
@@ -12,17 +10,10 @@ using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using System;
 using System.Collections.Generic;
-using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Xml.Linq;
 
 namespace ErasmusAppTVZ
 {
@@ -93,16 +84,22 @@ namespace ErasmusAppTVZ
 
         #region EventHandlers
         /// <summary>
-        /// Gets the CustomMessageBox with content
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void aboutMenuItem_Click(object sender, EventArgs e)
+        private void GridStudents_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            CustomMessageBox aboutMessageBox = ContentHelper.GetAboutMessageBox();
-            aboutMessageBox.Show();
+            int id = Int32.Parse((sender as Grid).Tag.ToString());
+
+            StudentData data = panoramaData.Students.First(x => x.ID == id);
+
+            string content = FormatDataForViewing(data);
+
+            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}&content={1}",
+                true, content), UriKind.Relative));
         }
-        #endregion
+
         /// <summary>
         /// 
         /// </summary>
@@ -126,7 +123,7 @@ namespace ErasmusAppTVZ
             EventData ed = new EventData();
 
             ed = Event.ElementAt(0);
-           
+
             SaveAppointmentTask saveAppointment = new SaveAppointmentTask();
 
             saveAppointment.StartTime = ed.Date;
@@ -139,6 +136,19 @@ namespace ErasmusAppTVZ
 
             saveAppointment.Show();
         }
+
+        /// <summary>
+        /// Gets the CustomMessageBox with content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox aboutMessageBox = ContentHelper.GetAboutMessageBox();
+            aboutMessageBox.Show();
+        }
+        #endregion
+
 
         /// <summary>
         /// Formats student data for profile viewer
@@ -172,23 +182,5 @@ namespace ErasmusAppTVZ
                 
             return formattedData;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void GridStudents_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            int id = Int32.Parse((sender as Grid).Tag.ToString());
-
-            StudentData data = panoramaData.Students.First(x => x.ID == id);
-
-            string content = FormatDataForViewing(data);
-
-            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}&content={1}",
-                true, content), UriKind.Relative));
-        }
-
     }
 }

@@ -309,7 +309,8 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
+        //private async void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
+        private void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
         {
             StudentData data = new StudentData();
 
