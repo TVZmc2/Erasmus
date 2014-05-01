@@ -136,7 +136,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <toolkit:ExpanderView 
-                                    IsExpanded="False"
+                                    IsExpanded="True"
                                     Width="450"
                                     Style="{StaticResource ExpanderViewStyle}"
                                     Margin="-24, 0, 0, 18">
@@ -181,7 +181,8 @@
                                                        Margin="24, 0, 0, 0"
                                                        VerticalAlignment="Center"
                                                        Text="{Binding Title}"
-                                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                                                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                                                       TextWrapping="Wrap"/>
                                         </Grid>
                                     </toolkit:ExpanderView.Expander>
                                 </toolkit:ExpanderView>

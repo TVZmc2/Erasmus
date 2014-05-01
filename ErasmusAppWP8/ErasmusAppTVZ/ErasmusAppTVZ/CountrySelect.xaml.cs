@@ -31,7 +31,7 @@ namespace ErasmusAppTVZ
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
         private static bool isFirstNavigation = true;
-        private static bool isMapVisible = true;
+        private static bool isMapVisible = false;
         private static string currentlyOpenedExpander = null;
 
         //variable for storing country code by ISO 3166-1 standard
