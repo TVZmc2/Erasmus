@@ -1,15 +1,7 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace ErasmusAppTVZ.ViewModel.Student
 {
-    //public enum SocialNetworks
-    //{
-    //    Facebook = 1,
-    //    Twitter = 2,
-    //    GooglePlus = 3
-    //}
-
     public class StudentData
     {
         public int ID { get; set; }

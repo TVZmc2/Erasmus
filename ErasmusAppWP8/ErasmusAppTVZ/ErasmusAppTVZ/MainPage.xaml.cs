@@ -1,66 +1,35 @@
-﻿using System;
+﻿using ErasmusAppTVZ.Helpers;
+using ErasmusAppTVZ.Resources;
+using ErasmusAppTVZ.ViewModel.Country;
+using ErasmusAppTVZ.ViewModel.Programme;
+using ErasmusAppTVZ.ViewModel.University;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using ErasmusAppTVZ.Resources;
-using ErasmusAppTVZ.ViewModel.Country;
-using Microsoft.WindowsAzure.MobileServices;
-using System.Windows.Media.Imaging;
-using System.IO;
-using ErasmusAppTVZ.Helpers;
-using ErasmusAppTVZ.ViewModel.University;
-using ErasmusAppTVZ.ViewModel.Programme;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.IO.IsolatedStorage;
-using Newtonsoft.Json;
 
 namespace ErasmusAppTVZ
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        //public List<string> Values;
-        //public List<string> UniversityNames;
-        //public List<string> ProgrammeNames { get; set; }
-
         public CountryModel Country;
         public UniversityModel University;
-        //public List<int> univIndex;
 
-        public static bool isFirstNavigation = true;
+        private static bool isFirstNavigation = true;
         private int selectedCountryIndex;
-
-        public int loginCountryID;
-        public string loginProgrammeCategory;
-
-        //public IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+        private string role;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-
-            //if ((App.Current.Resources["PhoneBackgroundBrush"] as SolidColorBrush).Color == Colors.White)
-            //    listPickerCountries.Background = new SolidColorBrush(Colors.Gray);
-
-            //InitializeStudProf();
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
-
-        /// <summary>
-        /// Initializes content for listPickerStudProf element
-        /// </summary>
-        //private void InitializeStudProf()
-        //{
-        //    listPickerStudProf.Items.Add("Student");
-        //    listPickerStudProf.Items.Add("Professor");
-        //}
 
         /// <summary>
         /// Checks if user preferences already exist.
@@ -93,10 +62,6 @@ namespace ErasmusAppTVZ
                     data.Flag = String.Empty;
                 }
 
-                //UniversityNames = await App.MobileService.GetTable<UniversityData>().Where(x => x.CountryId == 1).Select(x => x.Name).ToListAsync();
-
-                //listPickerUniversities.ItemsSource = UniversityNames;
-
                 DataContext = Country;
 
                 isFirstNavigation = false;
@@ -109,61 +74,10 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void listPickerStudProf_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (listPickerStudProf.SelectedItem.ToString() == "Professor")
-        //    {
-        //        listPickerPrograms.IsEnabled = false;
-        //        listPickerPrograms.ItemsSource = null;
-        //    }
-        //    else
-        //    {
-        //        listPickerPrograms.IsEnabled = true;
-        //        listPickerUniversities_SelectionChanged(sender, null);
-        //    }
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //if (listPickerCountries.SelectedItem != null)
-            //{
-            //    List<int> tempCountry = await App.MobileService.GetTable<CountryData>().
-            //        Where(x => x.Name == (listPickerCountries.SelectedItem as CountryData).Name).
-            //        Select(x => x.Id).ToListAsync();
-
-            //    loginCountryID = tempCountry.First();
-            //}
-
             IsolatedStorageSettings.ApplicationSettings["selectedCountryIndex"] = selectedCountryIndex;
             IsolatedStorageSettings.ApplicationSettings.Save();
-
-        
-            //if (listPickerPrograms.SelectedItem != null)
-            //{
-            //    List<string> tempCategory = await App.MobileService.GetTable<ProgrammeData>().
-            //        Where(x => x.Name == listPickerPrograms.SelectedItem.ToString()).
-            //        Select(x => x.Category).ToListAsync();
-
-            //    loginProgrammeCategory = tempCategory.First();
-            //}
-
-            //if (isf.FileExists("login.txt"))
-            //{
-            //    isf.DeleteFile("login.txt");
-            //}
-
-            //using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream("login.txt", FileMode.CreateNew, isf))
-            //{
-            //    using (StreamWriter writer = new StreamWriter(isoStream))
-            //    {
-            //        writer.WriteLine(listPickerCountries.SelectedIndex.ToString());
-            //    }
-            //}
 
             CheckBox checkBox = new CheckBox()
             {
@@ -190,7 +104,7 @@ namespace ErasmusAppTVZ
                             //Remember user preferences
                             string[] preferences = new string[4];
                             preferences[0] = selectedCountryIndex.ToString();
-                            preferences[1] = listPickerStudProf.SelectedIndex.ToString();
+                            preferences[1] = role;
                             preferences[2] = listPickerUniversities.SelectedItem.ToString();
                             preferences[3] = listPickerPrograms.SelectedIndex.ToString();
 
@@ -204,10 +118,6 @@ namespace ErasmusAppTVZ
 
                         NavigationService.Navigate(new Uri("/CountrySelect.xaml", UriKind.Relative));
                         break;
-                    //case CustomMessageBoxResult.None:
-                    //    break;
-                    //case CustomMessageBoxResult.RightButton:
-                    //    break;
                     default:
                         break;
                 }
@@ -215,19 +125,6 @@ namespace ErasmusAppTVZ
 
             rememberMeMsgBox.Show();
         }
-
-        /// <summary>
-        /// Probably not needed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    CountryData flag = (sender as ListPicker).SelectedItem as CountryData;
-
-        //    if (flag != null)
-        //        img.Source = flag.FlagImage;
-        //}
 
         /// <summary>
         /// 
@@ -241,7 +138,6 @@ namespace ErasmusAppTVZ
 
             selectedCountryIndex = (sender as ListPicker).SelectedIndex + 1;
 
-            //univIndex = null;
             listPickerPrograms.ItemsSource = null;
 
             List<string> UniversityNames = await App.MobileService.GetTable<UniversityData>().
@@ -271,29 +167,32 @@ namespace ErasmusAppTVZ
                     Select(x => x.ID).ToListAsync();
 
                 listPickerPrograms.ItemsSource = await App.MobileService.GetTable<ProgrammeData>().
-                    Where(x => x.UniversityId == univIndex.First()).
-                    Select(x => x.Name).ToListAsync();
+                    Where(x => x.UniversityId == univIndex.First()).Select(x => x.Name).ToListAsync();
 
                 ProgressIndicatorHelper.SetProgressBar(false, null);
             }
         }
 
+        /// <summary>
+        /// Changes role to professor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RadioButtonProfessor_Click(object sender, RoutedEventArgs e)
+        {
+            role = "professor";
+        }
+
+        /// <summary>
+        /// Changes role to student
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RadioButtonStudent_Click(object sender, RoutedEventArgs e)
+        {
+            role = "student";
+        }
 
         #endregion
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

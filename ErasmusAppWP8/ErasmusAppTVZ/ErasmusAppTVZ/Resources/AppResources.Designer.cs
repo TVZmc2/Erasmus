@@ -169,6 +169,24 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to professor.
+        /// </summary>
+        public static string LoginProfessor {
+            get {
+                return ResourceManager.GetString("LoginProfessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to student.
+        /// </summary>
+        public static string LoginStudent {
+            get {
+                return ResourceManager.GetString("LoginStudent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to remember me.
         /// </summary>
         public static string MessageBoxRemember {

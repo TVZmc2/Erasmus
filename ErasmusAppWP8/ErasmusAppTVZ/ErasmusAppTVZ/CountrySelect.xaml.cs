@@ -1,24 +1,16 @@
 ﻿using ErasmusAppTVZ.Helpers;
 using ErasmusAppTVZ.Resources;
-using ErasmusAppTVZ.ViewModel.City;
 using ErasmusAppTVZ.ViewModel.Country;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Maps.Services;
 using Microsoft.Phone.Shell;
-using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Device.Location;
-using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 namespace ErasmusAppTVZ
@@ -367,5 +359,6 @@ namespace ErasmusAppTVZ
                 bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }
         #endregion
-    }//class
-}//namespace
+
+    }
+}

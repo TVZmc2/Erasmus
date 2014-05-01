@@ -19,6 +19,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 
@@ -32,10 +34,6 @@ namespace ErasmusAppTVZ
         public CityOptionsPanorama()
         {
             InitializeComponent();
-
-            //panoramaData = new PanoramaModel();
-
-            //DataContext = panoramaData;
 
             BuildLocalizedApplicationBar();
         }
@@ -93,30 +91,6 @@ namespace ErasmusAppTVZ
             ApplicationBar.IsVisible = true;
         }
 
-        private void profileMenuItem_Click(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}", false), UriKind.Relative));
-            //List<InterestData> Interests = await App.MobileService.GetTable<InterestData>().ToListAsync();
-            //List<LanguageData> Languages = await App.MobileService.GetTable<LanguageData>().ToListAsync();
-
-            //CustomMessageBox customMessageBox = ContentHelper.GetStudentProfileEditor(true, Interests, Languages);
-
-            //customMessageBox.Show();
-            //if (IsolatedStorageSettings.ApplicationSettings.Contains("hasProfile"))
-            //    profileEditor.LeftButtonContent = AppResources.ProfileEditTitle;
-            //else
-            //    profileEditor.LeftButtonContent = AppResources.ProfileCreatorTitle;
-
-            //profileEditor.RightButtonContent = "cancel";
-            //PopulateGrid(Languages, Interests);
-            //MainPanorama.Visibility = System.Windows.Visibility.Collapsed;
-            //profileViewer.Visibility = System.Windows.Visibility.Collapsed;
-            //profileEditor.Visibility = System.Windows.Visibility.Visible;
-            //profileEditor.Show();
-        }
-
-
-
         #region EventHandlers
         /// <summary>
         /// Gets the CustomMessageBox with content
@@ -129,9 +103,18 @@ namespace ErasmusAppTVZ
             aboutMessageBox.Show();
         }
         #endregion
-
         /// <summary>
         /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void profileMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}", false), UriKind.Relative));
+        }
+
+        /// <summary>
+        /// Creates a calendar entry for the event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,12 +153,12 @@ namespace ErasmusAppTVZ
             if (data.Languages != null && data.Languages.Length > 0)
                 formattedData += data.Languages + ";";
             else
-                formattedData += String.Empty;
+                formattedData += String.Empty + ";";
 
             if (data.Interests != null && data.Interests.Length > 0)
                 formattedData += data.Interests + ";";
             else
-                formattedData += String.Empty;
+                formattedData += String.Empty + ";";
 
             if (data.Facebook != null && data.Facebook.Length > 0)
                 formattedData += data.Facebook + ";";
@@ -207,38 +190,5 @@ namespace ErasmusAppTVZ
                 true, content), UriKind.Relative));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonProfileViewer_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //profileViewer.Visibility = System.Windows.Visibility.Collapsed;
-        //    //MainPanorama.Visibility = System.Windows.Visibility.Visible;
-        //    //NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}", true), UriKind.Relative));
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("Not implemented");
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonCancelProfile_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //profileEditor.Visibility = System.Windows.Visibility.Collapsed;
-        //    //MainPanorama.Visibility = System.Windows.Visibility.Visible;
-        //}
-
-    }//class
-}//namespace
+    }
+}

@@ -226,4 +226,10 @@ If you want to change them later, you can easily access preference options locat
   <data name="ProfileHomeCountry" xml:space="preserve">
     <value>country</value>
   </data>
+  <data name="LoginProfessor" xml:space="preserve">
+    <value>professor</value>
+  </data>
+  <data name="LoginStudent" xml:space="preserve">
+    <value>student</value>
+  </data>
 </root>

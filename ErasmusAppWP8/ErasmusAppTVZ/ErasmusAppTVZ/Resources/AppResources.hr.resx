@@ -217,4 +217,10 @@ Ukoliko želiš promijeniti ove postavke, možeš to učiniti odabirom "opcije" 
   <data name="ProfileName" xml:space="preserve">
     <value>ime i prezime</value>
   </data>
+  <data name="LoginProfessor" xml:space="preserve">
+    <value>profesor</value>
+  </data>
+  <data name="LoginStudent" xml:space="preserve">
+    <value>student</value>
+  </data>
 </root>
