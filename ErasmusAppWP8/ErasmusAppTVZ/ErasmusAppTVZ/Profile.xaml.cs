@@ -33,6 +33,9 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            profileEditor.Visibility = System.Windows.Visibility.Collapsed;
+            profileViewer.Visibility = System.Windows.Visibility.Collapsed;
+
             bool isViewing = bool.Parse(NavigationContext.QueryString["isViewing"]);
 
             if (isViewing)
@@ -64,7 +67,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Show profile data formatted for viewing
+        /// Shows profile data formatted for viewing
         /// </summary>
         /// <param name="content"></param>
         private void ShowData(string content)
@@ -297,7 +300,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Creates or updates user profile
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

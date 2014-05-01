@@ -181,7 +181,7 @@
                                                        Margin="24, 0, 0, 0"
                                                        VerticalAlignment="Center"
                                                        Text="{Binding Title}"
-                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
                                         </Grid>
                                     </toolkit:ExpanderView.Expander>
                                 </toolkit:ExpanderView>

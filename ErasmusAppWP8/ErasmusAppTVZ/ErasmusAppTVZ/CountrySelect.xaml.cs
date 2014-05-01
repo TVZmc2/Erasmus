@@ -31,7 +31,7 @@ namespace ErasmusAppTVZ
         //helpers for preserving and controlling elements state
         private static bool hasCoordinates = false;
         private static bool isFirstNavigation = true;
-        private static bool isMapVisible = false;
+        private static bool isMapVisible = true;
         private static string currentlyOpenedExpander = null;
 
         //variable for storing country code by ISO 3166-1 standard
@@ -304,7 +304,7 @@ namespace ErasmusAppTVZ
         void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
             //defensive programming, trust no one
-            if (e.Error == null)
+            if (e.Result.Count > null)
             {
                 countryCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
                 countryCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
@@ -317,40 +317,14 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Waits until country coordinates are populated if double tap event handler is invoked
-        /// </summary>
-        /// <returns></returns>
-        //private Task Wait()
-        //{
-        //    return Task.Run(() =>
-        //    {
-        //        while(true)
-        //            if(hasCoordinates == true)
-        //                return;
-        //    });
-        //}
-
-        /// <summary>
-        /// 
+        /// Shortcut for selecting country
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private /*async*/ void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void ExpanderView_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ExpanderView ev = sender as ExpanderView;
 
-            //Expander Tap event is also invoked, so waiting is needed until Inception passes
-            //We should not wait long as it is only one layer in
-            //No timeout, so theoretically, we could be stuck in Limbo (I'm lying)
-            //await Task.Run(() =>
-            //    {
-            //        while (true)
-            //            if (hasCoordinates)
-            //                return;
-            //    });
-
-            //NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
-            //    ev.Tag, isMapVisible, countryCoordinates[0].ToString(), countryCoordinates[1].ToString()), UriKind.Relative));
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}",
                 ev.Tag, isMapVisible), UriKind.Relative));
         }
@@ -367,7 +341,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Sorts the country list by highest rating, and alphabetically (both ascending and descending)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -390,7 +364,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Show or hide map and change the text of IconButton appropriately
+        /// Shows or hides map and changes the text of IconButton appropriately
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -434,7 +408,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Selects expanded country and navigates to next page
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -445,28 +419,6 @@ namespace ErasmusAppTVZ
             NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml?countryId={0}&mapVisible={1}&lat={2}&lon={3}",
                 bttn.Tag, isMapVisible, countryCoordinates[0], countryCoordinates[1]), UriKind.Relative));
         }
-
-        /// <summary>
-        /// Increments map zoom level by 1
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    map.ZoomLevel += 1;
-        //}
-
-        /// <summary>
-        /// Decrements map zoom level by 1
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
-        //{
-        //    map.ZoomLevel -= 1;
-        //}
         #endregion
-
-
     }//class
 }//namespace

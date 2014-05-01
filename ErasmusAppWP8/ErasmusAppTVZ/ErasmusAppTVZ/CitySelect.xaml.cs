@@ -49,17 +49,6 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        //protected override void OnNavigatedFrom(NavigationEventArgs e)
-        //{
-        //    //model = null;
-        //    //hasCoordinates = false;
-        //    //model.Dispose();
-        //}
-
-        /// <summary>
         /// Checks if 'search' and 'countryId' parameters exist
         /// If 'search' exists, get the filtered results
         /// If 'countryId' exists, get the data for the corresponding country
@@ -190,7 +179,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Sets map center and zoom level
         /// </summary>
         private void SetMapCenter(bool CityOrCountry)
         {
@@ -242,45 +231,17 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void ExpanderView_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            //if (!isExpanderTapped)
-            //    isExpanderTapped = true;
-
             ExpanderView ev = sender as ExpanderView;
             int evTag = Int32.Parse(ev.Tag.ToString());
 
             if (currentlyOpenedExpander != evTag)
             {
-                //if (ev.IsExpanded)
-                //{
                 hasCoordinates = false;
                 currentlyOpenedExpander = evTag;
 
                 string searchTerm = (DataContext as CityModel).Cities.Where(x => x.ID == currentlyOpenedExpander).First().Name;
                 FindGeoCoordinates(searchTerm);
-                //GeocodeQuery query = new GeocodeQuery()
-                //{
-                //    GeoCoordinate = new System.Device.Location.GeoCoordinate(0, 0),
-                //    SearchTerm = (DataContext as CityModel).Cities.Single(x => x.Name == currentlyOpenedExpander).Name
-                //};
-
-                //query.QueryCompleted += query_QueryCompleted;
-                //query.QueryAsync();
-
-                //}
             }
-            //if (ev.IsExpanded)
-            //{
-            //    hasCoordinates = false;
-
-            //    GeocodeQuery query = new GeocodeQuery()
-            //    {
-            //        GeoCoordinate = new System.Device.Location.GeoCoordinate(),
-            //        SearchTerm = ev.Tag.ToString()
-            //    };
-
-            //    query.QueryCompleted += query_QueryCompleted;
-            //    query.QueryAsync();
-            //}
         }
 
         /// <summary>
@@ -290,6 +251,7 @@ namespace ErasmusAppTVZ
         /// <param name="e"></param>
         private void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
+            //I said, trust NO ONE
             if (e.Result.Count > 0)
             {
                 cityCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
@@ -303,7 +265,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Shortcut for selecting city
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -327,7 +289,7 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Sorts  the city list by highest rating, and alphabetically (both ascending and descending)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -406,26 +368,6 @@ namespace ErasmusAppTVZ
             NavigationService.Navigate(new Uri(string.Format("/CityOptionsPanorama.xaml?cityId={0}", bttn.Tag.ToString().ToLower()),
                 UriKind.Relative));
         }
-
-        /// <summary>
-        /// Increments map zoom level by 1
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    map.ZoomLevel += 1;
-        //}
-
-        /// <summary>
-        /// Decrements map zoom level by 1
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
-        //{
-        //    map.ZoomLevel -= 1;
-        //}
         #endregion
 
     }//class
