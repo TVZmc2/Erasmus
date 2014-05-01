@@ -24,28 +24,6 @@ namespace ErasmusAppTVZ
         "http://erasmusapp.azure-mobile.net/", "FbFqxArtbiDJVApWFQBiYGGLQSScls35");
 
         /// <summary>
-        /// 
-        /// </summary>
-        //private static CountryModel viewModel = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        //public static CountryModel ViewModel
-        //{
-        //    get
-        //    {
-        //        if (viewModel == null)
-        //        {
-        //            viewModel = new CountryModel();
-        //            viewModel.LoadData();
-        //        }
-
-        //        return viewModel;
-        //    }
-        //}
-
-        /// <summary>
         /// Constructor for the Application object.
         /// </summary>
         public App()
