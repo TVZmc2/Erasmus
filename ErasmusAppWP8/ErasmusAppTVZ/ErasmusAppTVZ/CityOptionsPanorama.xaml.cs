@@ -126,6 +126,11 @@ namespace ErasmusAppTVZ
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             Button bttn = sender as Button;
