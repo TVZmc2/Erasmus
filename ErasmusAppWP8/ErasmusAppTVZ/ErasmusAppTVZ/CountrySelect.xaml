@@ -54,11 +54,13 @@
         <StackPanel Grid.Row="0" Margin="12,17,0,12">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle,
                             Source={StaticResource LocalizedStrings}}" 
-                       Style="{StaticResource PhoneTextNormalStyle}"/>
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCountriesPageTitle,
                             Source={StaticResource LocalizedStrings}}"  
                        Margin="9,-7,0,0" 
-                       Style="{StaticResource PhoneTextTitle1Style}"/>
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -121,7 +123,8 @@
                                             BorderThickness="0"
                                             HorizontalContentAlignment="Center">
                                         <Rectangle Fill="{StaticResource PhoneForegroundBrush}"
-                                               Height="60" Width="60">
+                                                   Height="60" 
+                                                   Width="60">
                                             <Rectangle.OpacityMask>
                                                 <ImageBrush ImageSource="/Assets/ContentIcons/next.png" />
                                             </Rectangle.OpacityMask>
@@ -142,17 +145,19 @@
                                     <Image Source="{Binding FlagImage}" />
 
                                     <TextBlock Text="{Binding Name}"
-                                       Grid.Column="1"
-                                       Margin="24, 0, 0, 0"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                               Grid.Column="1"
+                                               Margin="24, 0, 0, 0"
+                                               VerticalAlignment="Center"
+                                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                                               Foreground="{StaticResource ThemeSafeBrush}"/>
 
                                     <TextBlock Text="{Binding Rating}" 
-                                       Grid.Column="2"
-                                       Margin="-12, 0, 0, 0"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                               Grid.Column="2"
+                                               Margin="-12, 0, 0, 0"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                                               Foreground="{StaticResource ThemeSafeBrush}"/>
                                 </Grid>
                             </toolkit:ExpanderView.Expander>
                         </toolkit:ExpanderView>

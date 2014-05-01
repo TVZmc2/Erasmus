@@ -53,11 +53,13 @@
         <StackPanel Grid.Row="0" Margin="12,17,0,12">
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle,
                             Source={StaticResource LocalizedStrings}}" 
-                       Style="{StaticResource PhoneTextNormalStyle}"/>
+                       Style="{StaticResource PhoneTextNormalStyle}"
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
             <TextBlock Text="{Binding Path=LocalizedResources.ApplicationCitiesPageTitle,
                             Source={StaticResource LocalizedStrings}}"  
                        Margin="9,-7,0,0" 
-                       Style="{StaticResource PhoneTextTitle1Style}"/>
+                       Style="{StaticResource PhoneTextTitle1Style}"
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -128,7 +130,7 @@
                                 </Grid>
                             </toolkit:ExpanderView.Items>
                             <toolkit:ExpanderView.Expander>
-                                <Grid Width="470" 
+                                <Grid Width="470"
                                       Height="70" 
                                       Margin="-28, 0, 0, 0">
                                     <Grid.ColumnDefinitions>
@@ -137,23 +139,28 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
-                                    <Rectangle Fill="{StaticResource PhoneForegroundBrush}">
+                                    <!--<Rectangle Fill="{StaticResource PhoneForegroundBrush}">
                                         <Rectangle.OpacityMask>
                                             <ImageBrush ImageSource="/Assets/ContentIcons/city.png" />
                                         </Rectangle.OpacityMask>
-                                    </Rectangle>
+                                    </Rectangle>-->
+
+                                    <Image Source="/Assets/ContentIcons/city.white.png" 
+                                           Stretch="Fill"/>
 
                                     <TextBlock Text="{Binding Name}"
                                        Grid.Column="1"
                                        Margin="20, 0, 0, 0"
                                        VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                                               Foreground="{StaticResource ThemeSafeBrush}"/>
 
                                     <TextBlock Text="{Binding Rating}" 
-                                       Grid.Column="2"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                               Grid.Column="2"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                                               Foreground="{StaticResource ThemeSafeBrush}"/>
                                 </Grid>
                             </toolkit:ExpanderView.Expander>
                         </toolkit:ExpanderView>

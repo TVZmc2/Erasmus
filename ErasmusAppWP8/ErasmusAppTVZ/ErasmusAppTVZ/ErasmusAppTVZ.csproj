@@ -197,6 +197,7 @@
     </Content>
     <Content Include="Assets\ContentIcons\add.white.png" />
     <Content Include="Assets\ContentIcons\add.black.png" />
+    <Content Include="Assets\ContentIcons\city.white.png" />
     <Content Include="Assets\ContentIcons\city.png" />
     <Content Include="Assets\ContentIcons\university.info.png" />
     <Content Include="Assets\ContentIcons\group.png" />

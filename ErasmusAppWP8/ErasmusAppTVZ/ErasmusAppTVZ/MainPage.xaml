@@ -33,11 +33,13 @@
             <TextBlock Text="{Binding LocalizedResources.ApplicationTitle,
                             Source={StaticResource LocalizedStrings}}"
                        Style="{StaticResource PhoneTextNormalStyle}"
-                       Margin="12,0" />
+                       Margin="12,0" 
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
             <TextBlock Text="{Binding LocalizedResources.ApplicationLoginPageTitle,
                             Source={StaticResource LocalizedStrings}}"
                        Margin="9,-7,0,0"
-                       Style="{StaticResource PhoneTextTitle1Style}" />
+                       Style="{StaticResource PhoneTextTitle1Style}" 
+                       Foreground="{StaticResource ThemeSafeBrush}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -58,7 +60,8 @@
                                 BorderThickness="1"
                                 SelectionChanged="listPickerCountries_SelectionChanged"
                                 ExpansionMode="FullScreenOnly"
-                                Width="120">
+                                Width="120"
+                                BorderBrush="{StaticResource ThemeSafeBrush}">
                 <toolkit:ListPicker.ItemTemplate>
                     <DataTemplate>
                         <Image Margin="-12, -30, -12, -30"
@@ -88,7 +91,9 @@
 
             <!-- list picker role -->
             <toolkit:ListPicker Name="listPickerStudProf"
-                                Grid.Row="1">
+                                Grid.Row="1"
+                                BorderBrush="{StaticResource ThemeSafeBrush}"
+                                Foreground="{StaticResource ThemeSafeBrush}">
                 <sys:String>Student</sys:String>
                 <sys:String>Professor</sys:String>
                 <toolkit:ListPicker.FullModeItemTemplate>
@@ -101,7 +106,9 @@
             <!-- list picker universities -->
             <toolkit:ListPicker Name="listPickerUniversities"
                                 Grid.Row="2"
-                                SelectionChanged="listPickerUniversities_SelectionChanged">
+                                SelectionChanged="listPickerUniversities_SelectionChanged"
+                                BorderBrush="{StaticResource ThemeSafeBrush}"
+                                Foreground="{StaticResource ThemeSafeBrush}">
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" />
@@ -111,7 +118,9 @@
 
             <!-- list picker for programs -->
             <toolkit:ListPicker Name="listPickerPrograms"
-                                Grid.Row="3">
+                                Grid.Row="3"
+                                BorderBrush="{StaticResource ThemeSafeBrush}"
+                                Foreground="{StaticResource ThemeSafeBrush}">
                 <toolkit:ListPicker.FullModeItemTemplate>
                     <DataTemplate>
                         <TextBlock Grid.Column="1"
@@ -127,7 +136,9 @@
                     Height="100"
                     Content="Enter"
                     FontSize="{StaticResource PhoneFontSizeLarge}"
-                    Click="Button_Click" />
+                    Click="Button_Click" 
+                    BorderBrush="{StaticResource ThemeSafeBrush}"
+                    Foreground="{StaticResource ThemeSafeBrush}"/>
         </Grid>
 
         <!-- loading overlay -->

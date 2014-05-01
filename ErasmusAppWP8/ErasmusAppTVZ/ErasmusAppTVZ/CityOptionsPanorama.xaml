@@ -56,8 +56,8 @@
                                               Width="420">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="2.5*"/>
+                                                <ColumnDefinition Width="0.5*"/>
                                             </Grid.ColumnDefinitions>
                                             <Ellipse Stroke="White" 
                                                      StrokeThickness="2"
@@ -136,7 +136,6 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <toolkit:ExpanderView 
-                                    IsExpanded="True"
                                     Width="450"
                                     Style="{StaticResource ExpanderViewStyle}"
                                     Margin="-24, 0, 0, 18">
@@ -160,7 +159,8 @@
                                                         Content="Reminder" 
                                                         Click="ButtonReminder_Click"
                                                         Tag="{Binding ID}"
-                                                        Foreground="{StaticResource ThemeSafeBrush}"/>
+                                                        Foreground="{StaticResource ThemeSafeBrush}"
+                                                        BorderBrush="{StaticResource ThemeSafeBrush}"/>
                                             </StackPanel>
                                         </Grid>
                                     </toolkit:ExpanderView.Items>
