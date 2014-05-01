@@ -24,7 +24,7 @@
                            Foreground="{StaticResource ThemeSafeBrush}"
                            Visibility="Visible">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Assets/students.png" 
+                <ImageBrush ImageSource="/Assets/panorama.png" 
                             Stretch="UniformToFill"/>
             </controls:Panorama.Background>
             
