@@ -304,7 +304,7 @@ namespace ErasmusAppTVZ
         void query_QueryCompleted(object sender, QueryCompletedEventArgs<IList<MapLocation>> e)
         {
             //defensive programming, trust no one
-            if (e.Result.Count > null)
+            if (e.Result.Count > 0)
             {
                 countryCoordinates[0] = e.Result[0].GeoCoordinate.Latitude;
                 countryCoordinates[1] = e.Result[0].GeoCoordinate.Longitude;
