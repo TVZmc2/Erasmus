@@ -86,7 +86,8 @@
                                     <TextBlock Grid.Column="1"
                                                Padding="24, 30, 0, 0"
                                                Text="{Binding Name}"
-                                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                               TextWrapping="Wrap"/>
                                 </Grid>
                             </DataTemplate>
                         </toolkit:ListPicker.FullModeItemTemplate>
@@ -110,62 +111,78 @@
                                  Click="RadioButtonProfessor_Click"/>
                 </Grid>
 
-                <!-- list picker universities -->
-                <toolkit:ListPicker Name="listPickerUniversities"
+                <Grid Margin="0, 0, 0, 12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />                     
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- list picker universities -->
+                    <toolkit:ListPicker Name="listPickerUniversities"
                                     ExpansionMode="FullScreenOnly"
                                     SelectionChanged="listPickerUniversities_SelectionChanged"
                                     BorderBrush="{StaticResource ThemeSafeBrush}"
                                     BorderThickness="1"
                                     Foreground="{StaticResource ThemeSafeBrush}"
-                                    Margin="12, -12, 12, 0">
-                    <toolkit:ListPicker.FullModeItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" 
-                                       Padding="24, 30, 0, 0"
-                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                        </DataTemplate>
-                    </toolkit:ListPicker.FullModeItemTemplate>
-                </toolkit:ListPicker>
+                                    Margin="12, 0, 12, 0">
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" 
+                                           Padding="24, 30, 0, 0"
+                                           FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                           TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
 
-                <!-- list picker for programs -->
-                <toolkit:ListPicker Name="listPickerPrograms"
-                                    ExpansionMode="FullScreenOnly"
-                                    BorderThickness="1"
-                                    BorderBrush="{StaticResource ThemeSafeBrush}"
-                                    Foreground="{StaticResource ThemeSafeBrush}"
-                                    Margin="12, -6, 12, 0">
-                    <toolkit:ListPicker.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"/>
-                        </DataTemplate>
-                    </toolkit:ListPicker.ItemTemplate>
-                    <toolkit:ListPicker.FullModeItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Grid.Column="1"
-                                   Padding="24, 30, 0, 0"
-                                   Text="{Binding}"
-                                   FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                        </DataTemplate>
-                    </toolkit:ListPicker.FullModeItemTemplate>
-                </toolkit:ListPicker>
+                    <!-- list picker for programs -->
+                    <toolkit:ListPicker Name="listPickerPrograms"
+                                        ExpansionMode="FullScreenOnly"
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource ThemeSafeBrush}"
+                                        Foreground="{StaticResource ThemeSafeBrush}"
+                                        Margin="12, 12, 12, 0"
+                                        Grid.Row="1">
+                        <toolkit:ListPicker.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.ItemTemplate>
+                        <toolkit:ListPicker.FullModeItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Grid.Column="1"
+                                           Padding="24, 30, 0, 0"
+                                           Text="{Binding}"
+                                           FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                           TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </toolkit:ListPicker.FullModeItemTemplate>
+                    </toolkit:ListPicker>
 
-                <!-- continue -->
-                <Button Height="80"
-                        RenderTransformOrigin="0.5,0.5"
-                        FontSize="{StaticResource PhoneFontSizeLarge}"
-                        Click="Button_Click" 
-                        Width="100"
-                        HorizontalAlignment="Right"
-                        BorderBrush="Transparent"
-                        Foreground="{StaticResource ThemeSafeBrush}">
-                    <Button.Background>
-                        <ImageBrush Stretch="Fill"
+                    <!-- continue -->
+                    <Button Height="80"
+                            Grid.Column="1"
+                            Grid.RowSpan="2"
+                            RenderTransformOrigin="0.5,0.5"
+                            FontSize="{StaticResource PhoneFontSizeLarge}"
+                            Click="Button_Click" 
+                            Width="100"
+                            HorizontalAlignment="Center"
+                            BorderBrush="Transparent"
+                            Foreground="{StaticResource ThemeSafeBrush}">
+                        <Button.Background>
+                            <ImageBrush Stretch="Fill"
                                 ImageSource="/Assets/ContentIcons/login.next.png" />
-                    </Button.Background>
-                    <Button.RenderTransform>
-                        <CompositeTransform ScaleY="-1" />
-                    </Button.RenderTransform>
-                </Button>
+                        </Button.Background>
+                        <Button.RenderTransform>
+                            <CompositeTransform ScaleY="-1" />
+                        </Button.RenderTransform>
+                    </Button>
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>
