@@ -212,7 +212,7 @@ If you want to change them later, you can easily access preference options locat
     <value>hometown</value>
   </data>
   <data name="ProfileHomeUniversity" xml:space="preserve">
-    <value>home university</value>
+    <value>university</value>
   </data>
   <data name="ProfileInterests" xml:space="preserve">
     <value>interests</value>
@@ -222,5 +222,8 @@ If you want to change them later, you can easily access preference options locat
   </data>
   <data name="ProfileName" xml:space="preserve">
     <value>full name</value>
+  </data>
+  <data name="ProfileHomeCountry" xml:space="preserve">
+    <value>country</value>
   </data>
 </root>

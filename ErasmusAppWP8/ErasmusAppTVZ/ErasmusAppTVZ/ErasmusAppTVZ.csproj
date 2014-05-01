@@ -104,6 +104,9 @@
     <Compile Include="Helpers\ContentHelper.cs" />
     <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\OptionsHelper.cs" />
+    <Compile Include="Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Geolocation\GeolocationData.cs" />
     <Compile Include="Helpers\ImageConversionHelper.cs" />
     <Compile Include="Helpers\ProgressIndicatorHelper.cs" />
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\GlobalXamlResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -195,7 +202,6 @@
     <Content Include="Assets\ContentIcons\group.png" />
     <Content Include="Assets\ContentIcons\minus.png" />
     <Content Include="Assets\ContentIcons\next.png" />
-    <Content Include="Assets\panorama.png" />
     <Content Include="Assets\students.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

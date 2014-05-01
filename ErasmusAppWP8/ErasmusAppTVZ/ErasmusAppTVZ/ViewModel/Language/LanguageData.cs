@@ -18,6 +18,6 @@ namespace ErasmusAppTVZ.ViewModel.Language
         [JsonProperty(PropertyName="flag")]
         public string Flag { get; set; }
 
-        public BitmapImage FlagImage { get; set; }
+        //public BitmapImage FlagImage { get; set; }
     }
 }

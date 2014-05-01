@@ -278,7 +278,16 @@ namespace ErasmusAppTVZ.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to home university.
+        ///   Looks up a localized string similar to country.
+        /// </summary>
+        public static string ProfileHomeCountry {
+            get {
+                return ResourceManager.GetString("ProfileHomeCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to university.
         /// </summary>
         public static string ProfileHomeUniversity {
             get {

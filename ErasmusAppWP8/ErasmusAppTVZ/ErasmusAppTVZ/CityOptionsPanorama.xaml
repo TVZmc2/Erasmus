@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
-            
+    d:DataContext="{d:DesignData SampleData/Panorama.xaml}"              
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -18,149 +18,13 @@
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot">
-
-        <Grid Name="profileEditor"
-              Visibility="Collapsed">
-            <Grid.Background>
-                <SolidColorBrush>#222222</SolidColorBrush>
-            </Grid.Background>
-            <ScrollViewer Margin="{StaticResource PhoneHorizontalMargin}">
-                <StackPanel>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileCreatorTitle, 
-                                Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeLarge}"/>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileName, 
-                                Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <TextBox Margin="-12, 0, 0, 0" />
-                    <TextBlock Text="{Binding LocalizedResources.ProfileGender,
-                                Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <Grid Margin="-12, 0, 0, 0" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <RadioButton Content="Male" Tag="M" />
-                        <RadioButton Content="Female" Tag="F"
-                                     Grid.Column="1"/>
-                    </Grid>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileAge, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <TextBox Margin="-12, 0, 0, 0" />
-                    <TextBlock Text="{Binding LocalizedResources.ProfileHomeCity, 
-                                Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <TextBox Margin="-12, 0, 0, 0" />
-                    <TextBlock Text="{Binding LocalizedResources.ProfileLanguages, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
-                    <Grid Name="languagesGrid">
-                        
-                    </Grid>
-
-                    <TextBlock Text="{Binding LocalizedResources.ProfileInterests, 
-                                Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <Grid Name="interestsGrid">
-                        
-                    </Grid>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileContacts, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <toolkit:PhoneTextBox Margin="-12, 0, 0, 0" 
-                                          Hint="Add facebook channel" />
-                    <toolkit:PhoneTextBox Margin="-12, 0, 0, 0" 
-                                          Hint="Add twitter channel"/>
-                    <Grid Margin="-12, 0, 0, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Button Content="create" Click="ButtonCreateProfile_Click"/>
-                        <Button Content="cancel" Click="ButtonCancelProfile_Click"
-                                Grid.Column="1"/>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-        
-        <!-- profile viewer -->
-        <Grid Name="profileViewer"
-              Visibility="Collapsed">
-            <Grid.Background>
-                <SolidColorBrush>#222222</SolidColorBrush>
-            </Grid.Background>
-            <ScrollViewer Margin="{StaticResource PhoneHorizontalMargin}">
-                <StackPanel>
-                    <TextBlock Text="name"
-                               FontSize="{StaticResource PhoneFontSizeLarge}"/>
-                    <Grid Margin="{StaticResource PhoneVerticalMargin}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Rectangle Fill="Gray"
-                                   Grid.RowSpan="4"
-                                   Width="150"
-                                   HorizontalAlignment="Left"/>
-                        <TextBlock Text="Age:"
-                                   Grid.Column="1"/>
-                        <TextBlock Text="Hometown:"
-                                   Grid.Column="1"
-                                   Grid.Row="1"/>
-                        <TextBlock Text="Country:"
-                                   Grid.Column="1"
-                                   Grid.Row="2"/>
-                        <TextBlock Text="University:"
-                                   Grid.Column="1"
-                                   Grid.Row="3"/>
-                    </Grid>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileLanguages, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <Grid Name="languagesViewerGrid">
-                        
-                    </Grid>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileInterests, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <Grid Name="interestsViewerGrid">
-                        
-                    </Grid>
-                    <TextBlock Text="{Binding LocalizedResources.ProfileContacts, 
-                                Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
-                    <Grid Margin="-12, 0, 0, 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <HyperlinkButton Content="facebook"
-                                         HorizontalAlignment="Left"/>
-                        <HyperlinkButton Content="twitter"
-                                         Grid.Column="1"
-                                         HorizontalAlignment="Left"/>
-                    </Grid>
-                    <Button Content="ok" Click="ButtonProfileViewer_Click"/>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-        
         <controls:Panorama x:Name="MainPanorama"
                            Title="{Binding LocalizedResources.ApplicationTitle, 
                                 Source={StaticResource LocalizedStrings}}"
                            Foreground="{StaticResource ThemeSafeBrush}"
                            Visibility="Visible">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Assets/panorama.png" 
+                <ImageBrush ImageSource="/Assets/students.png" 
                             Stretch="UniformToFill"/>
             </controls:Panorama.Background>
             
@@ -207,13 +71,13 @@
                                                        Foreground="{StaticResource ThemeSafeBrush}"
                                                        TextWrapping="Wrap"
                                                        VerticalAlignment="Center"
-                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
                                             <TextBlock Grid.Column="2"
                                                        Foreground="{StaticResource ThemeSafeBrush}"
                                                        VerticalAlignment="Center"
                                                        Padding="12, 0, 0, 0"
                                                        Text="{Binding Rating}"
-                                                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                                                       FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
                                         </Grid>
                                     </toolkit:ExpanderView.Expander>
                                 </toolkit:ExpanderView>
@@ -294,7 +158,7 @@
                                                            TextWrapping="Wrap"/>
                                                 <Button Margin="-12, 0, 0, 0"
                                                         Content="Reminder" 
-                                                        Click="CheckBox_Click"
+                                                        Click="ButtonReminder_Click"
                                                         Tag="{Binding ID}"
                                                         Foreground="{StaticResource ThemeSafeBrush}"/>
                                             </StackPanel>

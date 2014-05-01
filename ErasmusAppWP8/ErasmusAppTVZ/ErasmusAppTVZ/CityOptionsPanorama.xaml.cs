@@ -93,10 +93,11 @@ namespace ErasmusAppTVZ
             ApplicationBar.IsVisible = true;
         }
 
-        async void profileMenuItem_Click(object sender, EventArgs e)
+        private void profileMenuItem_Click(object sender, EventArgs e)
         {
-            List<InterestData> Interests = await App.MobileService.GetTable<InterestData>().ToListAsync();
-            List<LanguageData> Languages = await App.MobileService.GetTable<LanguageData>().ToListAsync();
+            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}", false), UriKind.Relative));
+            //List<InterestData> Interests = await App.MobileService.GetTable<InterestData>().ToListAsync();
+            //List<LanguageData> Languages = await App.MobileService.GetTable<LanguageData>().ToListAsync();
 
             //CustomMessageBox customMessageBox = ContentHelper.GetStudentProfileEditor(true, Interests, Languages);
 
@@ -107,11 +108,14 @@ namespace ErasmusAppTVZ
             //    profileEditor.LeftButtonContent = AppResources.ProfileCreatorTitle;
 
             //profileEditor.RightButtonContent = "cancel";
-            MainPanorama.Visibility = System.Windows.Visibility.Collapsed;
-            profileViewer.Visibility = System.Windows.Visibility.Collapsed;
-            profileEditor.Visibility = System.Windows.Visibility.Visible;
+            //PopulateGrid(Languages, Interests);
+            //MainPanorama.Visibility = System.Windows.Visibility.Collapsed;
+            //profileViewer.Visibility = System.Windows.Visibility.Collapsed;
+            //profileEditor.Visibility = System.Windows.Visibility.Visible;
             //profileEditor.Show();
         }
+
+
 
         #region EventHandlers
         /// <summary>
@@ -131,7 +135,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void CheckBox_Click(object sender, RoutedEventArgs e)
+        private async void ButtonReminder_Click(object sender, RoutedEventArgs e)
         {
             Button bttn = sender as Button;
 
@@ -154,49 +158,35 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// 
+        /// Formats student data for profile viewer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         private string FormatDataForViewing(StudentData data)
         {
-            string formattedData = string.Format("{0},{1},{2},{3};",
-                data.Age, data.HomeCity, "Country 1", "Faculty 1");
+            string formattedData = string.Format("{0},{1},{2},{3},{4},{5};",
+                data.FirstName, data.LastName, data.Age, data.HomeCity, "Country 1", "Faculty 1");
 
             if (data.Languages != null && data.Languages.Length > 0)
-            {
-                formattedData += data.Languages.Replace(';', ',');
-                formattedData = formattedData.Substring(0, formattedData.Length - 1);
-                formattedData += ";";
-            }
+                formattedData += data.Languages + ";";
             else
-                formattedData += "Languages are not defined;";
+                formattedData += String.Empty;
 
             if (data.Interests != null && data.Interests.Length > 0)
-            {
-                formattedData += data.Interests.Replace(';', ',');
-                formattedData = formattedData.Substring(0, formattedData.Length - 1);
-                formattedData += ";";
-            }
+                formattedData += data.Interests + ";";
             else
-                formattedData += "Interests are not defined;";
+                formattedData += String.Empty;
 
             if (data.Facebook != null && data.Facebook.Length > 0)
-                formattedData += data.Facebook + ",";
+                formattedData += data.Facebook + ";";
             else
-                formattedData += String.Empty + ",";
+                formattedData += String.Empty + ";";
 
             if (data.Twitter != null && data.Twitter.Length > 0)
                 formattedData += data.Twitter + ";";
             else
                 formattedData += String.Empty + ";";
-
-            //string content = "22,London,Great Britain,Cambridge;" +
-            //                 "English,German,Spanish,Danish,Croatian,Italian,Slovenian;" +
-            //                 "Science fiction,Astronomy,Sports,Physics,Mathematics,Cars,Books,Cooking;" +
-            //                 "someGuy,blabla;";
                 
-
             return formattedData;
         }
 
@@ -211,16 +201,10 @@ namespace ErasmusAppTVZ
 
             StudentData data = panoramaData.Students.First(x => x.ID == id);
 
-            string content =  FormatDataForViewing(data);
+            string content = FormatDataForViewing(data);
 
-            //CustomMessageBox customMessageBox = ContentHelper.GetStudentProfileViewer(
-            //    string.Format("{0} {1}", data.FirstName, data.LastName), content);
-
-            //customMessageBox.Show();
-            //profileViewer.LeftButtonContent = "ok";
-            //profileViewer.Show();
-            MainPanorama.Visibility = System.Windows.Visibility.Collapsed;
-            profileViewer.Visibility = System.Windows.Visibility.Visible;
+            NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}&content={1}",
+                true, content), UriKind.Relative));
         }
 
         /// <summary>
@@ -228,32 +212,33 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonProfileViewer_Click(object sender, RoutedEventArgs e)
-        {
-            profileViewer.Visibility = System.Windows.Visibility.Collapsed;
-            MainPanorama.Visibility = System.Windows.Visibility.Visible;
-        }
+        //private void ButtonProfileViewer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //profileViewer.Visibility = System.Windows.Visibility.Collapsed;
+        //    //MainPanorama.Visibility = System.Windows.Visibility.Visible;
+        //    //NavigationService.Navigate(new Uri(string.Format("/Profile.xaml?isViewing={0}", true), UriKind.Relative));
+        //}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Not implemented");
-        }
+        //private void ButtonCreateProfile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Not implemented");
+        //}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonCancelProfile_Click(object sender, RoutedEventArgs e)
-        {
-            profileEditor.Visibility = System.Windows.Visibility.Collapsed;
-            MainPanorama.Visibility = System.Windows.Visibility.Visible;
-        }
+        //private void ButtonCancelProfile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //profileEditor.Visibility = System.Windows.Visibility.Collapsed;
+        //    //MainPanorama.Visibility = System.Windows.Visibility.Visible;
+        //}
 
     }//class
 }//namespace

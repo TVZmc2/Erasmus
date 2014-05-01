@@ -44,7 +44,7 @@ namespace ErasmusAppTVZ.ViewModel.Student
         [JsonProperty(PropertyName = "twitter")]
         public string Twitter { get; set; }
 
-        [JsonProperty(PropertyName = "languages")]
+        [JsonProperty(PropertyName = "language")]
         public string Languages { get; set; }
 
         [JsonProperty(PropertyName = "interests")]
