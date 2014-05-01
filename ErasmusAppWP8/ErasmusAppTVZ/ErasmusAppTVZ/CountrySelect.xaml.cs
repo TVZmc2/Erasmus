@@ -34,9 +34,6 @@ namespace ErasmusAppTVZ
         private static bool isMapVisible = false;
         private static string currentlyOpenedExpander = null;
 
-        //variable for storing country code by ISO 3166-1 standard
-        //private static string countryCode;
-
         //helper for deciding which sort parameter is used
         private static int sortCounter = 0;
 
@@ -45,9 +42,6 @@ namespace ErasmusAppTVZ
 
         private static CountryModel model;
 
-        //private int selectedCountryIndex;
-        //MainPage mp = new MainPage();
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -55,31 +49,7 @@ namespace ErasmusAppTVZ
         {
             InitializeComponent();
 
-            //loadLoginProperties();
-
             BuildLocalizedApplicationBar();
-        }
-
-        //protected void loadLoginProperties()
-        //{
-        //    using (IsolatedStorageFileStream isoStream = new IsolatedStorageFileStream("login.txt", FileMode.Open, mp.isf))
-        //    {
-        //        using (StreamReader reader = new StreamReader(isoStream))
-        //        {
-        //            selectedCountryIndex = int.Parse(reader.ReadToEnd()) + 1;
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            //model.Countries.Clear();
-            //model = null;
-            //isFirstNavigation = true;
         }
 
         /// <summary>
@@ -173,55 +143,51 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Build a localized application bar with icons and menu items
+        /// Builds a localized application bar with icons and menu items
         /// </summary>
         private void BuildLocalizedApplicationBar()
         {
             ApplicationBar = new ApplicationBar();
 
             //Icon buttons
-            ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton showMapIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton sortIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton optionsIconButton = new ApplicationBarIconButton();
 
-            searchIconButton.Text = AppResources.ApplicationBarSearch;
             showMapIconButton.Text = AppResources.ApplicationBarShowMap;
             sortIconButton.Text = AppResources.ApplicationBarSort;
+            optionsIconButton.Text = AppResources.ApplicationBarOptions;
 
-            searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
             showMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             sortIconButton.IconUri = new Uri("/Assets/AppBar/sort.png", UriKind.Relative);
+            optionsIconButton.IconUri = new Uri("/Assets/AppBar/options.png", UriKind.Relative);
 
-            searchIconButton.Click += searchIconButton_Click;
             showMapIconButton.Click += showMapIconButton_Click;
             sortIconButton.Click += sortIconButton_Click;
+            optionsIconButton.Click += optionsIconButton_Click;
 
             //Menu items
             ApplicationBarMenuItem profileMenuItem = new ApplicationBarMenuItem();
-            ApplicationBarMenuItem optionsMenuItem = new ApplicationBarMenuItem();
             ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem();
 
             profileMenuItem.Text = AppResources.ApplicationBarProfileMenuItem;
-            optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
             aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
 
             profileMenuItem.Click += profileMenuItem_Click;
-            optionsMenuItem.Click += optionsMenuItem_Click;
             aboutMenuItem.Click += aboutMenuItem_Click;
 
-            ApplicationBar.Buttons.Add(searchIconButton);
             ApplicationBar.Buttons.Add(showMapIconButton);
             ApplicationBar.Buttons.Add(sortIconButton);
+            ApplicationBar.Buttons.Add(optionsIconButton);
 
             ApplicationBar.MenuItems.Add(profileMenuItem);
-            ApplicationBar.MenuItems.Add(optionsMenuItem);
             ApplicationBar.MenuItems.Add(aboutMenuItem);
 
             ApplicationBar.IsVisible = true;
         }
 
         /// <summary>
-        /// 
+        /// Sets map center and zoom level
         /// </summary>
         private void SetMapCenter()
         {
@@ -235,7 +201,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void profileMenuItem_Click(object sender, EventArgs e)
+        private void optionsIconButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented");
         }
@@ -245,7 +211,7 @@ namespace ErasmusAppTVZ
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void optionsMenuItem_Click(object sender, EventArgs e)
+        void profileMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented");
         }
@@ -386,25 +352,6 @@ namespace ErasmusAppTVZ
                 SetMapCenter();
             //if(countryCode != null)
             //    CoordinatesHelper.SetMapCenter(ref map, await CoordinatesHelper.GetCoordinates(countryCode, 1), ZOOM_LEVEL);
-        }
-
-        /// <summary>
-        /// Check if textBoxSearch.Text.Length is greater than 0
-        /// If yes, than refresh page with search parameter
-        /// If not, show TextBox and get focus
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void searchIconButton_Click(object sender, EventArgs e)
-        {
-            if (textBoxSearch.Text.Length == 0)
-            {
-                textBoxSearch.Visibility = System.Windows.Visibility.Visible;
-                textBoxSearch.Focus();
-            }
-            else
-                NavigationService.Navigate(new Uri(string.Format("/CountrySelect.xaml" +
-                                    "?Refresh=true&search={0}", textBoxSearch.Text), UriKind.Relative));
         }
 
         /// <summary>

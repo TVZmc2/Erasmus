@@ -30,10 +30,8 @@ namespace ErasmusAppTVZ
         private static bool hasCoordinates = false;
         private static bool isMapVisible;
         private int currentlyOpenedExpander = 0;
-        //private static bool isExpanderTapped;
 
-        //arrays for storing latitude and longitude
-        //private double[] countryCoordinates;
+        //array for storing latitude and longitude
         private static double[] cityCoordinates;
 
         private static CityModel model;
@@ -131,52 +129,50 @@ namespace ErasmusAppTVZ
         }
 
         /// <summary>
-        /// Build a localized application bar with icons and menu items
+        /// Builds a localized application bar with icons and menu items
         /// </summary>
         private void BuildLocalizedApplicationBar()
         {
             ApplicationBar = new ApplicationBar();
 
             //Icon buttons
-            ApplicationBarIconButton searchIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton showMapIconButton = new ApplicationBarIconButton();
             ApplicationBarIconButton sortIconButton = new ApplicationBarIconButton();
+            ApplicationBarIconButton optionsIconButton = new ApplicationBarIconButton();
 
-            searchIconButton.Text = AppResources.ApplicationBarSearch;
             showMapIconButton.Text = AppResources.ApplicationBarShowMap;
             sortIconButton.Text = AppResources.ApplicationBarSort;
+            optionsIconButton.Text = AppResources.ApplicationBarOptions;
 
-            searchIconButton.IconUri = new Uri("/Assets/AppBar/search.png", UriKind.Relative);
             showMapIconButton.IconUri = new Uri("/Assets/AppBar/map.png", UriKind.Relative);
             sortIconButton.IconUri = new Uri("/Assets/AppBar/sort.png", UriKind.Relative);
+            optionsIconButton.IconUri = new Uri("/Assets/AppBar/options.png", UriKind.Relative);
 
-            searchIconButton.Click += searchIconButton_Click;
             showMapIconButton.Click += showMapIconButton_Click;
             sortIconButton.Click += sortIconButton_Click;
+            optionsIconButton.Click += optionsIconButton_Click;
 
             //Menu items
             ApplicationBarMenuItem profileMenuItem = new ApplicationBarMenuItem();
-            ApplicationBarMenuItem optionsMenuItem = new ApplicationBarMenuItem();
             ApplicationBarMenuItem aboutMenuItem = new ApplicationBarMenuItem();
 
             profileMenuItem.Text = AppResources.ApplicationBarProfileMenuItem;
-            optionsMenuItem.Text = AppResources.ApplicationBarOptionsMenuItem;
             aboutMenuItem.Text = AppResources.ApplicationBarAboutMenuItem;
 
             profileMenuItem.Click += profileMenuItem_Click;
-            optionsMenuItem.Click += optionsMenuItem_Click;
             aboutMenuItem.Click += aboutMenuItem_Click;
 
-            ApplicationBar.Buttons.Add(searchIconButton);
             ApplicationBar.Buttons.Add(showMapIconButton);
             ApplicationBar.Buttons.Add(sortIconButton);
+            ApplicationBar.Buttons.Add(optionsIconButton);
 
             ApplicationBar.MenuItems.Add(profileMenuItem);
-            ApplicationBar.MenuItems.Add(optionsMenuItem);
             ApplicationBar.MenuItems.Add(aboutMenuItem);
 
             ApplicationBar.IsVisible = true;
         }
+
+
 
         /// <summary>
         /// Sets map center and zoom level
@@ -204,6 +200,16 @@ namespace ErasmusAppTVZ
         }
 
         #region EventHandlers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void optionsIconButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented");
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -335,25 +341,6 @@ namespace ErasmusAppTVZ
             else
                 SetMapCenter(false);
             
-        }
-
-        /// <summary>
-        /// Check if textBoxSearch.Text.Length is greater than 0
-        /// If yes, than refresh page with search parameter
-        /// If not, show TextBox and get focus
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void searchIconButton_Click(object sender, EventArgs e)
-        {
-            if (textBoxSearch.Text.Length == 0)
-            {
-                textBoxSearch.Visibility = System.Windows.Visibility.Visible;
-                textBoxSearch.Focus();
-            }
-            else
-                NavigationService.Navigate(new Uri(string.Format("/CitySelect.xaml" +
-                                    "?Refresh=true&search={0}", textBoxSearch.Text), UriKind.Relative));
         }
 
         /// <summary>

@@ -81,6 +81,15 @@ namespace ErasmusAppTVZ.Resources {
         /// <summary>
         ///   Looks up a localized string similar to options.
         /// </summary>
+        public static string ApplicationBarOptions {
+            get {
+                return ResourceManager.GetString("ApplicationBarOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to options.
+        /// </summary>
         public static string ApplicationBarOptionsMenuItem {
             get {
                 return ResourceManager.GetString("ApplicationBarOptionsMenuItem", resourceCulture);
@@ -93,15 +102,6 @@ namespace ErasmusAppTVZ.Resources {
         public static string ApplicationBarProfileMenuItem {
             get {
                 return ResourceManager.GetString("ApplicationBarProfileMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to search.
-        /// </summary>
-        public static string ApplicationBarSearch {
-            get {
-                return ResourceManager.GetString("ApplicationBarSearch", resourceCulture);
             }
         }
         

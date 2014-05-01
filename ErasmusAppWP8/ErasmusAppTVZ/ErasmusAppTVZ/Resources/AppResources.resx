@@ -134,8 +134,8 @@
   <data name="ApplicationBarShowMap" xml:space="preserve">
     <value>show map</value>
   </data>
-  <data name="ApplicationBarSearch" xml:space="preserve">
-    <value>search</value>
+  <data name="ApplicationBarOptions" xml:space="preserve">
+    <value>options</value>
   </data>
   <data name="ApplicationCitiesPageTitle" xml:space="preserve">
     <value>cities</value>
