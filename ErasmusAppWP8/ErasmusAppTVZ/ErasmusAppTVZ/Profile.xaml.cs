@@ -22,6 +22,8 @@ namespace ErasmusAppTVZ
         private List<string> studentLanguages;
         private string gender;
 
+        private Color themeSafeColor = Colors.White;
+
         public Profile()
         {
             InitializeComponent();
@@ -100,7 +102,8 @@ namespace ErasmusAppTVZ
                 {
                     Text = languageInfo[i],
                     Margin = new Thickness(0, 12, 12, 0),
-                    HorizontalAlignment = HorizontalAlignment.Left
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Foreground = new SolidColorBrush(themeSafeColor)
                 };
 
                 Grid.SetColumn(language, column);
@@ -132,7 +135,8 @@ namespace ErasmusAppTVZ
                 {
                     Text = interestsInfo[i],
                     Margin = new Thickness(0, 12, 12, 0),
-                    HorizontalAlignment = HorizontalAlignment.Left
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Foreground = new SolidColorBrush(themeSafeColor)
                 };
 
                 Grid.SetColumn(interest, column);
@@ -190,7 +194,9 @@ namespace ErasmusAppTVZ
                     Content = languages[i].Name,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     BorderThickness = new Thickness(1),
-                    Tag = languages[i].Name
+                    Tag = languages[i].Name,
+                    BorderBrush = new SolidColorBrush(themeSafeColor),
+                    Foreground = new SolidColorBrush(themeSafeColor)
                 };
 
                 bttn.Click += languagesButton_Click;
@@ -226,7 +232,9 @@ namespace ErasmusAppTVZ
                     Content = interests[i].InterestName,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     BorderThickness = new Thickness(1),
-                    Tag = interests[i].InterestName
+                    Tag = interests[i].InterestName,
+                    BorderBrush = new SolidColorBrush(themeSafeColor),
+                    Foreground = new SolidColorBrush(themeSafeColor)
                 };
 
                 bttn.Click += interestButton_Click;

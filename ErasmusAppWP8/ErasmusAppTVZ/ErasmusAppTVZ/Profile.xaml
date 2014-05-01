@@ -17,7 +17,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid Name="profileEditor"
-              Visibility="Collapsed">
+              Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush>#222222</SolidColorBrush>
             </Grid.Background>
@@ -25,15 +25,21 @@
                 <StackPanel>
                     <TextBlock Text="{Binding LocalizedResources.ProfileCreatorTitle, 
                                 Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
+                    
                     <TextBlock Text="{Binding LocalizedResources.ProfileName, 
                                 Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <TextBox Name="textBoxName" 
-                             Margin="-12, 0, 0, 0" />
+                             Margin="-12, 0, 0, 0" 
+                             BorderBrush="{StaticResource ThemeSafeBrush}"/>
+                    
                     <TextBlock Text="{Binding LocalizedResources.ProfileGender,
                                 Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Margin="-12, 0, 0, 0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -41,56 +47,85 @@
                         </Grid.ColumnDefinitions>
                         <RadioButton Content="Male" 
                                      Tag="M" 
-                                     Click="RadioButton_Click"/>
+                                     Click="RadioButton_Click"
+                                     BorderBrush="{StaticResource ThemeSafeBrush}"
+                                     Foreground="{StaticResource ThemeSafeBrush}"
+                                     Background="{StaticResource ThemeSafeBrush}"/>
                         <RadioButton Content="Female" 
                                      Tag="F"
                                      Grid.Column="1"
-                                     Click="RadioButton_Click_1"/>
+                                     Click="RadioButton_Click_1"
+                                     Background="{StaticResource ThemeSafeBrush}"
+                                     BorderBrush="{StaticResource ThemeSafeBrush}"
+                                     Foreground="{StaticResource ThemeSafeBrush}"/>
                     </Grid>
                     <TextBlock Text="{Binding LocalizedResources.ProfileAge, 
                                 Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <TextBox Name="textBoxAge"
-                             Margin="-12, 0, 0, 0" />
+                             Margin="-12, 0, 0, 0" 
+                             BorderBrush="{StaticResource ThemeSafeBrush}"/>
+                    
                     <TextBlock Text="{Binding LocalizedResources.ProfileHomeCity, 
                                 Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <TextBox Name="textBoxHometown"
-                             Margin="-12, 0, 0, 0" />
+                             Margin="-12, 0, 0, 0" 
+                             BorderBrush="{StaticResource ThemeSafeBrush}"/>
+                    
                     <TextBlock Text="Email" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <TextBox Name="textBoxEmail"
-                             Margin="-12, 0, 0, 0"/>
+                             Margin="-12, 0, 0, 0"
+                             BorderBrush="{StaticResource ThemeSafeBrush}"/>
+                    
                     <TextBlock Text="{Binding LocalizedResources.ProfileLanguages, 
                                 Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}" />
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Name="languagesGrid">
 
                     </Grid>
 
                     <TextBlock Text="{Binding LocalizedResources.ProfileInterests, 
                                 Source={StaticResource LocalizedStrings}}" 
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Name="interestsGrid">
 
                     </Grid>
                     <TextBlock Text="{Binding LocalizedResources.ProfileContacts, 
                                 Source={StaticResource LocalizedStrings}}"
-                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <toolkit:PhoneTextBox Name="phoneTextBoxFacebook"
                                           Margin="-12, 0, 0, 0" 
-                                          Hint="Add facebook channel" />
+                                          Hint="Add facebook channel" 
+                                          BorderBrush="{StaticResource ThemeSafeBrush}"
+                                          Foreground="{StaticResource ThemeSafeBrush}"/>
                     <toolkit:PhoneTextBox Name="phoneTextBoxTwitter"
                                           Margin="-12, 0, 0, 0" 
-                                          Hint="Add twitter channel"/>
+                                          Hint="Add twitter channel"
+                                          BorderBrush="{StaticResource ThemeSafeBrush}"
+                                          Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Margin="-12, 0, 0, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Content="create" Click="ButtonCreateProfile_Click"/>
-                        <Button Content="cancel" Click="ButtonCancelProfile_Click"
-                                Grid.Column="1"/>
+                        <Button Content="create" 
+                                Click="ButtonCreateProfile_Click"
+                                Foreground="{StaticResource ThemeSafeBrush}"
+                                BorderBrush="{StaticResource ThemeSafeBrush}"/>
+                        <Button Content="cancel" 
+                                Click="ButtonCancelProfile_Click"
+                                Grid.Column="1"
+                                Foreground="{StaticResource ThemeSafeBrush}"
+                                BorderBrush="{StaticResource ThemeSafeBrush}"/>
+
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
@@ -98,14 +133,15 @@
 
         <!-- profile viewer -->
         <Grid Name="profileViewer"
-              Visibility="Visible">
+              Visibility="Collapsed">
             <Grid.Background>
                 <SolidColorBrush>#222222</SolidColorBrush>
             </Grid.Background>
             <ScrollViewer Margin="{StaticResource PhoneHorizontalMargin}">
                 <StackPanel>
                     <TextBlock Name="textBoxNameViewer"
-                               FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Margin="{StaticResource PhoneVerticalMargin}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
@@ -126,48 +162,57 @@
                                         Source={StaticResource LocalizedStrings}}"
                                    FontWeight="Bold"
                                    Grid.Column="1"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         <TextBlock Name="textBoxAgeViewer"
                                    Grid.Column="2"
-                                   Margin="{StaticResource PhoneHorizontalMargin}"/>
+                                   Margin="{StaticResource PhoneHorizontalMargin}"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
 
                         <TextBlock Text="{Binding LocalizedResources.ProfileHomeCity, 
                                         Source={StaticResource LocalizedStrings}}"
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    FontWeight="Bold"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         <TextBlock Name="textBoxHomeTownViewer"
                                    Grid.Column="2"
                                    Grid.Row="1"
-                                   Margin="{StaticResource PhoneHorizontalMargin}"/>
+                                   Margin="{StaticResource PhoneHorizontalMargin}"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
 
                         <TextBlock Text="{Binding LocalizedResources.ProfileHomeCountry, 
                                         Source={StaticResource LocalizedStrings}}"
                                    Grid.Column="1"
                                    Grid.Row="2"
                                    FontWeight="Bold"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         <TextBlock Name="textBoxCountryViewer"
                                    Grid.Column="2"
                                    Grid.Row="2"
-                                   Margin="{StaticResource PhoneHorizontalMargin}"/>
+                                   Margin="{StaticResource PhoneHorizontalMargin}"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         
                         <TextBlock Text="{Binding LocalizedResources.ProfileHomeUniversity, 
                                         Source={StaticResource LocalizedStrings}}"
                                    Grid.Column="1"
                                    Grid.Row="3"
                                    FontWeight="Bold"
-                                   HorizontalAlignment="Right"/>
+                                   HorizontalAlignment="Right"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         <TextBlock Name="textBoxUniversityViewer"
                                    Grid.Column="2"
                                    Grid.Row="3"
-                                   Margin="{StaticResource PhoneHorizontalMargin}"/>
+                                   Margin="{StaticResource PhoneHorizontalMargin}"
+                                   Foreground="{StaticResource ThemeSafeBrush}"/>
                         
                     </Grid>
                     <TextBlock Text="{Binding LocalizedResources.ProfileLanguages, 
                                 Source={StaticResource LocalizedStrings}}"
                                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                               Foreground="{StaticResource ThemeSafeBrush}"
                                Margin="0, 12, 0, -12"/>
                     <Grid Name="languagesViewerGrid">
 
@@ -176,7 +221,8 @@
                     <TextBlock Text="{Binding LocalizedResources.ProfileInterests, 
                                 Source={StaticResource LocalizedStrings}}"
                                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-                               Margin="0, 12, 0, -12"/>
+                               Margin="0, 12, 0, -12"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Name="interestsViewerGrid">
 
                     </Grid>
@@ -184,7 +230,8 @@
                     <TextBlock Text="{Binding LocalizedResources.ProfileContacts, 
                                 Source={StaticResource LocalizedStrings}}"
                                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-                               Margin="0, 12, 0, 0"/>
+                               Margin="0, 12, 0, 0"
+                               Foreground="{StaticResource ThemeSafeBrush}"/>
                     <Grid Margin="-12, 0, 0, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -193,18 +240,22 @@
                         <HyperlinkButton Name="facebookLink"
                                          Content="facebook"
                                          TargetName="_blank"
-                                         HorizontalAlignment="Left"/>
+                                         HorizontalAlignment="Left"
+                                         Foreground="{StaticResource ThemeSafeBrush}"/>
                         <HyperlinkButton Name="twitterLink"
                                          Content="twitter"
                                          Grid.Column="1"
                                          TargetName="_blank"
-                                         HorizontalAlignment="Left"/>
+                                         HorizontalAlignment="Left"
+                                         Foreground="{StaticResource ThemeSafeBrush}"/>
                     </Grid>
                     <Button Content="ok" 
                             Width="250"
                             Margin="-12, 12, 0, 0"
                             HorizontalAlignment="Left"
-                            Click="ButtonProfileViewer_Click"/>
+                            Click="ButtonProfileViewer_Click"
+                            Foreground="{StaticResource ThemeSafeBrush}"
+                            BorderBrush="{StaticResource ThemeSafeBrush}"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
